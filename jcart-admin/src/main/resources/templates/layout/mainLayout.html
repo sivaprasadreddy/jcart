@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-	  >
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
   <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -57,14 +57,14 @@
                   <!-- The user image in the navbar-->
                   <img th:src="@{/assets/dist/img/user.png}" class="user-image" alt="User Image"/>
                   <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                  <span class="hidden-xs">User</span>
+                  <span class="hidden-xs" sec:authentication="principal.user.name">User</span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- The user image in the menu -->
                   <li class="user-header">
                     <img th:src="@{/assets/dist/img/user.png}" class="img-circle" alt="User Image"/>
                     <p>
-                      <span>User</span>
+                      <span sec:authentication="principal.user.name">User</span>
                     </p>
                   </li>
                   
@@ -96,7 +96,7 @@
               <img th:src="@{/assets/dist/img/user.png}" class="img-circle" alt="User Image"/>
             </div>
             <div class="pull-left info">
-              <p><span>User</span></p>
+              <p><span sec:authentication="principal.user.name">User</span></p>
               <!-- Status -->
               <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
@@ -106,14 +106,15 @@
           <ul class="sidebar-menu">
             <!-- <li class="header">HEADER</li> -->
             <!-- Optionally, you can add icons to the links -->
-            <li><a href="#" th:href="@{'/home'}"><i class="fa fa-home"></i> <span>Home</span></a></li>
-            <li><a href="#" th:href="@{'/categories'}"><i class="fa fa-folder-open"></i> <span>Categories</span></a></li>
-            <li><a href="#" th:href="@{'/products'}"><i class="fa fa-file"></i> <span>Products</span></a></li>
-            <li><a href="#" th:href="@{'/orders'}"><i class="fa fa-cart-arrow-down"></i> <span>Orders</span></a></li>
-            <li><a href="#" th:href="@{'/customers'}"><i class="fa fa-smile-o"></i> <span>Customers</span></a></li>
-            <li><a href="#" th:href="@{'/users'}"><i class="fa fa-users"></i> Users</a></li>
-            <li><a href="#" th:href="@{'/roles'}"><i class="fa fa-user"></i> Roles</a></li>
-            <li><a href="#" th:href="@{'/permissions'}"><i class="fa fa-shield"></i> Permissions</a></li>         
+            <li th:class="${CURRENT_MENU == 'Home'}? 'active' : ''" ><a href="#" th:href="@{'/home'}"><i class="fa fa-home"></i> <span>Home</span></a></li>
+            <li th:class="${CURRENT_MENU == 'Categories'}? 'active' : ''"  sec:authorize="hasRole('ROLE_MANAGE_CATEGORIES')"><a href="#" th:href="@{'/categories'}"><i class="fa fa-folder-open"></i> <span>Categories</span></a></li>
+            <li th:class="${CURRENT_MENU == 'Products'}? 'active' : ''"  sec:authorize="hasRole('ROLE_MANAGE_PRODUCTS')"><a href="#" th:href="@{'/products'}"><i class="fa fa-file"></i> <span>Products</span></a></li>
+            <li th:class="${CURRENT_MENU == 'Orders'}? 'active' : ''"  sec:authorize="hasRole('ROLE_MANAGE_ORDERS')"><a href="#" th:href="@{'/orders'}"><i class="fa fa-cart-arrow-down"></i> <span>Orders</span></a></li>
+            <li th:class="${CURRENT_MENU == 'Customers'}? 'active' : ''"  sec:authorize="hasRole('ROLE_MANAGE_CUSTOMERS')"><a href="#" th:href="@{'/customers'}"><i class="fa fa-smile-o"></i> <span>Customers</span></a></li>
+            <li th:class="${CURRENT_MENU == 'Users'}? 'active' : ''"  sec:authorize="hasRole('ROLE_MANAGE_USERS')"><a href="#" th:href="@{'/users'}"><i class="fa fa-users"></i> Users</a></li>
+            <li th:class="${CURRENT_MENU == 'Roles'}? 'active' : ''"  sec:authorize="hasRole('ROLE_MANAGE_ROLES')"><a href="#" th:href="@{'/roles'}"><i class="fa fa-user"></i> Roles</a></li>
+            <li th:class="${CURRENT_MENU == 'Permissions'}? 'active' : ''"  sec:authorize="hasRole('ROLE_MANAGE_PERMISSIONS')"><a href="#" th:href="@{'/permissions'}"><i class="fa fa-shield"></i> Permissions</a></li>
+            
           </ul><!-- /.sidebar-menu -->
         </section>
         <!-- /.sidebar -->
@@ -124,10 +125,18 @@
         <!-- Content Header (Page header) -->
         <div layout:fragment="pageHeader">
         	<section class="content-header">
-	        	<h1>
-	            	Page Header
+	        	<h1 th:text="${headerTitle}">
+	            	Manage Roles
 	          	</h1>
-	          	
+	          	<div th:if="${info}" class="col-md-3 alert alert-info alert-dismissable" >
+	          		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		        	<p><i class="icon fa fa-info"></i> <span th:text="${info}">Info</span></p>
+		        </div>
+                  
+		        <div th:if="${error}" class="col-md-3 alert alert-danger alert-dismissable" >
+		        	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		        	<p><i class="icon fa fa-ban"></i> <span th:text="${error}">Error</span></p>
+		        </div>
 	        </section>
         </div>
 

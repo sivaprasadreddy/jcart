@@ -4,19 +4,24 @@
       layout:decorator="layout/mainLayout">
       
       <head>
-        <title>Home</title>
+        <title>Access Denied</title>
     </head>
     <body>
     	<div layout:fragment="pageHeader">
         <section class="content-header">
-        	<h1>
-            	JCart Administration
-            	<small>Manage JCart Site Content</small>
-          	</h1>
+        	<h3><i class="fa fa-warning text-red"></i> You are not allowed to view this content.</h3>
         </section>
         </div>
     	<div layout:fragment="content">
-	        <p>Welcome <span th:text="${authenticatedUser.user.name}">User</span>!</p>
+	        
+	        <div>
+              
+              <p>
+                You may want to go <a th:href="@{/home}">Home</a>
+              </p>
+              
+          </div>
+          
     	</div>
     	
     </body>

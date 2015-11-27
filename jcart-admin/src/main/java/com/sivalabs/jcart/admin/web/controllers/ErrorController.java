@@ -4,7 +4,6 @@
 package com.sivalabs.jcart.admin.web.controllers;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -12,13 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-public class HomeController extends JCartAdminBaseController
-{	
+public class ErrorController
+{
+	private static final String viewPrefix = "error/";
 	
-	@RequestMapping("/home")
-	public String home(Model model)
+	@RequestMapping("/403")
+	public String accessDenied()
 	{
-		return "home";
+		return viewPrefix+"accessDenied";
 	}
-
+	
 }
