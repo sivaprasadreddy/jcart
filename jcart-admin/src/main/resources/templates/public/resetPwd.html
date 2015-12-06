@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layout/guestLayout">
+  <head>
+    <title>Reset Password</title>
+  </head>
+  <body>
+  	<div layout:fragment="content">
+    <div class="login-box">
+      <div class="login-logo">
+        <a href="#"><b th:text="#{label.jcart_admin}">JCart Admin</b></a>
+      </div>
+      <div class="login-box-body">
+        <p class="login-box-msg" th:text="#{label.reset_password_header}">Reset Password</p>
+        <form action="resetPwd" th:action="@{/resetPwd}" method="post">
+           <input type="hidden" name="email" th:value="${email}"/>
+           <input type="hidden" name="token" th:value="${token}"/>           
+          <div class="form-group has-feedback">
+            <input type="password" class="form-control" name="password" placeholder="New Password"/>
+            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+          </div>
+          <div class="form-group has-feedback">
+            <input type="password" class="form-control" name="confPassword" placeholder="Confirm Password"/>
+            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+          </div>
+          
+          <div class="row">            
+            <div class="form-group col-xs-offset-8 col-xs-4">
+              <button type="submit" class="btn btn-primary btn-block btn-flat" th:text="#{label.submit}">Submit</button>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-xs-12">
+		        <div th:if="${msg!=null}" class="alert alert-danger alert-dismissable" >
+		        	<p><i class="icon fa fa-ban"></i> <span th:text="${msg}"></span></p>
+		        </div>
+            </div>            
+          </div>
+        </form>
+        
+        <a href="login" th:href="@{/login}" th:text="#{label.login}">Login</a><br/>
+        
+      </div>
+    </div>
+	</div>
+  </body>
+</html>
