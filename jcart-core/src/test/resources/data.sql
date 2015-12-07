@@ -13,8 +13,6 @@ delete from  addresses;
 delete from  products;
 delete from  categories;
 
-delete from  sites;
-
 INSERT INTO permissions (id, name) VALUES 
 (1, 'MANAGE_CATEGORIES'),
 (2, 'MANAGE_PRODUCTS'),
@@ -56,10 +54,6 @@ insert into user_role(user_id, role_id) values
 (4,2),(4,3),
 (5,4)
 ;
-
-INSERT INTO sites (id, name, description, owner_name, owner_email) VALUES 
-('1', 'QuilCart', 'Beautiful Quilling Toys', 'Siva', 'sivaprasadreddy.k@gmail.com');
-
 
 insert into categories(id, name, disp_order,disabled) values
 (1,'Flowers',1,false),

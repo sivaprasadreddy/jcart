@@ -3,7 +3,7 @@
  */
 package com.sivalabs.jcart;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.sql.SQLException;
 
@@ -32,7 +32,7 @@ public class JCartCoreApplicationTest
 	public void testDummy() throws SQLException
 	{
 		String schema = dataSource.getConnection().getCatalog();
-		assertEquals("jcart", schema);
+		assertTrue("jcart".equalsIgnoreCase(schema));
 	}
 	
 	@Test
