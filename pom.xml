@@ -14,8 +14,8 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>		
 		<sonar.jdbc.url>jdbc:mysql://localhost:3306/sonar?useUnicode=true&amp;characterEncoding=utf8&amp;rewriteBatchedStatements=true</sonar.jdbc.url>
-      	<sonar.jdbc.username>root</sonar.jdbc.username>
-      	<sonar.jdbc.password>admin</sonar.jdbc.password>
+      	        <sonar.jdbc.username>root</sonar.jdbc.username>
+      	        <sonar.jdbc.password>admin</sonar.jdbc.password>
 	</properties>
 	
 	<modules>
