@@ -131,4 +131,56 @@ public class SecurityService
 	public Role getRoleById(Integer id) {
 		return roleRepository.findOne(id);
 	}
+	
+	public User getUserById(Integer id)
+	{
+		return userRepository.findOne(id);
+	}
+	
+	public List<User> getAllUsers() {
+		return userRepository.findAll();
+	}
+	
+	public User createUser(User user)
+	{
+		User userByEmail = findUserByEmail(user.getEmail());
+		if(userByEmail != null){
+			throw new JCartException("Email "+user.getEmail()+" already in use");
+		}
+		List<Role> persistedRoles = new ArrayList<>();
+		List<Role> roles = user.getRoles();
+		if(roles != null){
+			for (Role role : roles) {
+				if(role.getId() != null)
+				{
+					persistedRoles.add(roleRepository.findOne(role.getId()));
+				}
+			}
+		}
+		user.setRoles(persistedRoles);
+		
+		return userRepository.save(user);
+	}
+	
+	public User updateUser(User user)
+	{
+		User persistedUser = getUserById(user.getId());
+		if(persistedUser == null){
+			throw new JCartException("User "+user.getId()+" doesn't exist");
+		}
+		
+		List<Role> updatedRoles = new ArrayList<>();
+		List<Role> roles = user.getRoles();
+		if(roles != null){
+			for (Role role : roles) {
+				if(role.getId() != null)
+				{
+					updatedRoles.add(roleRepository.findOne(role.getId()));
+				}
+			}
+		}
+		persistedUser.setRoles(updatedRoles);
+		return userRepository.save(persistedUser);
+	}
+
 }
