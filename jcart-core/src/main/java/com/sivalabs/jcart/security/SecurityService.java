@@ -3,6 +3,7 @@
  */
 package com.sivalabs.jcart.security;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.sivalabs.jcart.JCartException;
+import com.sivalabs.jcart.entities.Permission;
 import com.sivalabs.jcart.entities.User;
 
 /**
@@ -22,6 +24,7 @@ import com.sivalabs.jcart.entities.User;
 public class SecurityService
 {
 	@Autowired UserRepository userRepository;
+	@Autowired PermissionRepository permissionRepository;
 	
 	public User findUserByEmail(String email)
 	{
@@ -65,6 +68,10 @@ public class SecurityService
 			return false;
 		}
 		return true;
+	}
+	
+	public List<Permission> getAllPermissions() {
+		return permissionRepository.findAll();
 	}
 
 }
