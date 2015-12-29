@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      layout:decorator="layout/mainLayout">
+      
+      <head>
+        <title>Users</title>
+    </head>
+    <body>
+        
+    	<div layout:fragment="content">
+	        <div class="row">
+            <div class="col-md-12">
+              <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title">List of Users</h3>
+                  <div class="box-tools">
+                    <div class="input-group" style="width: 150px;">
+                    	<a class="btn btn-sm btn-default" th:href="@{/users/new}"><i class="fa fa-plus-circle"></i> New User</a>
+                    </div>
+                  </div>
+                </div><!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                  <table class="table table-hover">
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Edit</th>
+                    </tr>
+                    <tr th:each="user,iterStat : ${users}">
+                      <td><a th:href="@{/users/{id}(id=${user.id})}"><span th:text="${iterStat.count}">1</span></a></td>
+                      <td th:text="${user.name}">Name</td>
+                      <td th:text="${user.email}">Email</td>
+                      <td><a th:href="@{/users/{id}(id=${user.id})}" class="btn btn-sm btn-default"><i class="fa fa-edit"></i> Edit</a></td>
+                    </tr>
+                    
+                  </table>
+                </div><!-- /.box-body -->
+                
+              </div><!-- /.box -->
+              </div>
+              </div>
+              
+    	</div>
+    	
+    </body>
+    
+</html>
