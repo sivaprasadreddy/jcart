@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	layout:decorator="layout/mainLayout">
+
+<head>
+<title>Customer - View</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="box box-warning">
+			<div class="box-header with-border">
+				<h3 class="box-title">View Customer</h3>
+			</div>
+			<div class="box-body">
+				<form role="form" action="#" th:object="${customer}" method="post">
+					<div class="form-group">
+						<label>FirstName</label> <input type="text" class="form-control"
+							th:field="*{firstName}" readonly="readonly" />
+					</div>
+
+					<div class="form-group">
+						<label>LastName</label> <input type="text" class="form-control"
+							th:field="*{lastName}" readonly="readonly" />
+					</div>
+
+					<div class="form-group">
+						<label>Email</label> <input type="email" class="form-control"
+							th:field="*{email}" readonly="readonly" />
+					</div>
+
+					<div class="form-group">
+						<label>Phone</label> <input type="text" class="form-control"
+							th:field="*{phone}" readonly="readonly" />
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

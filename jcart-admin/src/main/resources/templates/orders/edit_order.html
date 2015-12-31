@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	layout:decorator="layout/mainLayout">
+<head>
+<title>Orders - Edit</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="box box-warning">
+			<div class="box-header with-border">
+				<h3 class="box-title">Edit Order</h3>
+			</div>
+			<!-- /.box-header -->
+			<div class="box-body">
+				<form role="form"
+					th:action="@{/orders/{orderNumber}(orderNumber=${order.orderNumber})}"
+					th:object="${order}" method="post">
+					<p th:if="${#fields.hasErrors('global')}" th:errors="*{global}"
+						th:class="text-red">Incorrect data</p>
+					<div>
+						<div th:unless="${order}">
+							<h2>No order found</h2>
+						</div>
+						<div th:if="${order}">
+							<h3>
+								Order Number : <span th:text="${order.orderNumber}">Number</span>
+							</h3>
+							<h3>Order Item Details</h3>
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Name</th>
+										<th>Quantity</th>
+										<th>Cost</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="item : ${order.items}">
+										<td th:text="${item.product.name}">product.name</td>
+										<td th:text="${item.quantity}"></td>
+										<td th:text="${item.price * item.quantity}">price</td>
+									</tr>
+								</tbody>
+								<tfoot>
+
+									<tr class="cart-subtotal">
+										<th>Order Subtotal</th>
+										<td><span class="amount" th:text="${order.totalAmount}">£15.00</span>
+										</td>
+									</tr>
+
+									<tr class="shipping">
+										<th>Shipping and Handling</th>
+										<td>Free Shipping</td>
+									</tr>
+
+									<tr class="order-total">
+										<th>Order Total</th>
+										<td><strong><span class="amount"
+												th:text="${order.totalAmount}">£15.00</span></strong></td>
+									</tr>
+
+								</tfoot>
+							</table>
+							<div>
+								<label>Order Status</label> <select th:field="*{status}">
+									<option
+										th:each="status: ${T(com.sivalabs.jcart.entities.OrderStatus).values()}"
+										th:value="${status}" th:text="${status}">Status</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="box-footer">
+						<button type="submit" class="btn btn-primary">Submit</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

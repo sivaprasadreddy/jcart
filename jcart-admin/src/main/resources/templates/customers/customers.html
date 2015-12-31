@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      layout:decorator="layout/mainLayout">
+      
+      <head>
+        <title>Customers</title>
+    </head>
+    <body>
+    	        
+    	<div layout:fragment="content">
+	        <div class="row">
+            <div class="col-md-12">
+              <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title">List of Customers</h3>
+                </div>
+                <div class="box-body table-responsive no-padding">
+                  <table class="table table-hover">
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>Customer Name</th>
+                      <th>Email</th>
+                      <th>View</th>
+                      
+                    </tr>
+                    <tr th:each="customer,iterStat : ${customers}">
+                      <td><span th:text="${iterStat.count}">1</span></td>
+                      <td th:text="${customer.firstName}">Customer Name</td>
+                      <td th:text="${customer.email}">Customer Email</td>
+                      <td><a th:href="@{/customers/{id}(id=${customer.id})}" class="btn btn-sm btn-default"><i class="fa fa-search"></i> View</a></td>
+                    </tr>
+                    
+                  </table>
+                </div><!-- /.box-body -->
+                
+              </div><!-- /.box -->
+              </div>
+              </div>
+              
+    	</div>
+    	
+    </body>
+    
+</html>

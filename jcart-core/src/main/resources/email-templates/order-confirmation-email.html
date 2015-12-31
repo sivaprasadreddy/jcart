@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title th:remove="all">Template for HTML email</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <p th:text="${'Hello '+order.customer.firstName}">
+      Hello Customer
+    </p>
+    <p>
+       You have successfully placed order.<br/>
+       Order Number : <span th:text="${order.orderNumber}">Number</span><br/>
+       
+    </p>
+    <p>
+      Regards, <br />
+      <em>The QuilCart Team</em>
+    </p>
+  </body>
+</html>
