@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      layout:decorator="layout/mainLayout">
+      
+      <head>
+        <title>Cart</title>
+    </head>
+    <body>
+    	<div layout:fragment="content">
+    
+    
+    <div class="single-product-area">
+        <div class="zigzag-bottom"></div>
+        <div class="container">
+            <div class="row">
+                                
+                <div class="woocommerce-info col-md-offset-2 col-md-8" th:if="${#lists.isEmpty(cart.items)}">
+						<h2>Cart is Empty</h2>
+				</div>
+		         <div class="col-md-offset-2 col-md-8" th:unless="${#lists.isEmpty(cart.items)}">
+                    <div class="product-content-right">
+                        <div class="woocommerce">
+                            						
+								<h3 id="order_review_heading">Your order</h3>
+
+                                <div id="order_review" style="position: relative;">
+                                    <table class="shop_table">
+                                        <thead>
+                                            <tr>
+                                                <th class="product-name">Product</th>
+                                                <th class="product-total">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="cart_item" th:each="item : ${cart.items}">
+                                                <td class="product-name" >
+                                                    <span th:text="${item.product.name}" >Product Name </span> 
+                                                    <strong class="product-quantity" th:text="'× '+${item.quantity}">× 1</strong> </td>
+                                                <td class="product-total">
+                                                    <span class="amount" th:text="${item.product.price * item.quantity}">£15.00</span> </td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+
+                                            <tr class="cart-subtotal">
+                                                <th>Cart Subtotal</th>
+                                                <td><span class="amount" th:text="${cart.totalAmount}">£15.00</span>
+                                                </td>
+                                            </tr>
+
+                                            <tr class="shipping">
+                                                <th>Shipping and Handling</th>
+                                                <td>
+
+                                                    Free Shipping
+                                                    <input type="hidden" class="shipping_method" value="free_shipping" id="shipping_method_0" data-index="0" name="shipping_method[0]"/>
+                                                </td>
+                                            </tr>
+
+
+                                            <tr class="order-total">
+                                                <th>Order Total</th>
+                                                <td><strong><span class="amount" th:text="${cart.totalAmount}">£15.00</span></strong> </td>
+                                            </tr>
+
+                                        </tfoot>
+                                    </table>
+                                </div>
+                                
+                            <form action="#" th:action="@{/orders}" class="checkout" method="post" th:object="${order}">
+
+                                <div id="customer_details" class="col2-set">
+                                    <div class="col-1">
+                                        <div class="woocommerce-billing-fields">
+                                            <h3>Billing Details</h3>
+
+                                            <p id="billing_first_name_field" class="form-row form-row-first validate-required">
+                                                <label class="" for="billing_first_name">First Name <abbr title="required" class="required">*</abbr>
+                                                </label>
+                                                <input type="text" value="" placeholder="" th:field="*{billingFirstName}" class="input-text "/>
+                                                <p th:if="${#fields.hasErrors('billingFirstName')}" th:errors="*{billingFirstName}" th:errorclass="text-danger">Incorrect firstName</p>
+                                            </p>
+
+                                            <p id="billing_last_name_field" class="form-row form-row-last validate-required">
+                                                <label class="" for="billing_last_name">Last Name <abbr title="required" class="required">*</abbr>
+                                                </label>
+                                                <input type="text" value="" placeholder="" th:field="*{billingLastName}" class="input-text "/>
+                                                <p th:if="${#fields.hasErrors('billingLastName')}" 
+			                    					th:errors="*{billingLastName}" th:errorclass="text-danger">Incorrect lastName</p>
+                                            </p>
+                                            <p id="billing_email_field" class="form-row form-row-first validate-required validate-email">
+                                                <label class="" for="billing_email">Email Address <abbr title="required" class="required">*</abbr>
+                                                </label>
+                                                <input type="text" value="" placeholder="" th:field="*{emailId}" class="input-text "/>
+                                                <p th:if="${#fields.hasErrors('emailId')}" 
+			                    					th:errors="*{emailId}" th:errorclass="text-danger">Incorrect emailId</p>
+                                            </p>
+
+                                            <p id="billing_phone_field" class="form-row form-row-last validate-required validate-phone">
+                                                <label class="" for="billing_phone">Phone <abbr title="required" class="required">*</abbr>
+                                                </label>
+                                                <input type="text" value="" placeholder="" th:field="*{phone}"  class="input-text "/>
+                                                <p th:if="${#fields.hasErrors('phone')}" 
+			                    					th:errors="*{phone}" th:errorclass="text-danger">Incorrect phone</p>
+                                            </p>
+                                            <div class="clear"></div>
+                                            
+                                            <p id="billing_address_1_field" class="form-row form-row-wide address-field validate-required">
+                                                <label class="" for="billing_address_1">Address <abbr title="required" class="required">*</abbr>
+                                                </label>
+                                                <input type="text" value="" placeholder="Street address" th:field="*{billingAddressLine1}" class="input-text "/>
+                                                <p th:if="${#fields.hasErrors('billingAddressLine1')}" th:errors="*{billingAddressLine1}" th:errorclass="text-danger">Incorrect addressLine1</p>
+                                            </p>
+
+                                            <p id="billing_address_2_field" class="form-row form-row-wide address-field">
+                                                <input type="text" value="" placeholder="Apartment, suite, unit etc. (optional)" th:field="*{billingAddressLine2}"  class="input-text "/>
+                                                <p th:if="${#fields.hasErrors('billingAddressLine2')}" th:errors="*{billingAddressLine2}" th:errorclass="text-danger">Incorrect addressLine2</p>
+                                            </p>
+
+                                            <p id="billing_city_field" class="form-row form-row-wide address-field validate-required" data-o_class="form-row form-row-wide address-field validate-required">
+                                                <label class="" for="billing_city">Town / City <abbr title="required" class="required">*</abbr>
+                                                </label>
+                                                <input type="text" value="" placeholder="Town / City" th:field="*{billingCity}" class="input-text "/>
+                                                <p th:if="${#fields.hasErrors('billingCity')}" th:errors="*{billingCity}" th:errorclass="text-danger">Incorrect city</p>
+                                            </p>
+
+                                            <p id="billing_state_field" class="form-row form-row-first address-field validate-state" data-o_class="form-row form-row-first address-field validate-state">
+                                                <label class="" for="billing_state">State</label>
+                                                <input type="text" th:field="*{billingState}" placeholder="State / County" value="" class="input-text "/>
+                                                <p th:if="${#fields.hasErrors('billingState')}" th:errors="*{billingState}" th:errorclass="text-danger">Incorrect state</p>
+                                            </p>
+                                            <p id="billing_postcode_field" class="form-row form-row-last address-field validate-required validate-postcode" data-o_class="form-row form-row-last address-field validate-required validate-postcode">
+                                                <label class="" for="billing_postcode">Zip Code <abbr title="required" class="required">*</abbr>
+                                                </label>
+                                                <input type="text" value="" placeholder="Postcode / Zip" th:field="*{billingZipCode}" class="input-text "/>
+                                                <p th:if="${#fields.hasErrors('billingZipCode')}" th:errors="*{billingZipCode}" th:errorclass="text-danger">Incorrect zipCode</p>
+                                            </p>
+											<p id="billing_country_field" class="form-row form-row-wide address-field update_totals_on_change validate-required woocommerce-validated">
+                                                <label class="" for="billing_country">Country <abbr title="required" class="required">*</abbr>
+                                                </label>
+                                                <select class="country_to_state country_select" th:field="*{billingCountry}">                                                    
+                                                    <option value="IN">India</option>
+                                                </select>
+                                            </p>
+                                            <div class="clear"></div>
+
+                                            
+                                        </div>
+                                    </div>
+
+                                    <div class="col-2">
+                                        <div class="woocommerce-shipping-fields">
+                                            <h3 id="ship-to-different-address">
+						                        <label class="checkbox" for="ship-to-different-address-checkbox">Ship to same address?</label>
+						                        <input type="checkbox" value="1" name="ship_to_different_address" checked="checked" 
+						                        		class="input-checkbox" id="ship-to-different-address-checkbox"/>
+						                    </h3>
+                                            <div class="shipping_address" style="display: block;">
+                                                
+
+                                                <p id="shipping_first_name_field" class="form-row form-row-first validate-required">
+                                                    <label class="" for="shipping_first_name">First Name <abbr title="required" class="required">*</abbr>
+                                                    </label>
+                                                    <input type="text" value="" placeholder="" th:field="*{firstName}" class="input-text "/>
+                                                    <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" th:errorclass="text-danger">Incorrect firstName</p>
+                                                </p>
+
+                                                <p id="shipping_last_name_field" class="form-row form-row-last validate-required">
+                                                    <label class="" for="shipping_last_name">Last Name <abbr title="required" class="required">*</abbr>
+                                                    </label>
+                                                    <input type="text" value="" placeholder="" th:field="*{lastName}" class="input-text "/>
+                                                    <p th:if="${#fields.hasErrors('lastName')}" 
+			                    						th:errors="*{lastName}" th:errorclass="text-danger">Incorrect lastName</p>
+                                                </p>
+                                                <div class="clear"></div>
+
+                                                <p id="shipping_address_1_field" class="form-row form-row-wide address-field validate-required">
+                                                    <label class="" for="shipping_address_1">Address <abbr title="required" class="required">*</abbr>
+                                                    </label>
+                                                    <input type="text" value="" placeholder="Street address" th:field="*{addressLine1}"  class="input-text "/>
+                                                    <p th:if="${#fields.hasErrors('addressLine1')}" th:errors="*{addressLine1}" th:errorclass="text-danger">Incorrect addressLine1</p>
+                                                </p>
+
+                                                <p id="shipping_address_2_field" class="form-row form-row-wide address-field">
+                                                    <input type="text" value="" placeholder="Apartment, suite, unit etc. (optional)" th:field="*{addressLine2}" class="input-text "/>
+                                                    <p th:if="${#fields.hasErrors('addressLine2')}" th:errors="*{addressLine2}" th:errorclass="text-danger">Incorrect addressLine2</p>
+                                                </p>
+
+                                                <p id="shipping_city_field" class="form-row form-row-wide address-field validate-required" data-o_class="form-row form-row-wide address-field validate-required">
+                                                    <label class="" for="shipping_city">City <abbr title="required" class="required">*</abbr>
+                                                    </label>
+                                                    <input type="text" value="" placeholder="Town / City" th:field="*{city}" class="input-text "/>
+                                                    <p th:if="${#fields.hasErrors('city')}" th:errors="*{city}" th:errorclass="text-danger">Incorrect city</p>
+                                                </p>
+
+                                                <p id="shipping_state_field" class="form-row form-row-first address-field validate-state" data-o_class="form-row form-row-first address-field validate-state">
+                                                    <label class="" for="shipping_state">State</label>
+                                                    <input type="text" th:field="*{state}" placeholder="State / County" value="" class="input-text "/>
+                                                    <p th:if="${#fields.hasErrors('state')}" th:errors="*{state}" th:errorclass="text-danger">Incorrect state</p>
+                                                </p>
+                                                <p id="shipping_postcode_field" class="form-row form-row-last address-field validate-required validate-postcode" data-o_class="form-row form-row-last address-field validate-required validate-postcode">
+                                                    <label class="" for="shipping_postcode">Zip Code <abbr title="required" class="required">*</abbr>
+                                                    </label>
+                                                    <input type="text" value="" placeholder="Postcode / Zip" th:field="*{zipCode}" class="input-text "/>
+                                                    <p th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}" th:errorclass="text-danger">Incorrect zipCode</p>
+                                                </p>
+												<p id="shipping_country_field" class="form-row form-row-wide address-field update_totals_on_change validate-required woocommerce-validated">
+                                                    <label class="" for="shipping_country">Country <abbr title="required" class="required">*</abbr>
+                                                    </label>
+                                                    <select class="country_to_state country_select" th:field="*{country}" >
+                                                        <option value="IN">India</option>
+                                                    </select>
+                                                </p>
+                                                <div class="clear"></div>
+
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                
+                                <div id="customer_details" class="col2-set">
+                                    <div class="col-1">
+                                        <div class="woocommerce-billing-fields">
+                                            <h3>Payment Details</h3>
+
+                                            <p id="cc_number" class="form-row form-row-first validate-required">
+                                                <label class="" for="cc_number">Credit Card Number <abbr title="required" class="required">*</abbr>
+                                                </label>
+                                                <input type="text" th:field="*{ccNumber}" class="input-text "/>
+                                                <p th:if="${#fields.hasErrors('ccNumber')}" th:errors="*{ccNumber}" th:errorclass="text-danger">Invalid Credit Card</p>
+                                            </p>
+                                            
+                                            <p id="cc_cvv" class="form-row form-row-first validate-required">
+                                                <label class="" for="cc_cvv">CCV <abbr title="required" class="required">*</abbr>
+                                                </label>
+                                                <input type="text" th:field="*{cvv}" class="input-text "/>
+                                                <p th:if="${#fields.hasErrors('cvv')}" th:errors="*{cvv}" th:errorclass="text-danger">Invalid CVV</p>
+                                            </p>
+                                            <p id="payment_expiry_date" class="form-row form-row-wide validate-required woocommerce-validated">
+                                                <label class="" for="shipping_country">Expiry Date <abbr title="required" class="required">*</abbr></label>
+                                                <div style="display: inline;">
+                                                <select style="width: 25%">
+                                                    <option value="2015">2015</option>
+                                                    <option value="2016">2016</option>
+                                                    <option value="2017">2017</option>
+                                                    <option value="2018">2018</option>
+                                                </select>
+                                                
+                                                <select style="width: 25%">
+                                                    <option value="1">Jan</option>
+                                                    <option value="2">Feb</option>
+                                                    <option value="3">Mar</option>
+                                                    <option value="4">Apr</option>
+                                                </select>
+                                                </div>
+                                            </p>
+                                            
+                                        </div>
+                                    </div>
+                               </div>
+
+                                <div id="payment">
+                                        
+                                     <div class="form-row place-order">
+                                         <input type="submit" data-value="Place order" value="Place order" id="place_order" name="woocommerce_checkout_place_order" class="button alt"/>
+                                     </div>
+
+                                     <div class="clear"></div>
+
+                              </div>
+                            </form>
+
+                        </div>                       
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+  </body>
+</html>

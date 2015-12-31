@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      layout:decorator="layout/mainLayout">
+      
+      <head>
+        <title>Register</title>
+    </head>
+    <body>
+    	<div layout:fragment="content">
+    		<div class="single-product-area">
+		        <div class="zigzag-bottom"></div>
+		        <div class="container">
+		        	
+		            <div class="row">
+		            	
+		                <div class="col-md-offset-3 col-md-6" >
+		                	<form id="login-form-wrap" th:action="@{/register}" th:object="${customer}" method="post">
+
+								<p class="form-row form-row-first">
+                                    <label for="firstName">FirstName <span class="required">*</span>
+                                    </label>
+                                    <input type="text" th:field="*{firstName}" class="input-text"/>
+                                    <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" th:errorclass="text-danger">Incorrect data</p>
+                                </p>
+                                
+                                <p class="form-row form-row-first">
+                                    <label for="lastName">LastName <span class="required">*</span>
+                                    </label>
+                                    <input type="text" th:field="*{lastName}" class="input-text"/>
+                                    <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" th:errorclass="text-danger">Incorrect data</p>
+                                    
+                                </p>
+                                
+                                <p class="form-row form-row-first">
+                                    <label for="email">Email <span class="required">*</span>
+                                    </label>
+                                    <input type="email" th:field="*{email}" class="input-text" placeholder="Email"/>
+                                    <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:errorclass="text-danger">Incorrect data</p>
+                                </p>
+                                <p class="form-row form-row-last">
+                                    <label for="password">Password <span class="required">*</span>
+                                    </label>
+                                    <input type="password" th:field="*{password}" class="input-text" placeholder="Password"/>
+                                    <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:errorclass="text-danger">Incorrect data</p>
+                                </p>
+                                
+                                <p class="form-row form-row-first">
+                                    <label for="phone">Phone <span class="required">*</span>
+                                    </label>
+                                    <input type="text" th:field="*{phone}" class="input-text"/>
+                                    <p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" th:errorclass="text-danger">Incorrect data</p>
+                                </p>
+                                <div class="clear"></div>
+
+
+                                <p class="form-row">
+                                    <input type="submit" value="Register" class="button"/>
+                                </p>
+                                
+								<p>
+							        <div th:if="${info!=null}" class="alert alert-warning alert-dismissable" >
+							        	<p><i class="icon fa fa-warning"></i> <span th:text="${info}"></span></p>
+							        </div>   
+								</p>
+								<p class="lost_password">
+                                    Existing Customer? <a href="#" th:href="@{/login}" th:text="#{label.login}">Login</a>
+                                </p>
+                                
+                                <div class="clear"></div>
+                            </form>
+					        
+		                </div>
+		            </div>
+		            
+		        </div>
+		    </div>
+    	</div>
+    	
+    </body>
+    
+</html>
