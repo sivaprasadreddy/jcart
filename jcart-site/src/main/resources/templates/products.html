@@ -4,7 +4,7 @@
       layout:decorator="layout/mainLayout">
       
       <head>
-        <title>Home</title>
+        <title>Product Search Results</title>
     </head>
     <body>
     	<div layout:fragment="content">
@@ -12,12 +12,11 @@
 		        <div class="zigzag-bottom"></div>
 		        <div class="container">
 		        	
-		            <div class="row" th:each="cat : ${categories}">
+		            <div class="row">
 		            	<div class="woocommerce-info"> 
-		            		<a class="" th:href="@{/categories/{name}(name=${cat.name})}" 
-		            			th:text="${'Category: '+cat.name}">Category Name</a>
+		            		<span class="">Product Search Results</span>
 		                 </div>
-		                <div class="col-md-3 col-sm-6" th:each="product : ${cat.products}">
+		                <div class="col-md-3 col-sm-6" th:each="product : ${products}">
 		                    <div class="single-shop-product">
 		                        <div class="product-upper">
 		                            <img src="assets/img/products/2.jpg" alt="" 

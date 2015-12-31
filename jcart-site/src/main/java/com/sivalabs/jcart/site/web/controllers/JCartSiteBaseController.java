@@ -3,12 +3,15 @@
  */
 package com.sivalabs.jcart.site.web.controllers;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import com.sivalabs.jcart.site.web.models.Cart;
 import com.sivalabs.jcart.common.services.JCLogger;
 import com.sivalabs.jcart.site.security.AuthenticatedUser;
 
@@ -59,6 +62,17 @@ public abstract class JCartSiteBaseController
 
 	public static boolean isLoggedIn() {
 	    return getCurrentUser() != null;
+	}
+	
+	protected Cart getOrCreateCart(HttpServletRequest request)
+	{
+		Cart cart = null;
+		cart = (Cart) request.getSession().getAttribute("CART_KEY");
+		if(cart == null){
+			cart = new Cart();
+			request.getSession().setAttribute("CART_KEY", cart);
+		}
+		return cart;
 	}
 	
 }
