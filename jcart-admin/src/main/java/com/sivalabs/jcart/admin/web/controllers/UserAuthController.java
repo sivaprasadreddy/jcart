@@ -57,7 +57,7 @@ public class UserAuthController extends JCartAdminBaseController
 			String token = securityService.resetPassword(email);			
 			String resetPwdURL = WebUtils.getURLWithContextPath(request)+"/resetPwd?email="+email+"&token="+token;
 			logger.debug(resetPwdURL);
-			this.sendForgorPasswordEmail(email, resetPwdURL);
+			this.sendForgotPasswordEmail(email, resetPwdURL);
 			redirectAttributes.addFlashAttribute("msg", getMessage(INFO_PASSWORD_RESET_LINK_SENT));
 		} catch (JCartException e)
 		{
@@ -113,7 +113,7 @@ public class UserAuthController extends JCartAdminBaseController
 		return "redirect:/login";
 	}
 
-	protected void sendForgorPasswordEmail(String email, String resetPwdURL)
+	protected void sendForgotPasswordEmail(String email, String resetPwdURL)
 	{
 		try {
 			
