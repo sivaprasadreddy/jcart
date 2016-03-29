@@ -9,6 +9,7 @@
 		<artifactId>jcart</artifactId>
 		<version>1.0</version>
 	</parent>
+	
 	<artifactId>jcart-admin</artifactId>
 
 	<build>
@@ -16,8 +17,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>1.3.0.RELEASE</version>
-                <executions>
+				<executions>
                     <execution>
                         <goals>
                             <goal>repackage</goal>
@@ -50,11 +50,6 @@
       		<groupId>org.thymeleaf.extras</groupId>
       		<artifactId>thymeleaf-extras-springsecurity4</artifactId>
     	</dependency>		
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
