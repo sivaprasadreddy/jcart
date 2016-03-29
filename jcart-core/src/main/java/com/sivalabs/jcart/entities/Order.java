@@ -25,13 +25,18 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import lombok.Data;
+
 
 /**
  * @author Siva
+ * @author rajakolli
+ * Using @Data annotation to generate Setters and getters
  *
  */
 @Entity
 @Table(name="orders")
+@Data
 public class Order implements Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -65,83 +70,6 @@ public class Order implements Serializable
 		this.status = OrderStatus.NEW;
 		this.createdOn = new Date();
 	}
-	
-	public Integer getId()
-	{
-		return id;
-	}
-	public void setId(Integer id)
-	{
-		this.id = id;
-	}
-	
-	public String getOrderNumber()
-	{
-		return orderNumber;
-	}
-
-	public void setOrderNumber(String orderNumber)
-	{
-		this.orderNumber = orderNumber;
-	}
-
-	public Set<OrderItem> getItems()
-	{
-		return items;
-	}
-	public void setItems(Set<OrderItem> items)
-	{
-		this.items = items;
-	}
-	public Customer getCustomer()
-	{
-		return customer;
-	}
-	public void setCustomer(Customer customer)
-	{
-		this.customer = customer;
-	}
-	public Address getDeliveryAddress()
-	{
-		return deliveryAddress;
-	}
-	public void setDeliveryAddress(Address deliveryAddress)
-	{
-		this.deliveryAddress = deliveryAddress;
-	}
-	public Payment getPayment()
-	{
-		return payment;
-	}
-	public void setPayment(Payment payment)
-	{
-		this.payment = payment;
-	}
-	public OrderStatus getStatus()
-	{
-		return status;
-	}
-	public void setStatus(OrderStatus status)
-	{
-		this.status = status;
-	}
-	public Date getCreatedOn()
-	{
-		return createdOn;
-	}
-	public void setCreatedOn(Date createdOn)
-	{
-		this.createdOn = createdOn;
-	}
-
-	public Address getBillingAddress() {
-		return billingAddress;
-	}
-
-	public void setBillingAddress(Address billingAddress) {
-		this.billingAddress = billingAddress;
-	}
-
 	
 	public BigDecimal getTotalAmount()
 	{
