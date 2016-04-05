@@ -14,17 +14,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.Data;
-
 /**
  * @author Siva
- * @author rajakolli
- * Using @Data annotation to generate Setters and getters
  *
  */
 @Entity
 @Table(name="order_items")
-@Data
 public class OrderItem implements Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -38,6 +33,48 @@ public class OrderItem implements Serializable
 	@ManyToOne
 	@JoinColumn(name="order_id")
 	private Order order;
+	
+	public Integer getId()
+	{
+		return id;
+	}
+	public void setId(Integer id)
+	{
+		this.id = id;
+	}
+	public Product getProduct()
+	{
+		return product;
+	}
+	public void setProduct(Product product)
+	{
+		this.product = product;
+	}
+	
+	public BigDecimal getPrice()
+	{
+		return price;
+	}
+	public void setPrice(BigDecimal price)
+	{
+		this.price = price;
+	}
+	public Order getOrder()
+	{
+		return order;
+	}
+	public void setOrder(Order order)
+	{
+		this.order = order;
+	}
+	public int getQuantity()
+	{
+		return quantity;
+	}
+	public void setQuantity(int quantity)
+	{
+		this.quantity = quantity;
+	}
 	
 	public BigDecimal getSubTotal()
 	{
