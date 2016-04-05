@@ -36,6 +36,20 @@
 				<artifactId>sonar-maven-plugin</artifactId>
 				<version>2.7</version>
 			</plugin>
+			<!-- To load dependency of jars -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>install</id>
+						<phase>install</phase>
+						<goals>
+							<goal>sources</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 
