@@ -15,17 +15,12 @@ import javax.persistence.Table;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import lombok.Data;
-
 /**
  * @author Siva
- * @author rajakolli
- * Using @Data annotation to generate Setters and getters
  *
  */
 @Entity
 @Table(name="customers")
-@Data
 public class Customer implements Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -44,5 +39,52 @@ public class Customer implements Serializable
 	@Column(name="password", nullable=false)
 	private String password;
 	private String phone;
+	
+	public Integer getId()
+	{
+		return id;
+	}
+	public void setId(Integer id)
+	{
+		this.id = id;
+	}
+	public String getFirstName()
+	{
+		return firstName;
+	}
+	public void setFirstName(String firstName)
+	{
+		this.firstName = firstName;
+	}
+	public String getLastName()
+	{
+		return lastName;
+	}
+	public void setLastName(String lastName)
+	{
+		this.lastName = lastName;
+	}
+	public String getEmail()
+	{
+		return email;
+	}
+	public void setEmail(String email)
+	{
+		this.email = email;
+	}
+	public String getPhone()
+	{
+		return phone;
+	}
+	public void setPhone(String phone)
+	{
+		this.phone = phone;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	
 }

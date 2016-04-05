@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 
 import com.sivalabs.jcart.entities.Permission;
 import com.sivalabs.jcart.entities.Role;
@@ -38,19 +38,20 @@ public class AuthenticatedUser extends org.springframework.security.core.userdet
 	
 	private static Collection<? extends GrantedAuthority> getAuthorities(User user)
 	{
+		Set<String> roleAndPermissions = new HashSet<>();
 		List<Role> roles = user.getRoles();
-		
-		Set<GrantedAuthority> authorities = new HashSet<>();
 		
 		for (Role role : roles)
 		{
-			authorities.add(new SimpleGrantedAuthority(role.getName()));
+			roleAndPermissions.add(role.getName());
 			List<Permission> permissions = role.getPermissions();
 			for (Permission permission : permissions)
 			{
-				authorities.add(new SimpleGrantedAuthority("ROLE_"+permission.getName()));
+				roleAndPermissions.add("ROLE_"+permission.getName());
 			}
 		}
+		String[] roleNames = new String[roleAndPermissions.size()];
+		Collection<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(roleAndPermissions.toArray(roleNames));
 		return authorities;
 	}
 }
