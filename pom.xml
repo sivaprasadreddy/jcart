@@ -11,14 +11,14 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-dependencies</artifactId>
-		<version>1.3.5.RELEASE</version>
+		<version>1.4.2.RELEASE</version>
 	</parent>
 
 	<scm>
-		<url>https://github.com/sivaprasadreddy/jcart</url>
-		<connection>scm:git:https://github.com/sivaprasadreddy/jcart</connection>
-		<developerConnection>scm:git:https://github.com/sivaprasadreddy</developerConnection>
-		<tag>scm:git:https://github.com/sivaprasadreddy/jcart/tag</tag>
+		<url>https://github.com/rajadileepkolli/jcart</url>
+		<connection>scm:git:https://github.com/rajadileepkolli/jcart</connection>
+		<developerConnection>scm:git:https://github.com/rajadileepkolli</developerConnection>
+		<tag>scm:git:https://github.com/rajadileepkolli/jcart/tag</tag>
 	</scm>
 
 	<properties>

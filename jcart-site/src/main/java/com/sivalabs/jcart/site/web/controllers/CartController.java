@@ -56,7 +56,7 @@ public class CartController extends JCartSiteBaseController
 	{
 		Cart cart = getOrCreateCart(request);
 		int itemCount = cart.getItemCount();
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<>();
 		map.put("count", itemCount);
 		return map;
 	}

@@ -61,7 +61,7 @@ public class Order implements Serializable
 	
 	public Order()
 	{
-		this.items = new HashSet<OrderItem>();
+		this.items = new HashSet<>();
 		this.status = OrderStatus.NEW;
 		this.createdOn = new Date();
 	}

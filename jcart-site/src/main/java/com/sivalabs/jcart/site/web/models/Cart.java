@@ -25,7 +25,7 @@ public class Cart
 	
 	public Cart()
 	{
-		items = new ArrayList<LineItem>();
+		items = new ArrayList<>();
 		customer = new Customer();
 		deliveryAddress = new Address();
 		payment = new Payment();
@@ -72,7 +72,7 @@ public class Cart
 	
 	public void clearItems()
 	{
-		items = new ArrayList<LineItem>();
+		items = new ArrayList<>();
 	}
 	
 	public int getItemCount()

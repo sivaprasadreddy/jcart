@@ -86,7 +86,7 @@ public class OrderController extends JCartSiteBaseController
 		
 		newOrder.setBillingAddress(billingAddress);
 		
-		Set<OrderItem> orderItems = new HashSet<OrderItem>();
+		Set<OrderItem> orderItems = new HashSet<>();
 		List<LineItem> lineItems = cart.getItems();
 		for (LineItem lineItem : lineItems)
 		{
