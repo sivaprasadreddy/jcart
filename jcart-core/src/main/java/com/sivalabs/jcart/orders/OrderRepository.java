@@ -13,5 +13,5 @@ import com.sivalabs.jcart.entities.Order;
  */
 public interface OrderRepository extends JpaRepository<Order, Integer>
 {
-	Order findByOrderNumber(String orderNumber);
+    Order findByOrderNumber(String orderNumber);
 }

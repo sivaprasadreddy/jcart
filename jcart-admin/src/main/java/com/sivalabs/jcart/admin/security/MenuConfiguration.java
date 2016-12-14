@@ -12,34 +12,38 @@ import java.util.Set;
  * @author Siva
  *
  */
-public class MenuConfiguration 
+public class MenuConfiguration
 {
-	private static Map<String, String> MENU_URL_PATTERN_MAP = new HashMap<>();
-	
-	static
-	{
-		MENU_URL_PATTERN_MAP.put("/home", "Home");
-		MENU_URL_PATTERN_MAP.put("/categories", "Categories");
-		MENU_URL_PATTERN_MAP.put("/products", "Products");
-		MENU_URL_PATTERN_MAP.put("/orders", "Orders");
-		MENU_URL_PATTERN_MAP.put("/customers", "Customers");
-		MENU_URL_PATTERN_MAP.put("/users", "Users");
-		MENU_URL_PATTERN_MAP.put("/roles", "Roles");
-		MENU_URL_PATTERN_MAP.put("/permissions", "Permissions");
-		
-	}
-	
-	public static Map<String, String> getMenuUrlPatternMap() {
-		return Collections.unmodifiableMap(MENU_URL_PATTERN_MAP);
-	}
+    private static Map<String, String> menu_url_pattern_map = new HashMap<>();
 
-	public static String getMatchingMenu(String uri) {
-		Set<String> keySet = MENU_URL_PATTERN_MAP.keySet();
-		for (String key : keySet) {
-			if(uri.startsWith(key)){
-				return MENU_URL_PATTERN_MAP.get(key);
-			}
-		}
-		return "";
-	}
+    static
+    {
+        menu_url_pattern_map.put("/home", "Home");
+        menu_url_pattern_map.put("/categories", "Categories");
+        menu_url_pattern_map.put("/products", "Products");
+        menu_url_pattern_map.put("/orders", "Orders");
+        menu_url_pattern_map.put("/customers", "Customers");
+        menu_url_pattern_map.put("/users", "Users");
+        menu_url_pattern_map.put("/roles", "Roles");
+        menu_url_pattern_map.put("/permissions", "Permissions");
+
+    }
+
+    public static Map<String, String> getMenuUrlPatternMap()
+    {
+        return Collections.unmodifiableMap(menu_url_pattern_map);
+    }
+
+    public static String getMatchingMenu(String uri)
+    {
+        Set<String> keySet = menu_url_pattern_map.keySet();
+        for (String key : keySet)
+        {
+            if (uri.startsWith(key))
+            {
+                return menu_url_pattern_map.get(key);
+            }
+        }
+        return "";
+    }
 }

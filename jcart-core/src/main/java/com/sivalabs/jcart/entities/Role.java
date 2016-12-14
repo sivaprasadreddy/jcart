@@ -3,6 +3,7 @@
  */
 package com.sivalabs.jcart.entities;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -22,72 +23,75 @@ import org.hibernate.validator.constraints.NotEmpty;
  *
  */
 @Entity
-@Table(name="roles")
+@Table(name = "roles")
 public class Role
 {
-	@Id @GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer id;
-	@Column(nullable=false, unique=true)
-	@NotEmpty
-	private String name;
-	@Column(length=1024)
-	private String description;
-		
-	@ManyToMany(mappedBy="roles")
-	private List<User> users;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+    @Column(nullable = false, unique = true)
+    @NotEmpty
+    private String name;
+    @Column(length = 1024)
+    private String description;
 
-	@ManyToMany
-	  @JoinTable(
-	      name="role_permission",
-	      joinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")},
-	      inverseJoinColumns={@JoinColumn(name="PERM_ID", referencedColumnName="ID")})
-	  private List<Permission> permissions;
+    @ManyToMany(mappedBy = "roles")
+    private List<User> users;
 
-	public Integer getId()
-	{
-		return id;
-	}
+    @ManyToMany
+    @JoinTable(name = "role_permission", joinColumns = {
+            @JoinColumn(name = "ROLE_ID", referencedColumnName = "ID") }, inverseJoinColumns = {
+                    @JoinColumn(name = "PERM_ID", referencedColumnName = "ID") })
+    private List<Permission> permissions;
 
-	public void setId(Integer id)
-	{
-		this.id = id;
-	}
+    public Integer getId()
+    {
+        return id;
+    }
 
-	public String getName()
-	{
-		return name;
-	}
+    public void setId(Integer id)
+    {
+        this.id = id;
+    }
 
-	public void setName(String name)
-	{
-		this.name = name;
-	}
+    public String getName()
+    {
+        return name;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public void setName(String name)
+    {
+        this.name = name;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public String getDescription()
+    {
+        return description;
+    }
 
-	public List<User> getUsers() {
-		return users;
-	}
+    public void setDescription(String description)
+    {
+        this.description = description;
+    }
 
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
+    public List<User> getUsers()
+    {
+        return users;
+    }
 
-	public List<Permission> getPermissions()
-	{
-		return permissions;
-	}
+    public void setUsers(List<User> users)
+    {
+        this.users = Collections.unmodifiableList(users);
+    }
 
-	public void setPermissions(List<Permission> permissions)
-	{
-		this.permissions = permissions;
-	}
-	
-	
+    public List<Permission> getPermissions()
+    {
+        return Collections.unmodifiableList(permissions);
+    }
+
+    public void setPermissions(List<Permission> permissions)
+    {
+        this.permissions = Collections.unmodifiableList(permissions);
+    }
+
 }

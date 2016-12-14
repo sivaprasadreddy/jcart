@@ -23,31 +23,33 @@ import com.sivalabs.jcart.entities.Customer;
  */
 @Controller
 @Secured(SecurityUtil.MANAGE_CUSTOMERS)
-public class CustomerController extends JCartAdminBaseController
+public class CustomerController extends JCartAdminAbstractController
 {
-	private static final String viewPrefix = "customers/";
-	
-	@Autowired 
-	private CustomerService customerService;
-	
-	@Override
-	protected String getHeaderTitle()
-	{
-		return "Manage Customers";
-	}
-		
-	@RequestMapping(value="/customers", method=RequestMethod.GET)
-	public String listCustomers(Model model) {
-		List<Customer> list = customerService.getAllCustomers();
-		model.addAttribute("customers",list);
-		return viewPrefix+"customers";
-	}
-	
-	@RequestMapping(value="/customers/{id}", method=RequestMethod.GET)
-	public String viewCustomerForm(@PathVariable Integer id, Model model) {
-		Customer customer = customerService.getCustomerById(id);
-		model.addAttribute("customer",customer);
-		return viewPrefix+"view_customer";
-	}
-		
+    private static final String viewPrefix = "customers/";
+
+    @Autowired
+    private CustomerService customerService;
+
+    @Override
+    protected String getHeaderTitle()
+    {
+        return "Manage Customers";
+    }
+
+    @RequestMapping(value = "/customers", method = RequestMethod.GET)
+    public String listCustomers(Model model)
+    {
+        List<Customer> list = customerService.getAllCustomers();
+        model.addAttribute("customers", list);
+        return viewPrefix + "customers";
+    }
+
+    @RequestMapping(value = "/customers/{id}", method = RequestMethod.GET)
+    public String viewCustomerForm(@PathVariable Integer id, Model model)
+    {
+        Customer customer = customerService.getCustomerById(id);
+        model.addAttribute("customer", customer);
+        return viewPrefix + "view_customer";
+    }
+
 }

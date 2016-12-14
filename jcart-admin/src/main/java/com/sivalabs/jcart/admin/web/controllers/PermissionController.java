@@ -22,23 +22,25 @@ import com.sivalabs.jcart.security.SecurityService;
  */
 @Controller
 @Secured(SecurityUtil.MANAGE_PERMISSIONS)
-public class PermissionController extends JCartAdminBaseController
+public class PermissionController extends JCartAdminAbstractController
 {
-	private static final String viewPrefix = "permissions/";
-	
-	@Autowired protected SecurityService securityService;
-	
-	@Override
-	protected String getHeaderTitle()
-	{
-		return "Manage Permissions";
-	}
-	
-	@RequestMapping(value="/permissions", method=RequestMethod.GET)
-	public String listPermissions(Model model) {
-		List<Permission> list = securityService.getAllPermissions();
-		model.addAttribute("permissions",list);
-		return viewPrefix+"permissions";
-	}
+    private static final String viewPrefix = "permissions/";
+
+    @Autowired
+    protected SecurityService securityService;
+
+    @Override
+    protected String getHeaderTitle()
+    {
+        return "Manage Permissions";
+    }
+
+    @RequestMapping(value = "/permissions", method = RequestMethod.GET)
+    public String listPermissions(Model model)
+    {
+        List<Permission> list = securityService.getAllPermissions();
+        model.addAttribute("permissions", list);
+        return viewPrefix + "permissions";
+    }
 
 }

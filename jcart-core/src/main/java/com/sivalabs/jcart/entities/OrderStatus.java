@@ -6,5 +6,5 @@ package com.sivalabs.jcart.entities;
  */
 public enum OrderStatus
 {
-	NEW, IN_PROCESS, COMPLETED, FAILED
+    NEW, IN_PROCESS, COMPLETED, FAILED
 }

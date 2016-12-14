@@ -14,6 +14,6 @@ import com.sivalabs.jcart.entities.Role;
 public interface RoleRepository extends JpaRepository<Role, Integer>
 {
 
-	Role findByName(String name);
+    Role findByName(String name);
 
 }

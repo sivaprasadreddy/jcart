@@ -12,10 +12,17 @@ import com.sivalabs.jcart.entities.Customer;
 import com.sivalabs.jcart.entities.Payment;
 import com.sivalabs.jcart.entities.Product;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
  * @author Siva
  *
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Cart
 {
 	private List<LineItem> items;
@@ -23,15 +30,6 @@ public class Cart
 	private Address deliveryAddress;
 	private Payment payment;
 	
-	public Cart()
-	{
-		items = new ArrayList<>();
-		customer = new Customer();
-		deliveryAddress = new Address();
-		payment = new Payment();
-	}
-	
-
 	public void addItem(Product product)
 	{
 		for (LineItem lineItem : items)
@@ -84,14 +82,6 @@ public class Cart
 		return count;
 	}
 	
-	public List<LineItem> getItems()
-	{
-		return items;
-	}
-	public void setItems(List<LineItem> items)
-	{
-		this.items = items;
-	}
 	public BigDecimal getTotalAmount()
 	{
 		BigDecimal amount = new BigDecimal("0.0");
@@ -100,31 +90,6 @@ public class Cart
 			amount = amount.add(lineItem.getSubTotal());
 		}
 		return amount;
-	}
-	
-	public Customer getCustomer()
-	{
-		return customer;
-	}
-	public void setCustomer(Customer customer)
-	{
-		this.customer = customer;
-	}
-	public Address getDeliveryAddress()
-	{
-		return deliveryAddress;
-	}
-	public void setDeliveryAddress(Address deliveryAddress)
-	{
-		this.deliveryAddress = deliveryAddress;
-	}
-	public Payment getPayment()
-	{
-		return payment;
-	}
-	public void setPayment(Payment payment)
-	{
-		this.payment = payment;
 	}
 	
 }

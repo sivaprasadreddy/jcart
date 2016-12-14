@@ -11,8 +11,9 @@ import com.sivalabs.jcart.entities.Category;
  * @author Siva
  *
  */
-public interface CategoryRepository extends JpaRepository<Category, Integer>{
+public interface CategoryRepository extends JpaRepository<Category, Integer>
+{
 
-	Category getByName(String name);
+    Category getByName(String name);
 
 }

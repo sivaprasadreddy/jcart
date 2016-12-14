@@ -62,7 +62,7 @@ public class ProductController extends JCartSiteBaseController
 			org.apache.commons.io.IOUtils.copy(file.getInputStream(), response.getOutputStream());
 			response.flushBuffer();
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		}	      
 	}
 }

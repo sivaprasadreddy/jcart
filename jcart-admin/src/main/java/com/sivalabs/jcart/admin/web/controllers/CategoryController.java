@@ -29,62 +29,72 @@ import com.sivalabs.jcart.entities.Category;
  */
 @Controller
 @Secured(SecurityUtil.MANAGE_CATEGORIES)
-public class CategoryController extends JCartAdminBaseController
+public class CategoryController extends JCartAdminAbstractController
 {
-	private static final String viewPrefix = "categories/";
-	
-	@Autowired
-	private CatalogService catalogService;
-	
-	@Autowired private CategoryValidator categoryValidator;
-	
-	@Override
-	protected String getHeaderTitle()
-	{
-		return "Manage Categories";
-	}
-	
-	@RequestMapping(value="/categories", method=RequestMethod.GET)
-	public String listCategories(Model model) {
-		List<Category> list = catalogService.getAllCategories();
-		model.addAttribute("categories",list);
-		return viewPrefix+"categories";
-	}
-	
-	@RequestMapping(value="/categories/new", method=RequestMethod.GET)
-	public String createCategoryForm(Model model) {
-		Category category = new Category();
-		model.addAttribute("category",category);
-		
-		return viewPrefix+"create_category";
-	}
+    private static final String viewPrefix = "categories/";
 
-	@RequestMapping(value="/categories", method=RequestMethod.POST)
-	public String createCategory(@Valid @ModelAttribute("category") Category category, BindingResult result,
-			Model model, RedirectAttributes redirectAttributes) {
-		categoryValidator.validate(category, result);
-		if(result.hasErrors()){
-			return viewPrefix+"create_category";
-		}
-		Category persistedCategory = catalogService.createCategory(category);
-		logger.debug("Created new category with id : {} and name : {}", persistedCategory.getId(), persistedCategory.getName());
-		redirectAttributes.addFlashAttribute("info", "Category created successfully");
-		return "redirect:/categories";
-	}
-	
-	@RequestMapping(value="/categories/{id}", method=RequestMethod.GET)
-	public String editCategoryForm(@PathVariable Integer id, Model model) {
-		Category category = catalogService.getCategoryById(id);
-		model.addAttribute("category",category);
-		return viewPrefix+"edit_category";
-	}
-	
-	@RequestMapping(value="/categories/{id}", method=RequestMethod.POST)
-	public String updateCategory(Category category, Model model, RedirectAttributes redirectAttributes) {
-		Category persistedCategory = catalogService.updateCategory(category);
-		logger.debug("Updated category with id : {} and name : {}", persistedCategory.getId(), persistedCategory.getName());
-		redirectAttributes.addFlashAttribute("info", "Category updated successfully");
-		return "redirect:/categories";
-	}
+    @Autowired
+    private CatalogService catalogService;
+
+    @Autowired
+    private CategoryValidator categoryValidator;
+
+    @Override
+    protected String getHeaderTitle()
+    {
+        return "Manage Categories";
+    }
+
+    @RequestMapping(value = "/categories", method = RequestMethod.GET)
+    public String listCategories(Model model)
+    {
+        List<Category> list = catalogService.getAllCategories();
+        model.addAttribute("categories", list);
+        return viewPrefix + "categories";
+    }
+
+    @RequestMapping(value = "/categories/new", method = RequestMethod.GET)
+    public String createCategoryForm(Model model)
+    {
+        Category category = new Category();
+        model.addAttribute("category", category);
+
+        return viewPrefix + "create_category";
+    }
+
+    @RequestMapping(value = "/categories", method = RequestMethod.POST)
+    public String createCategory(@Valid @ModelAttribute("category") Category category,
+            BindingResult result, Model model, RedirectAttributes redirectAttributes)
+    {
+        categoryValidator.validate(category, result);
+        if (result.hasErrors())
+        {
+            return viewPrefix + "create_category";
+        }
+        Category persistedCategory = catalogService.createCategory(category);
+        logger.debug("Created new category with id : {} and name : {}",
+                persistedCategory.getId(), persistedCategory.getName());
+        redirectAttributes.addFlashAttribute("info", "Category created successfully");
+        return "redirect:/categories";
+    }
+
+    @RequestMapping(value = "/categories/{id}", method = RequestMethod.GET)
+    public String editCategoryForm(@PathVariable Integer id, Model model)
+    {
+        Category category = catalogService.getCategoryById(id);
+        model.addAttribute("category", category);
+        return viewPrefix + "edit_category";
+    }
+
+    @RequestMapping(value = "/categories/{id}", method = RequestMethod.POST)
+    public String updateCategory(Category category, Model model,
+            RedirectAttributes redirectAttributes)
+    {
+        Category persistedCategory = catalogService.updateCategory(category);
+        logger.debug("Updated category with id : {} and name : {}",
+                persistedCategory.getId(), persistedCategory.getName());
+        redirectAttributes.addFlashAttribute("info", "Category updated successfully");
+        return "redirect:/categories";
+    }
 
 }

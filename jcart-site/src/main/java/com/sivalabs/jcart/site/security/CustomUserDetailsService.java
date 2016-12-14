@@ -23,7 +23,8 @@ import com.sivalabs.jcart.entities.Customer;
 @Transactional
 public class CustomUserDetailsService implements UserDetailsService
 {
-	@Autowired CustomerService customerService;
+	@Autowired private CustomerService customerService;
+	
 	@Override
 	public UserDetails loadUserByUsername(String email)
 			throws UsernameNotFoundException {
