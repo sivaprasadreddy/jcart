@@ -22,12 +22,16 @@ import com.sivalabs.jcart.entities.Customer;
 import com.sivalabs.jcart.entities.Order;
 import com.sivalabs.jcart.site.web.validators.CustomerValidator;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Siva
  *
  */
+
+@Slf4j
 @Controller
-public class CustomerController extends JCartSiteBaseAbstractController
+public class CustomerController extends AbstractJCartSiteBaseController
 {
     @Autowired
     private CustomerService customerService;
@@ -63,7 +67,7 @@ public class CustomerController extends JCartSiteBaseAbstractController
         customer.setPassword(encodedPwd);
 
         Customer persistedCustomer = customerService.createCustomer(customer);
-        logger.debug("Created new Customer with id : {} and email : {}",
+        log.debug("Created new Customer with id : {} and email : {}",
                 persistedCustomer.getId(), persistedCustomer.getEmail());
         redirectAttributes.addFlashAttribute("info", "Customer created successfully");
         return "redirect:/login";

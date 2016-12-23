@@ -11,19 +11,20 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.sivalabs.jcart.common.services.JCLogger;
 import com.sivalabs.jcart.entities.Order;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Siva
  *
  */
+
+@Slf4j
 @Service
 @Transactional
 public class OrderService
 {
-    private static final JCLogger logger = JCLogger.getLogger(OrderService.class);
-
     @Autowired
     private OrderRepository orderRepository;
 
@@ -32,7 +33,7 @@ public class OrderService
         // order.setOrderNumber(UUID.randomUUID().toString());
         order.setOrderNumber(String.valueOf(System.currentTimeMillis()));
         Order savedOrder = orderRepository.save(order);
-        logger.info("New order created. Order Number : {}", savedOrder.getOrderNumber());
+        log.info("New order created. Order Number : {}", savedOrder.getOrderNumber());
         return savedOrder;
     }
 
@@ -52,6 +53,7 @@ public class OrderService
         Order o = getOrder(order.getOrderNumber());
         o.setStatus(order.getStatus());
         Order savedOrder = orderRepository.save(o);
+        log.info("Updated Order with Order Number : {}", savedOrder.getOrderNumber());
         return savedOrder;
     }
 

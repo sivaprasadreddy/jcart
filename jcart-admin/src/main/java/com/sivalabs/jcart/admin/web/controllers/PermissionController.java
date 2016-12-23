@@ -22,9 +22,9 @@ import com.sivalabs.jcart.security.SecurityService;
  */
 @Controller
 @Secured(SecurityUtil.MANAGE_PERMISSIONS)
-public class PermissionController extends JCartAdminAbstractController
+public class PermissionController extends AbstractJCartAdminController
 {
-    private static final String viewPrefix = "permissions/";
+    private static final String VIEWPREFIX = "permissions/";
 
     @Autowired
     protected SecurityService securityService;
@@ -40,7 +40,7 @@ public class PermissionController extends JCartAdminAbstractController
     {
         List<Permission> list = securityService.getAllPermissions();
         model.addAttribute("permissions", list);
-        return viewPrefix + "permissions";
+        return VIEWPREFIX + "permissions";
     }
 
 }

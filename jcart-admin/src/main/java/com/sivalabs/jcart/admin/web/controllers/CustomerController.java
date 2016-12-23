@@ -23,7 +23,7 @@ import com.sivalabs.jcart.entities.Customer;
  */
 @Controller
 @Secured(SecurityUtil.MANAGE_CUSTOMERS)
-public class CustomerController extends JCartAdminAbstractController
+public class CustomerController extends AbstractJCartAdminController
 {
     private static final String viewPrefix = "customers/";
 

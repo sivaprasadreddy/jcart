@@ -22,12 +22,15 @@ import com.sivalabs.jcart.catalog.CatalogService;
 import com.sivalabs.jcart.entities.Product;
 import com.sivalabs.jcart.site.web.utils.WebUtils;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Siva
  *
  */
+@Slf4j
 @Controller
-public class ProductController extends JCartSiteBaseAbstractController
+public class ProductController extends AbstractJCartSiteBaseController
 {
     @Autowired
     private CatalogService catalogService;
@@ -70,7 +73,7 @@ public class ProductController extends JCartSiteBaseAbstractController
         }
         catch (IOException e)
         {
-            logger.error(e.getMessage(), e);
+            log.error(e.getMessage(), e);
         }
     }
 }

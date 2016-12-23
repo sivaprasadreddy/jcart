@@ -24,7 +24,7 @@ import com.sivalabs.jcart.entities.Product;
  *
  */
 @Controller
-public class HomeController extends JCartSiteBaseAbstractController
+public class HomeController extends AbstractJCartSiteBaseController
 {
     @Autowired
     private CatalogService catalogService;

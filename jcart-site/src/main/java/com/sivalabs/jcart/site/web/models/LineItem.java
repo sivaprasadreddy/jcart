@@ -3,6 +3,7 @@
  */
 package com.sivalabs.jcart.site.web.models;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import com.sivalabs.jcart.entities.Product;
@@ -18,8 +19,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LineItem
+public class LineItem implements Serializable
 {
+    private static final long serialVersionUID = 1L;
     private Product product;
     private int quantity;
 

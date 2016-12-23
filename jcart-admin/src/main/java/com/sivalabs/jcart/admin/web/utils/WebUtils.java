@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletRequest;
  */
 public final class WebUtils
 {
+    public static final String IMAGES_PREFIX = "/products/images/";
+    public static final String IMAGES_DIR = "D:/jcart/products/";
+
     private WebUtils()
     {
         super();
     }
-
-    public static final String IMAGES_PREFIX = "/products/images/";
-    public static final String IMAGES_DIR = "D:/jcart/products/";
 
     public static String getURLWithContextPath(HttpServletRequest request)
     {

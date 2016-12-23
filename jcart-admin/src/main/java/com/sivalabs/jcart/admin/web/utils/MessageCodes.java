@@ -15,7 +15,8 @@ public final class MessageCodes
     public static final String ERROR_PASSWRD_CONF_PASSWRD_MISMATCH = "error.password_conf_password_mismatch";
     public static final String INFO_PASSWRD_UPDATED_SUCCESS = "info.password_updated_success";
 
-    private MessageCodes(){
+    private MessageCodes()
+    {
         super();
     }
 }

@@ -22,12 +22,15 @@ import com.sivalabs.jcart.admin.web.utils.WebUtils;
 import com.sivalabs.jcart.common.services.EmailService;
 import com.sivalabs.jcart.security.SecurityService;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Siva
  *
  */
+@Slf4j
 @Controller
-public class UserAuthController extends JCartAdminAbstractController
+public class UserAuthController extends AbstractJCartAdminController
 {
     private static final String viewPrefix = "public/";
 
@@ -62,14 +65,14 @@ public class UserAuthController extends JCartAdminAbstractController
             String token = securityService.resetPassword(email);
             String resetPwdURL = WebUtils.getURLWithContextPath(request)
                     + "/resetPwd?email=" + email + "&token=" + token;
-            logger.debug(resetPwdURL);
+            log.debug(resetPwdURL);
             this.sendForgotPasswordEmail(email, resetPwdURL);
             redirectAttributes.addFlashAttribute("msg",
                     getMessage(INFO_PASSWRD_RESET_LINK_SENT));
         }
         catch (JCartException e)
         {
-            logger.error(e);
+            log.error(e.getMessage(), e);
             redirectAttributes.addFlashAttribute("msg", e.getMessage());
         }
         return "redirect:/forgotPwd";
@@ -124,7 +127,7 @@ public class UserAuthController extends JCartAdminAbstractController
         }
         catch (JCartException e)
         {
-            logger.error(e);
+            log.error(e.getMessage(), e);
             redirectAttributes.addFlashAttribute("msg",
                     getMessage(ERROR_INVALID_PASSWRD_RESET_REQUEST));
         }
@@ -149,7 +152,7 @@ public class UserAuthController extends JCartAdminAbstractController
         }
         catch (JCartException e)
         {
-            logger.error(e);
+            log.error(e.getMessage(), e);
         }
     }
 }

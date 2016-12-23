@@ -13,7 +13,7 @@ import lombok.Getter;
  * @author Siva
  *
  */
-public class MenuConfiguration
+public final class MenuConfiguration
 {
 
     @Getter

@@ -35,15 +35,20 @@ import com.sivalabs.jcart.catalog.CatalogService;
 import com.sivalabs.jcart.entities.Category;
 import com.sivalabs.jcart.entities.Product;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Siva
  *
  */
+@Slf4j
 @Controller
 @Secured(SecurityUtil.MANAGE_PRODUCTS)
-public class ProductController extends JCartAdminAbstractController
+public class ProductController extends AbstractJCartAdminController
 {
-    private static final String viewPrefix = "products/";
+    
+    private static final String VIEWPREFIX = "products/";
+    
     @Autowired
     private CatalogService catalogService;
 
@@ -66,7 +71,7 @@ public class ProductController extends JCartAdminAbstractController
     public String listProducts(Model model)
     {
         model.addAttribute("products", catalogService.getAllProducts());
-        return viewPrefix + "products";
+        return VIEWPREFIX + "products";
     }
 
     @RequestMapping(value = "/products/new", method = RequestMethod.GET)
@@ -74,8 +79,7 @@ public class ProductController extends JCartAdminAbstractController
     {
         ProductForm product = new ProductForm();
         model.addAttribute("product", product);
-        // model.addAttribute("categoriesList",catalogService.getAllCategories());
-        return viewPrefix + "create_product";
+        return VIEWPREFIX + "create_product";
     }
 
     @RequestMapping(value = "/products", method = RequestMethod.POST)
@@ -85,13 +89,13 @@ public class ProductController extends JCartAdminAbstractController
         productFormValidator.validate(productForm, result);
         if (result.hasErrors())
         {
-            return viewPrefix + "create_product";
+            return VIEWPREFIX + "create_product";
         }
         Product product = productForm.toProduct();
         Product persistedProduct = catalogService.createProduct(product);
         productForm.setId(product.getId());
         this.saveProductImageToDisk(productForm);
-        logger.debug("Created new product with id : {} and name : {}",
+        log.debug("Created new product with id : {} and name : {}",
                 persistedProduct.getId(), persistedProduct.getName());
         redirectAttributes.addFlashAttribute("info", "Product created successfully");
         return "redirect:/products";
@@ -102,8 +106,7 @@ public class ProductController extends JCartAdminAbstractController
     {
         Product product = catalogService.getProductById(id);
         model.addAttribute("product", ProductForm.fromProduct(product));
-        // model.addAttribute("categoriesList",catalogService.getAllCategories());
-        return viewPrefix + "edit_product";
+        return VIEWPREFIX + "edit_product";
     }
 
     @RequestMapping(value = "/products/images/{productId}", method = RequestMethod.GET)
@@ -121,7 +124,7 @@ public class ProductController extends JCartAdminAbstractController
         }
         catch (IOException e)
         {
-            logger.error(e.getMessage(), e);
+            log.error(e.getMessage(), e);
         }
     }
 
@@ -132,12 +135,12 @@ public class ProductController extends JCartAdminAbstractController
         productFormValidator.validate(productForm, result);
         if (result.hasErrors())
         {
-            return viewPrefix + "edit_product";
+            return VIEWPREFIX + "edit_product";
         }
         Product product = productForm.toProduct();
         Product persistedProduct = catalogService.updateProduct(product);
         this.saveProductImageToDisk(productForm);
-        logger.debug("Updated product with id : {} and name : {}",
+        log.debug("Updated product with id : {} and name : {}",
                 persistedProduct.getId(), persistedProduct.getName());
         redirectAttributes.addFlashAttribute("info", "Product updated successfully");
         return "redirect:/products";

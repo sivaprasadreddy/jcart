@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-public class HomeController extends JCartAdminAbstractController
+public class HomeController extends AbstractJCartAdminController
 {
+    private static final String HOME = "home";
+
     @Override
     protected String getHeaderTitle()
     {
@@ -23,7 +25,7 @@ public class HomeController extends JCartAdminAbstractController
     @RequestMapping("/home")
     public String home(Model model)
     {
-        return "home";
+        return HOME;
     }
 
 }

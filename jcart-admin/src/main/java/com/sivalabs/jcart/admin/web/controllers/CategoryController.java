@@ -23,13 +23,17 @@ import com.sivalabs.jcart.admin.web.validators.CategoryValidator;
 import com.sivalabs.jcart.catalog.CatalogService;
 import com.sivalabs.jcart.entities.Category;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Siva
  *
  */
+
+@Slf4j
 @Controller
 @Secured(SecurityUtil.MANAGE_CATEGORIES)
-public class CategoryController extends JCartAdminAbstractController
+public class CategoryController extends AbstractJCartAdminController
 {
     private static final String viewPrefix = "categories/";
 
@@ -72,7 +76,7 @@ public class CategoryController extends JCartAdminAbstractController
             return viewPrefix + "create_category";
         }
         Category persistedCategory = catalogService.createCategory(category);
-        logger.debug("Created new category with id : {} and name : {}",
+        log.debug("Created new category with id : {} and name : {}",
                 persistedCategory.getId(), persistedCategory.getName());
         redirectAttributes.addFlashAttribute("info", "Category created successfully");
         return "redirect:/categories";
@@ -91,7 +95,7 @@ public class CategoryController extends JCartAdminAbstractController
             RedirectAttributes redirectAttributes)
     {
         Category persistedCategory = catalogService.updateCategory(category);
-        logger.debug("Updated category with id : {} and name : {}",
+        log.debug("Updated category with id : {} and name : {}",
                 persistedCategory.getId(), persistedCategory.getName());
         redirectAttributes.addFlashAttribute("info", "Category updated successfully");
         return "redirect:/categories";

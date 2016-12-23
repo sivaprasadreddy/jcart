@@ -28,13 +28,16 @@ import com.sivalabs.jcart.entities.Role;
 import com.sivalabs.jcart.entities.User;
 import com.sivalabs.jcart.security.SecurityService;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Siva
  *
  */
+@Slf4j
 @Controller
 @Secured(SecurityUtil.MANAGE_USERS)
-public class UserController extends JCartAdminAbstractController
+public class UserController extends AbstractJCartAdminController
 {
     private static final String viewPrefix = "users/";
     @Autowired
@@ -69,8 +72,6 @@ public class UserController extends JCartAdminAbstractController
     {
         User user = new User();
         model.addAttribute("user", user);
-        // model.addAttribute("rolesList",securityService.getAllRoles());
-
         return viewPrefix + "create_user";
     }
 
@@ -87,7 +88,7 @@ public class UserController extends JCartAdminAbstractController
         String encodedPwd = passwordEncoder.encode(password);
         user.setPassword(encodedPwd);
         User persistedUser = securityService.createUser(user);
-        logger.debug("Created new User with id : {} and name : {}", persistedUser.getId(),
+        log.debug("Created new User with id : {} and name : {}", persistedUser.getId(),
                 persistedUser.getName());
         redirectAttributes.addFlashAttribute("info", "User created successfully");
         return "redirect:/users";
@@ -118,7 +119,6 @@ public class UserController extends JCartAdminAbstractController
         }
         user.setRoles(userRoles);
         model.addAttribute("user", user);
-        // model.addAttribute("rolesList",allRoles);
         return viewPrefix + "edit_user";
     }
 
@@ -131,7 +131,7 @@ public class UserController extends JCartAdminAbstractController
             return viewPrefix + "edit_user";
         }
         User persistedUser = securityService.updateUser(user);
-        logger.debug("Updated user with id : {} and name : {}", persistedUser.getId(),
+        log.debug("Updated user with id : {} and name : {}", persistedUser.getId(),
                 persistedUser.getName());
         redirectAttributes.addFlashAttribute("info", "User updates successfully");
         return "redirect:/users";

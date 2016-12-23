@@ -24,15 +24,18 @@ import com.sivalabs.jcart.common.services.EmailService;
 import com.sivalabs.jcart.entities.Order;
 import com.sivalabs.jcart.orders.OrderService;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Siva
  *
  */
+@Slf4j
 @Controller
 @Secured(SecurityUtil.MANAGE_ORDERS)
-public class OrderController extends JCartAdminAbstractController
+public class OrderController extends AbstractJCartAdminController
 {
-    private static final String viewPrefix = "orders/";
+    private static final String VIEWPREFIX = "orders/";
 
     @Autowired
     protected EmailService emailService;
@@ -52,7 +55,7 @@ public class OrderController extends JCartAdminAbstractController
     {
         List<Order> list = orderService.getAllOrders();
         model.addAttribute("orders", list);
-        return viewPrefix + "orders";
+        return VIEWPREFIX + "orders";
     }
 
     @RequestMapping(value = "/orders/{orderNumber}", method = RequestMethod.GET)
@@ -60,7 +63,7 @@ public class OrderController extends JCartAdminAbstractController
     {
         Order order = orderService.getOrder(orderNumber);
         model.addAttribute("order", order);
-        return viewPrefix + "edit_order";
+        return VIEWPREFIX + "edit_order";
     }
 
     @RequestMapping(value = "/orders/{orderNumber}", method = RequestMethod.POST)
@@ -69,8 +72,7 @@ public class OrderController extends JCartAdminAbstractController
     {
         Order persistedOrder = orderService.updateOrder(order);
         this.sendOrderStatusUpdateEmail(persistedOrder);
-        logger.debug("Updated order with orderNumber : {}",
-                persistedOrder.getOrderNumber());
+        log.debug("Updated order with orderNumber : {}", persistedOrder.getOrderNumber());
         redirectAttributes.addFlashAttribute("info", "Order updated successfully");
         return "redirect:/orders";
     }
@@ -79,7 +81,6 @@ public class OrderController extends JCartAdminAbstractController
     {
         try
         {
-
             // Prepare the evaluation context
             final Context ctx = new Context();
             ctx.setVariable("order", order);
@@ -93,7 +94,7 @@ public class OrderController extends JCartAdminAbstractController
         }
         catch (JCartException e)
         {
-            logger.error(e);
+            log.error(e.getMessage(), e);
         }
     }
 }

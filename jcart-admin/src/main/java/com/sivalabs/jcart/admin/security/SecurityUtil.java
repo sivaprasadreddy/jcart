@@ -7,7 +7,7 @@ package com.sivalabs.jcart.admin.security;
  * @author Siva
  *
  */
-public class SecurityUtil
+public final class SecurityUtil
 {
 
     public static final String MANAGE_CATEGORIES = "ROLE_MANAGE_CATEGORIES";

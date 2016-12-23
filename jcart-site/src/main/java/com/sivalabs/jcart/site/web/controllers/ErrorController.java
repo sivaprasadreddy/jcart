@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-public class ErrorController extends JCartSiteBaseAbstractController
+public class ErrorController extends AbstractJCartSiteBaseController
 {
-    private static final String viewPrefix = "error/";
+    private static final String VIEWPREFIX = "error/";
 
     @Override
     protected String getHeaderTitle()
@@ -24,10 +24,7 @@ public class ErrorController extends JCartSiteBaseAbstractController
     @RequestMapping("/403")
     public String accessDenied()
     {
-        return viewPrefix + "accessDenied";
+        return VIEWPREFIX + "accessDenied";
     }
 
-    /*
-     * @RequestMapping("/error") public String error() { return viewPrefix+"error"; }
-     */
 }

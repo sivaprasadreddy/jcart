@@ -1,7 +1,6 @@
-/**
- * 
- */
 package com.sivalabs.jcart.site.web.controllers;
+
+import static java.util.Objects.isNull;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,17 +10,15 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import com.sivalabs.jcart.site.web.models.Cart;
-import com.sivalabs.jcart.common.services.JCLogger;
 import com.sivalabs.jcart.site.security.AuthenticatedUser;
+import com.sivalabs.jcart.site.web.models.Cart;
 
 /**
  * @author Siva
  *
  */
-public abstract class JCartSiteBaseAbstractController
+public abstract class AbstractJCartSiteBaseController
 {
-    protected final JCLogger logger = JCLogger.getLogger(getClass());
 
     @Autowired
     protected MessageSource messageSource;
@@ -58,7 +55,7 @@ public abstract class JCartSiteBaseAbstractController
                 .getPrincipal();
         if (principal instanceof AuthenticatedUser)
         {
-            return ((AuthenticatedUser) principal);
+            return (AuthenticatedUser) principal;
         }
         // principal object is either null or represents anonymous user -
         // neither of which our domain User object can represent - so return null
@@ -72,9 +69,9 @@ public abstract class JCartSiteBaseAbstractController
 
     protected Cart getOrCreateCart(HttpServletRequest request)
     {
-        Cart cart = null;
+        Cart cart;
         cart = (Cart) request.getSession().getAttribute("CART_KEY");
-        if (cart == null)
+        if (isNull(cart))
         {
             cart = new Cart();
             request.getSession().setAttribute("CART_KEY", cart);

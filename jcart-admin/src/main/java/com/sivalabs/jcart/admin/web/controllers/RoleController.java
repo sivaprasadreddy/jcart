@@ -27,13 +27,16 @@ import com.sivalabs.jcart.entities.Permission;
 import com.sivalabs.jcart.entities.Role;
 import com.sivalabs.jcart.security.SecurityService;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Siva
  *
  */
+@Slf4j
 @Controller
 @Secured(SecurityUtil.MANAGE_ROLES)
-public class RoleController extends JCartAdminAbstractController
+public class RoleController extends AbstractJCartAdminController
 {
     private static final String viewPrefix = "roles/";
 
@@ -67,8 +70,6 @@ public class RoleController extends JCartAdminAbstractController
     {
         Role role = new Role();
         model.addAttribute("role", role);
-        // model.addAttribute("permissionsList",securityService.getAllPermissions());
-
         return viewPrefix + "create_role";
     }
 
@@ -82,7 +83,7 @@ public class RoleController extends JCartAdminAbstractController
             return viewPrefix + "create_role";
         }
         Role persistedRole = securityService.createRole(role);
-        logger.debug("Created new role with id : {} and name : {}", persistedRole.getId(),
+        log.debug("Created new role with id : {} and name : {}", persistedRole.getId(),
                 persistedRole.getName());
         redirectAttributes.addFlashAttribute("info", "Role created successfully");
         return "redirect:/roles";
@@ -113,7 +114,6 @@ public class RoleController extends JCartAdminAbstractController
         }
         role.setPermissions(rolePermissions);
         model.addAttribute("role", role);
-        // model.addAttribute("permissionsList",allPermissions);
         return viewPrefix + "edit_role";
     }
 
@@ -122,7 +122,7 @@ public class RoleController extends JCartAdminAbstractController
             Model model, RedirectAttributes redirectAttributes)
     {
         Role persistedRole = securityService.updateRole(role);
-        logger.debug("Updated role with id : {} and name : {}", persistedRole.getId(),
+        log.debug("Updated role with id : {} and name : {}", persistedRole.getId(),
                 persistedRole.getName());
         redirectAttributes.addFlashAttribute("info", "Role updated successfully");
         return "redirect:/roles";

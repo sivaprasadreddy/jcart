@@ -9,7 +9,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import static javax.persistence.GenerationType.AUTO;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -30,13 +30,15 @@ import lombok.Data;
 public class Role implements Serializable
 {
     private static final long serialVersionUID = 1L;
-    
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = AUTO)
     private Integer id;
-    @Column(nullable = false, unique = true)
+
     @NotEmpty
+    @Column(unique = true, nullable = false)
     private String name;
+
     @Column(length = 1024)
     private String description;
 

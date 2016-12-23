@@ -14,10 +14,13 @@ import org.springframework.web.multipart.MultipartFile;
 import com.sivalabs.jcart.entities.Category;
 import com.sivalabs.jcart.entities.Product;
 
+import lombok.Data;
+
 /**
  * @author Siva
  *
  */
+@Data
 public class ProductForm
 {
     private Integer id;
@@ -35,96 +38,6 @@ public class ProductForm
     @NotNull
     private Integer categoryId;
 
-    public Integer getId()
-    {
-        return id;
-    }
-
-    public void setId(Integer id)
-    {
-        this.id = id;
-    }
-
-    public String getSku()
-    {
-        return sku;
-    }
-
-    public void setSku(String sku)
-    {
-        this.sku = sku;
-    }
-
-    public String getName()
-    {
-        return name;
-    }
-
-    public void setName(String name)
-    {
-        this.name = name;
-    }
-
-    public String getDescription()
-    {
-        return description;
-    }
-
-    public void setDescription(String description)
-    {
-        this.description = description;
-    }
-
-    public BigDecimal getPrice()
-    {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price)
-    {
-        this.price = price;
-    }
-
-    public String getImageUrl()
-    {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl)
-    {
-        this.imageUrl = imageUrl;
-    }
-
-    public MultipartFile getImage()
-    {
-        return image;
-    }
-
-    public void setImage(MultipartFile image)
-    {
-        this.image = image;
-    }
-
-    public boolean isDisabled()
-    {
-        return disabled;
-    }
-
-    public void setDisabled(boolean disabled)
-    {
-        this.disabled = disabled;
-    }
-
-    public Integer getCategoryId()
-    {
-        return categoryId;
-    }
-
-    public void setCategoryId(Integer categoryId)
-    {
-        this.categoryId = categoryId;
-    }
-
     public Product toProduct()
     {
         Product p = new Product();
@@ -137,7 +50,6 @@ public class ProductForm
         Category category = new Category();
         category.setId(categoryId);
         p.setCategory(category);
-        // p.setImageUrl(WebUtils.IMAGES_PREFIX+id+".jpg");
         return p;
     }
 
@@ -151,7 +63,6 @@ public class ProductForm
         p.setPrice(product.getPrice());
         p.setSku(product.getSku());
         p.setCategoryId(product.getCategory().getId());
-        // p.setImageUrl(WebUtils.IMAGES_PREFIX+product.getId()+".jpg");
         return p;
     }
 }

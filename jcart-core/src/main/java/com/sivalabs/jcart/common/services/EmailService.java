@@ -15,15 +15,16 @@ import org.springframework.stereotype.Component;
 
 import com.sivalabs.jcart.JCartException;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author Siva
  *
  */
+@Slf4j
 @Component
 public class EmailService
 {
-    private static final JCLogger logger = JCLogger.getLogger(EmailService.class);
-
     @Autowired
     private JavaMailSender javaMailSender;
 
@@ -46,7 +47,7 @@ public class EmailService
         }
         catch (MailException | MessagingException e)
         {
-            logger.error(e);
+            log.error(e.getMessage(), e);
             throw new JCartException("Unable to send email");
         }
     }

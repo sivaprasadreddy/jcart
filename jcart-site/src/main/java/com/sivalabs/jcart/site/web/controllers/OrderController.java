@@ -26,6 +26,9 @@ import com.sivalabs.jcart.customers.CustomerService;
 import com.sivalabs.jcart.site.web.models.Cart;
 import com.sivalabs.jcart.site.web.models.LineItem;
 import com.sivalabs.jcart.site.web.models.OrderDTO;
+
+import lombok.extern.slf4j.Slf4j;
+
 import com.sivalabs.jcart.entities.Address;
 import com.sivalabs.jcart.entities.Customer;
 import com.sivalabs.jcart.entities.Order;
@@ -37,8 +40,9 @@ import com.sivalabs.jcart.orders.OrderService;
  * @author Siva
  *
  */
+@Slf4j
 @Controller
-public class OrderController extends JCartSiteBaseAbstractController
+public class OrderController extends AbstractJCartSiteBaseController
 {
 
     @Autowired
@@ -128,7 +132,8 @@ public class OrderController extends JCartSiteBaseAbstractController
         }
         catch (JCartException e)
         {
-            logger.error(e);
+            log.error("Exception occured while attempting to send confirmation email :{}",
+                    e.getMessage(), e);
         }
     }
 

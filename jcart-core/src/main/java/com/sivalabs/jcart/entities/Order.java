@@ -40,24 +40,32 @@ public class Order implements Serializable
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(nullable = false, unique = true)
+
+    @Column(unique = true, nullable = false)
     private String orderNumber;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
     private Set<OrderItem> items;
+    
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "cust_id")
     private Customer customer;
+    
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "delivery_addr_id")
     private Address deliveryAddress;
+    
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "billing_addr_id")
     private Address billingAddress;
+    
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "payment_id")
     private Payment payment;
+    
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
+    
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_on")
     private Date createdOn;

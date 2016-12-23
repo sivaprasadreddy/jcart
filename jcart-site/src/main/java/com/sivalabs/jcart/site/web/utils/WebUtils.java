@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
  * @author rajakolli
  *
  */
-public class WebUtils
+public final class WebUtils
 {
+    public static final String IMAGES_PREFIX = "/products/images/";
+    public static final String IMAGES_DIR = WebUtils.class.getClassLoader()
+            .getResource("static/assets/img/products/").getPath();
+    
     private WebUtils()
     {
         super();
     }
-
-    public static final String IMAGES_PREFIX = "/products/images/";
-    public static final String IMAGES_DIR = WebUtils.class.getClassLoader()
-            .getResource("static/assets/img/products/").getPath();
 
     public static String getURLWithContextPath(HttpServletRequest request)
     {

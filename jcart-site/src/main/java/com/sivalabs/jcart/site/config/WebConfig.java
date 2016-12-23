@@ -16,7 +16,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
@@ -51,12 +50,6 @@ public class WebConfig extends WebMvcConfigurerAdapter
         registry.addViewController("/register").setViewName("register");
         registry.addRedirectViewController("/", "/home");
 
-    }
-
-    @Override
-    public void addInterceptors(InterceptorRegistry registry)
-    {
-        super.addInterceptors(registry);
     }
 
     @Bean

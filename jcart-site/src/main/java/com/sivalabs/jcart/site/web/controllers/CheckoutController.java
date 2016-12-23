@@ -18,7 +18,7 @@ import com.sivalabs.jcart.site.web.models.OrderDTO;
  *
  */
 @Controller
-public class CheckoutController extends JCartSiteBaseAbstractController
+public class CheckoutController extends AbstractJCartSiteBaseController
 {
 
     @Override

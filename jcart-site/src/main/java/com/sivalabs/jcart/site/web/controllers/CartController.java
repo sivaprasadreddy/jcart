@@ -29,7 +29,7 @@ import com.sivalabs.jcart.site.web.models.LineItem;
  *
  */
 @Controller
-public class CartController extends JCartSiteBaseAbstractController
+public class CartController extends AbstractJCartSiteBaseController
 {
     @Autowired
     private CatalogService catalogService;

@@ -10,16 +10,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.sivalabs.jcart.admin.security.AuthenticatedUser;
-import com.sivalabs.jcart.common.services.JCLogger;
 
 /**
  * @author Siva
  *
  */
-public abstract class JCartAdminAbstractController
+public abstract class AbstractJCartAdminController
 {
-    protected final JCLogger logger = JCLogger.getLogger(getClass());
-
     @Autowired
     protected MessageSource messageSource;
 

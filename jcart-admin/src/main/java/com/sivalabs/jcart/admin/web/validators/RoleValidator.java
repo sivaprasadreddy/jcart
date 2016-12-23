@@ -35,8 +35,8 @@ public class RoleValidator implements Validator
     {
         Role role = (Role) target;
         String name = role.getName();
-        Role RoleByName = securityService.getRoleByName(name);
-        if (RoleByName != null)
+        Role roleByName = securityService.getRoleByName(name);
+        if (roleByName != null)
         {
             errors.rejectValue("name", "error.exists", new Object[] { name },
                     "Role " + name + " already exists");
