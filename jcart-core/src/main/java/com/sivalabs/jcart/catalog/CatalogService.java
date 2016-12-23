@@ -24,10 +24,22 @@ import com.sivalabs.jcart.entities.Product;
 @Transactional
 public class CatalogService
 {
-    @Autowired
     private CategoryRepository categoryRepository;
-    @Autowired
     private ProductRepository productRepository;
+
+    /**
+     * Spring {@link Autowired}
+     * 
+     * @param categoryRepository
+     * @param productRepository
+     */
+    public CatalogService(CategoryRepository categoryRepository,
+            ProductRepository productRepository)
+    {
+        super();
+        this.categoryRepository = categoryRepository;
+        this.productRepository = productRepository;
+    }
 
     public List<Category> getAllCategories()
     {

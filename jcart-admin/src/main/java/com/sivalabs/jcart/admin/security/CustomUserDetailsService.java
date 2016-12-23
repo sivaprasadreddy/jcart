@@ -3,7 +3,6 @@
  */
 package com.sivalabs.jcart.admin.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,8 +21,15 @@ import com.sivalabs.jcart.security.SecurityService;
 public class CustomUserDetailsService implements UserDetailsService
 {
 
-    @Autowired
     private SecurityService securityService;
+
+    /**
+     * @param securityService
+     */
+    public CustomUserDetailsService(SecurityService securityService)
+    {
+        this.securityService = securityService;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String userName)

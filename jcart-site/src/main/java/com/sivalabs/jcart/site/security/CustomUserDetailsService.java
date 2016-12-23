@@ -20,8 +20,17 @@ import com.sivalabs.jcart.entities.Customer;
 @Transactional
 public class CustomUserDetailsService implements UserDetailsService
 {
-    @Autowired
     private CustomerService customerService;
+
+    /**
+     * Spring {@link Autowired} Constructor Injection
+     * 
+     * @param customerService
+     */
+    public CustomUserDetailsService(CustomerService customerService)
+    {
+        this.customerService = customerService;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String email)

@@ -17,8 +17,17 @@ import com.sivalabs.jcart.entities.Order;
 @Transactional
 public class CustomerService
 {
-    @Autowired
     private CustomerRepository customerRepository;
+
+    /**
+     * Spring {@link Autowired}
+     * 
+     * @param customerRepository
+     */
+    public CustomerService(CustomerRepository customerRepository)
+    {
+        this.customerRepository = customerRepository;
+    }
 
     public Customer getCustomerByEmail(String email)
     {

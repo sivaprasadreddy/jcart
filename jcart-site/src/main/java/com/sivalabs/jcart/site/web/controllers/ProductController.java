@@ -29,8 +29,17 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class ProductController extends AbstractJCartSiteController
 {
-    @Autowired
     private CatalogService catalogService;
+
+    /**
+     * Spring {@link Autowired} Constructor Injection
+     * 
+     * @param catalogService
+     */
+    public ProductController(CatalogService catalogService)
+    {
+        this.catalogService = catalogService;
+    }
 
     @Override
     protected String getHeaderTitle()

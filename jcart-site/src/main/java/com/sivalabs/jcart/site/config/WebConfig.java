@@ -30,8 +30,17 @@ public class WebConfig extends WebMvcConfigurerAdapter
     @Value("${server.port:8443}")
     private int serverPort;
 
-    @Autowired
     private MessageSource messageSource;
+
+    /**
+     * Spring {@link Autowired} Constructor Injection
+     * 
+     * @param messageSource
+     */
+    public WebConfig(MessageSource messageSource)
+    {
+        this.messageSource = messageSource;
+    }
 
     @Override
     public Validator getValidator()

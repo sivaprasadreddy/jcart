@@ -30,12 +30,24 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class CustomerController extends AbstractJCartSiteController
 {
-    @Autowired
     private CustomerService customerService;
-    @Autowired
     private CustomerValidator customerValidator;
-    @Autowired
-    protected PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
+
+    /**
+     * Spring {@link Autowired} Constructor Injection
+     * 
+     * @param customerService
+     * @param customerValidator
+     * @param passwordEncoder
+     */
+    public CustomerController(CustomerService customerService,
+            CustomerValidator customerValidator, PasswordEncoder passwordEncoder)
+    {
+        this.customerService = customerService;
+        this.customerValidator = customerValidator;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     protected String getHeaderTitle()
@@ -44,14 +56,14 @@ public class CustomerController extends AbstractJCartSiteController
     }
 
     @GetMapping(value = "/register")
-    protected String registerForm(Model model)
+    public String registerForm(Model model)
     {
         model.addAttribute("customer", new Customer());
         return "register";
     }
 
     @PostMapping(value = "/register")
-    protected String register(@Valid @ModelAttribute("customer") Customer customer,
+    public String register(@Valid @ModelAttribute("customer") Customer customer,
             BindingResult result, Model model, RedirectAttributes redirectAttributes)
     {
         customerValidator.validate(customer, result);
@@ -71,7 +83,7 @@ public class CustomerController extends AbstractJCartSiteController
     }
 
     @GetMapping(value = "/myAccount")
-    protected String myAccount(Model model)
+    public String myAccount(Model model)
     {
         String email = getCurrentUser().getCustomer().getEmail();
         Customer customer = customerService.getCustomerByEmail(email);

@@ -26,8 +26,16 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 {
 
-    @Autowired
     private UserDetailsService customUserDetailsService;
+
+    /**
+     * @param customUserDetailsService
+     */
+    public WebSecurityConfig(UserDetailsService customUserDetailsService)
+    {
+        super();
+        this.customUserDetailsService = customUserDetailsService;
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder()
@@ -38,15 +46,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
     @Override
     protected void configure(HttpSecurity http) throws Exception
     {
-        http.csrf().disable().authorizeRequests()
+        http
+            .csrf().disable()
+            .authorizeRequests()
                 .antMatchers("/resources/**", "/webjars/**", "/assets/**").permitAll()
                 .antMatchers("/", "/forgotPwd", "/resetPwd").permitAll()
                 // .antMatchers(HttpMethod.POST,"/api","/api/**").hasRole("ROLE_ADMIN")
-                .anyRequest().authenticated().and().formLogin().loginPage("/login")
-                .defaultSuccessUrl("/home").failureUrl("/login?error").permitAll().and()
-                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                // .logoutUrl("/logout")
-                .permitAll().and().exceptionHandling().accessDeniedPage("/403");
+                .anyRequest().authenticated()
+            .and()
+                .formLogin()
+                    .loginPage("/login")
+                    .defaultSuccessUrl("/home")
+                    .failureUrl("/login?error").permitAll()
+            .and()
+                .logout()
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll()
+            .and()
+                .exceptionHandling()
+                    .accessDeniedPage("/403");
     }
 
     @Autowired

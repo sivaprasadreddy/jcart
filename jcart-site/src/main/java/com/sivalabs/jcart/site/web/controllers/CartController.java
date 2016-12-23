@@ -30,8 +30,17 @@ import com.sivalabs.jcart.site.web.models.LineItem;
 @Controller
 public class CartController extends AbstractJCartSiteController
 {
-    @Autowired
     private CatalogService catalogService;
+
+    /**
+     * Spring {@link Autowired} Constructor Injection
+     * 
+     * @param catalogService
+     */
+    public CartController(CatalogService catalogService)
+    {
+        this.catalogService = catalogService;
+    }
 
     @Override
     protected String getHeaderTitle()

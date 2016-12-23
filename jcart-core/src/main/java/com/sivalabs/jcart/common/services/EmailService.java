@@ -22,11 +22,20 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class EmailService
 {
-    @Autowired
     private JavaMailSender javaMailSender;
 
     @Value("${support.email}")
     private String supportEmail;
+
+    /**
+     * Spring {@link Autowired}
+     * 
+     * @param javaMailSender
+     */
+    public EmailService(JavaMailSender javaMailSender)
+    {
+        this.javaMailSender = javaMailSender;
+    }
 
     public void sendEmail(String to, String subject, String content)
     {

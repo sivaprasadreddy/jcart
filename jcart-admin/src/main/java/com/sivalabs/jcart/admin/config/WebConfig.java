@@ -34,11 +34,21 @@ public class WebConfig extends WebMvcConfigurerAdapter
     @Value("${server.port:9443}")
     private int serverPort;
 
-    @Autowired
     private PostAuthorizationFilter postAuthorizationFilter;
-
-    @Autowired
     private MessageSource messageSource;
+
+    /**
+     * Spring {@link Autowired}
+     * 
+     * @param postAuthorizationFilter
+     * @param messageSource
+     */
+    public WebConfig(PostAuthorizationFilter postAuthorizationFilter,
+            MessageSource messageSource)
+    {
+        this.postAuthorizationFilter = postAuthorizationFilter;
+        this.messageSource = messageSource;
+    }
 
     @Override
     public Validator getValidator()

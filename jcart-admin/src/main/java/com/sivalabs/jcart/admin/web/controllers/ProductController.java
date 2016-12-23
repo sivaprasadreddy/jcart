@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -49,11 +48,20 @@ public class ProductController extends AbstractJCartAdminController
 
     private static final String VIEWPREFIX = "products/";
 
-    @Autowired
     private CatalogService catalogService;
-
-    @Autowired
     private ProductFormValidator productFormValidator;
+
+    /**
+     * @param catalogService
+     * @param productFormValidator
+     */
+    public ProductController(CatalogService catalogService,
+            ProductFormValidator productFormValidator)
+    {
+        super();
+        this.catalogService = catalogService;
+        this.productFormValidator = productFormValidator;
+    }
 
     @Override
     protected String getHeaderTitle()
@@ -94,7 +102,7 @@ public class ProductController extends AbstractJCartAdminController
         Product product = productForm.toProduct();
         Product persistedProduct = catalogService.createProduct(product);
         productForm.setId(product.getId());
-        this.saveProductImageToDisk(productForm);
+        ProductController.saveProductImageToDisk(productForm);
         log.debug("Created new product with id : {} and name : {}",
                 persistedProduct.getId(), persistedProduct.getName());
         redirectAttributes.addFlashAttribute("info", "Product created successfully");
@@ -139,14 +147,14 @@ public class ProductController extends AbstractJCartAdminController
         }
         Product product = productForm.toProduct();
         Product persistedProduct = catalogService.updateProduct(product);
-        this.saveProductImageToDisk(productForm);
+        ProductController.saveProductImageToDisk(productForm);
         log.debug("Updated product with id : {} and name : {}", persistedProduct.getId(),
                 persistedProduct.getName());
         redirectAttributes.addFlashAttribute("info", "Product updated successfully");
         return "redirect:/products";
     }
 
-    private void saveProductImageToDisk(ProductForm productForm)
+    private static void saveProductImageToDisk(ProductForm productForm)
     {
         MultipartFile file = productForm.getImage();
         if (file != null && !file.isEmpty())

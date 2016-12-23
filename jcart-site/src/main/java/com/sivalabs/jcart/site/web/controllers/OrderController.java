@@ -41,12 +41,24 @@ import lombok.extern.slf4j.Slf4j;
 public class OrderController extends AbstractJCartSiteController
 {
 
-    @Autowired
     private CustomerService customerService;
-    @Autowired
-    protected OrderService orderService;
-    @Autowired
-    protected EmailService emailService;
+    private OrderService orderService;
+    private EmailService emailService;
+
+    /**
+     * Spring {@link Autowired} Constructor Injection
+     * 
+     * @param customerService
+     * @param orderService
+     * @param emailService
+     */
+    public OrderController(CustomerService customerService, OrderService orderService,
+            EmailService emailService)
+    {
+        this.customerService = customerService;
+        this.orderService = orderService;
+        this.emailService = emailService;
+    }
 
     @Override
     protected String getHeaderTitle()

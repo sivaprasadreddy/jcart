@@ -3,7 +3,11 @@
  */
 package com.sivalabs.jcart.admin.web.controllers;
 
-import static com.sivalabs.jcart.admin.web.utils.MessageCodes.*;
+import static com.sivalabs.jcart.admin.web.utils.MessageCodes.ERROR_INVALID_PASSWRD_RESET_REQUEST;
+import static com.sivalabs.jcart.admin.web.utils.MessageCodes.ERROR_PASSWRD_CONF_PASSWRD_MISMATCH;
+import static com.sivalabs.jcart.admin.web.utils.MessageCodes.INFO_PASSWRD_RESET_LINK_SENT;
+import static com.sivalabs.jcart.admin.web.utils.MessageCodes.INFO_PASSWRD_UPDATED_SUCCESS;
+import static com.sivalabs.jcart.admin.web.utils.MessageCodes.LABEL_PASSWRD_RESET_EMAIL_SUBJECT;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -32,16 +36,30 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class UserAuthController extends AbstractJCartAdminController
 {
-    private static final String viewPrefix = "public/";
+    private static final String VIEWPREFIX = "public/";
 
-    @Autowired
     protected SecurityService securityService;
-    @Autowired
     protected EmailService emailService;
-    @Autowired
     protected PasswordEncoder passwordEncoder;
-    @Autowired
     protected TemplateEngine templateEngine;
+
+    /**
+     * Spring {@link Autowired}
+     * 
+     * @param securityService
+     * @param emailService
+     * @param passwordEncoder
+     * @param templateEngine
+     */
+    public UserAuthController(SecurityService securityService, EmailService emailService,
+            PasswordEncoder passwordEncoder, TemplateEngine templateEngine)
+    {
+        super();
+        this.securityService = securityService;
+        this.emailService = emailService;
+        this.passwordEncoder = passwordEncoder;
+        this.templateEngine = templateEngine;
+    }
 
     @Override
     protected String getHeaderTitle()
@@ -52,7 +70,7 @@ public class UserAuthController extends AbstractJCartAdminController
     @RequestMapping(value = "/forgotPwd", method = RequestMethod.GET)
     public String forgotPwd()
     {
-        return viewPrefix + "forgotPwd";
+        return VIEWPREFIX + "forgotPwd";
     }
 
     @RequestMapping(value = "/forgotPwd", method = RequestMethod.POST)
@@ -90,7 +108,7 @@ public class UserAuthController extends AbstractJCartAdminController
         {
             model.addAttribute("email", email);
             model.addAttribute("token", token);
-            return viewPrefix + "resetPwd";
+            return VIEWPREFIX + "resetPwd";
         }
         else
         {
@@ -117,7 +135,7 @@ public class UserAuthController extends AbstractJCartAdminController
                 model.addAttribute("token", token);
                 model.addAttribute("msg",
                         getMessage(ERROR_PASSWRD_CONF_PASSWRD_MISMATCH));
-                return viewPrefix + "resetPwd";
+                return VIEWPREFIX + "resetPwd";
             }
             String encodedPwd = passwordEncoder.encode(password);
             securityService.updatePassword(email, token, encodedPwd);

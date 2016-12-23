@@ -69,9 +69,10 @@ public abstract class AbstractJCartSiteController
 
     protected Cart getOrCreateCart(HttpServletRequest request)
     {
-        Cart cart = null;
+        Cart cart;
         cart = (Cart) request.getSession().getAttribute("CART_KEY");
-        if(isNull(cart)){
+        if (isNull(cart))
+        {
             cart = new Cart();
             request.getSession().setAttribute("CART_KEY", cart);
         }

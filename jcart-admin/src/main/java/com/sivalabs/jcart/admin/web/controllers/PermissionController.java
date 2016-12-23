@@ -2,7 +2,6 @@ package com.sivalabs.jcart.admin.web.controllers;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,8 +21,16 @@ public class PermissionController extends AbstractJCartAdminController
 {
     private static final String VIEWPREFIX = "permissions/";
 
-    @Autowired
-    protected SecurityService securityService;
+    private SecurityService securityService;
+
+    /**
+     * @param securityService
+     */
+    public PermissionController(SecurityService securityService)
+    {
+        super();
+        this.securityService = securityService;
+    }
 
     @Override
     protected String getHeaderTitle()

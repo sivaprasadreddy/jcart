@@ -10,7 +10,6 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,10 +39,22 @@ public class RoleController extends AbstractJCartAdminController
 {
     private static final String VIEWPREFIX = "roles/";
 
-    @Autowired
-    protected SecurityService securityService;
-    @Autowired
+    private SecurityService securityService;
     private RoleValidator roleValidator;
+    
+    /**
+     * Autowiring 
+     * 
+     * @param securityService
+     * @param roleValidator
+     */
+    public RoleController(SecurityService securityService, RoleValidator roleValidator)
+    {
+        super();
+        this.securityService = securityService;
+        this.roleValidator = roleValidator;
+    }
+
 
     @Override
     protected String getHeaderTitle()

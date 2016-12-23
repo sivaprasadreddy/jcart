@@ -23,8 +23,17 @@ import com.sivalabs.jcart.entities.Product;
 @Controller
 public class HomeController extends AbstractJCartSiteController
 {
-    @Autowired
     private CatalogService catalogService;
+
+    /**
+     * Spring {@link Autowired} Constructor Injection
+     * 
+     * @param catalogService
+     */
+    public HomeController(CatalogService catalogService)
+    {
+        this.catalogService = catalogService;
+    }
 
     @Override
     protected String getHeaderTitle()

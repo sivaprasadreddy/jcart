@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.sivalabs.jcart.admin.security;
 
 import java.util.HashMap;
@@ -17,18 +14,18 @@ public final class MenuConfiguration
 {
 
     @Getter
-    private static Map<String, String> menu_url_pattern_map = new HashMap<>();
+    private static Map<String, String> MENU_URL_PATTERn_MAP = new HashMap<>();
 
     static
     {
-        menu_url_pattern_map.put("/home", "Home");
-        menu_url_pattern_map.put("/categories", "Categories");
-        menu_url_pattern_map.put("/products", "Products");
-        menu_url_pattern_map.put("/orders", "Orders");
-        menu_url_pattern_map.put("/customers", "Customers");
-        menu_url_pattern_map.put("/users", "Users");
-        menu_url_pattern_map.put("/roles", "Roles");
-        menu_url_pattern_map.put("/permissions", "Permissions");
+        MENU_URL_PATTERn_MAP.put("/home", "Home");
+        MENU_URL_PATTERn_MAP.put("/categories", "Categories");
+        MENU_URL_PATTERn_MAP.put("/products", "Products");
+        MENU_URL_PATTERn_MAP.put("/orders", "Orders");
+        MENU_URL_PATTERn_MAP.put("/customers", "Customers");
+        MENU_URL_PATTERn_MAP.put("/users", "Users");
+        MENU_URL_PATTERn_MAP.put("/roles", "Roles");
+        MENU_URL_PATTERn_MAP.put("/permissions", "Permissions");
     }
 
     private MenuConfiguration()
@@ -38,12 +35,12 @@ public final class MenuConfiguration
 
     public static String getMatchingMenu(String uri)
     {
-        Set<String> keySet = menu_url_pattern_map.keySet();
+        Set<String> keySet = MENU_URL_PATTERn_MAP.keySet();
         for (String key : keySet)
         {
             if (uri.startsWith(key))
             {
-                return menu_url_pattern_map.get(key);
+                return MENU_URL_PATTERn_MAP.get(key);
             }
         }
         return "";

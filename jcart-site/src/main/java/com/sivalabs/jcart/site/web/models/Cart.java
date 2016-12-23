@@ -23,7 +23,7 @@ import lombok.Setter;
 public class Cart implements Serializable
 {
     private static final long serialVersionUID = 1L;
-    
+
     @Getter
     @Setter
     private List<LineItem> items;
@@ -36,7 +36,7 @@ public class Cart implements Serializable
     @Getter
     @Setter
     private Payment payment;
-    
+
     public Cart()
     {
         items = new ArrayList<>();
@@ -44,60 +44,64 @@ public class Cart implements Serializable
         deliveryAddress = new Address();
         payment = new Payment();
     }
-    
 
     public void addItem(Product product)
     {
         for (LineItem lineItem : items)
         {
-            if(lineItem.getProduct().getSku().equals(product.getSku())){
-                lineItem.setQuantity(lineItem.getQuantity()+1);
+            if (lineItem.getProduct().getSku().equals(product.getSku()))
+            {
+                lineItem.setQuantity(lineItem.getQuantity() + 1);
                 return;
             }
         }
         LineItem item = new LineItem(product, 1);
-        this.items.add(item);       
+        this.items.add(item);
     }
-    
+
     public void updateItemQuantity(Product product, int quantity)
     {
         for (LineItem lineItem : items)
         {
-            if(lineItem.getProduct().getSku().equals(product.getSku())){
+            if (lineItem.getProduct().getSku().equals(product.getSku()))
+            {
                 lineItem.setQuantity(quantity);
             }
         }
     }
-    
+
     public void removeItem(String sku)
     {
-        LineItem  item = null;
+        LineItem item = null;
         for (LineItem lineItem : items)
         {
-            if(lineItem.getProduct().getSku().equals(sku)){
+            if (lineItem.getProduct().getSku().equals(sku))
+            {
                 item = lineItem;
                 break;
             }
         }
-        if(item != null){
+        if (item != null)
+        {
             items.remove(item);
         }
     }
-    
+
     public void clearItems()
     {
         items = new ArrayList<>();
     }
-    
+
     public int getItemCount()
     {
         int count = 0;
-        for (LineItem lineItem : items) {
-            count +=  lineItem.getQuantity();
+        for (LineItem lineItem : items)
+        {
+            count += lineItem.getQuantity();
         }
         return count;
     }
-    
+
     public BigDecimal getTotalAmount()
     {
         BigDecimal amount = new BigDecimal("0.0");
@@ -107,5 +111,5 @@ public class Cart implements Serializable
         }
         return amount;
     }
-    
+
 }

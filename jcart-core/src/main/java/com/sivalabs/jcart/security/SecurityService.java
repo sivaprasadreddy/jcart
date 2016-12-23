@@ -25,12 +25,25 @@ import com.sivalabs.jcart.entities.User;
 @Transactional
 public class SecurityService
 {
-    @Autowired
     private UserRepository userRepository;
-    @Autowired
     private PermissionRepository permissionRepository;
-    @Autowired
     private RoleRepository roleRepository;
+
+    /**
+     * Spring {@link Autowired} Constructor Injection
+     * 
+     * @param userRepository
+     * @param permissionRepository
+     * @param roleRepository
+     */
+    public SecurityService(UserRepository userRepository,
+            PermissionRepository permissionRepository, RoleRepository roleRepository)
+    {
+        super();
+        this.userRepository = userRepository;
+        this.permissionRepository = permissionRepository;
+        this.roleRepository = roleRepository;
+    }
 
     public User findUserByEmail(String email)
     {

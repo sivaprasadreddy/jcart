@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,11 +33,20 @@ public class CategoryController extends AbstractJCartAdminController
 {
     private static final String VIEWPREFIX = "categories/";
 
-    @Autowired
     private CatalogService catalogService;
-
-    @Autowired
     private CategoryValidator categoryValidator;
+    
+    /**
+     * @param catalogService
+     * @param categoryValidator
+     */
+    public CategoryController(CatalogService catalogService,
+            CategoryValidator categoryValidator)
+    {
+        super();
+        this.catalogService = catalogService;
+        this.categoryValidator = categoryValidator;
+    }
 
     @Override
     protected String getHeaderTitle()

@@ -31,23 +31,23 @@ public class Customer implements Serializable
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Integer id;
-    
+
     @Column(name = "firstname", nullable = false)
     @NotEmpty
     private String firstName;
-    
+
     @Column(name = "lastname")
     private String lastName;
-    
+
     @NotEmpty
     @Email
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
-    
+
     @NotEmpty
     @Column(name = "password", nullable = false)
     private String password;
-    
+
     private String phone;
 
 }

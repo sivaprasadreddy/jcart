@@ -23,8 +23,18 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 public class OrderService
 {
-    @Autowired
     private OrderRepository orderRepository;
+
+    /**
+     * Spring {@link Autowired} Constructor Injection
+     * 
+     * @param orderRepository
+     */
+    public OrderService(OrderRepository orderRepository)
+    {
+        super();
+        this.orderRepository = orderRepository;
+    }
 
     public Order createOrder(Order order)
     {

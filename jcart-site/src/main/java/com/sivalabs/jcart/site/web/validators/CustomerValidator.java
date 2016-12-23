@@ -17,8 +17,17 @@ import com.sivalabs.jcart.entities.Customer;
 @Component
 public class CustomerValidator implements Validator
 {
-    @Autowired
-    private CustomerService custmoerService;
+    private CustomerService customerService;
+
+    /**
+     * Spring {@link Autowired} Constructor Injection
+     * 
+     * @param custmoerService
+     */
+    public CustomerValidator(CustomerService customerService)
+    {
+        this.customerService = customerService;
+    }
 
     @Override
     public boolean supports(Class<?> clazz)
@@ -30,7 +39,7 @@ public class CustomerValidator implements Validator
     public void validate(Object target, Errors errors)
     {
         Customer customer = (Customer) target;
-        Customer customerByEmail = custmoerService
+        Customer customerByEmail = customerService
                 .getCustomerByEmail(customer.getEmail());
         if (nonNull(customerByEmail))
         {

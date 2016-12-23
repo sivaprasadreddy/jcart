@@ -40,17 +40,17 @@ public class ProductForm
 
     public Product toProduct()
     {
-        Product p = new Product();
-        p.setId(id);
-        p.setName(name);
-        p.setDescription(description);
-        p.setDisabled(disabled);
-        p.setPrice(price);
-        p.setSku(sku);
+        Product product = new Product();
+        product.setId(id);
+        product.setName(name);
+        product.setDescription(description);
+        product.setDisabled(disabled);
+        product.setPrice(price);
+        product.setSku(sku);
         Category category = new Category();
         category.setId(categoryId);
-        p.setCategory(category);
-        return p;
+        product.setCategory(category);
+        return product;
     }
 
     public static ProductForm fromProduct(Product product)

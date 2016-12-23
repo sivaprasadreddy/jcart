@@ -37,12 +37,26 @@ import lombok.extern.slf4j.Slf4j;
 public class UserController extends AbstractJCartAdminController
 {
     private static final String VIEWPREFIX = "users/";
-    @Autowired
-    protected SecurityService securityService;
-    @Autowired
+    
+    private SecurityService securityService;
     private UserValidator userValidator;
-    @Autowired
-    protected PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
+
+    /**
+     * Spring {@link Autowired}
+     * 
+     * @param securityService
+     * @param userValidator
+     * @param passwordEncoder
+     */
+    public UserController(SecurityService securityService, UserValidator userValidator,
+            PasswordEncoder passwordEncoder)
+    {
+        super();
+        this.securityService = securityService;
+        this.userValidator = userValidator;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     protected String getHeaderTitle()
@@ -136,4 +150,12 @@ public class UserController extends AbstractJCartAdminController
         return "redirect:/users";
     }
 
+    @GetMapping(value = "/myAccount")
+    public String myAccount(Model model)
+    {
+        Integer userId = getCurrentUser().getUser().getId();
+        User user = securityService.getUserById(userId);
+        model.addAttribute("user", user);
+        return "myAccount";
+    }
 }
