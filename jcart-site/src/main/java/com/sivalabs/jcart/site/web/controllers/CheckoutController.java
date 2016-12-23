@@ -18,22 +18,22 @@ import com.sivalabs.jcart.site.web.models.OrderDTO;
  *
  */
 @Controller
-public class CheckoutController extends JCartSiteBaseController
+public class CheckoutController extends JCartSiteBaseAbstractController
 {
 
-	@Override
-	protected String getHeaderTitle()
-	{
-		return "Checkout";
-	}
+    @Override
+    protected String getHeaderTitle()
+    {
+        return "Checkout";
+    }
 
-	@RequestMapping(value="/checkout", method=RequestMethod.GET)
-	public String checkout(HttpServletRequest request, Model model)
-	{
-		OrderDTO order = new OrderDTO();
-		model.addAttribute("order", order);
-		Cart cart = getOrCreateCart(request);
-		model.addAttribute("cart", cart);
-		return "checkout";
-	}
+    @RequestMapping(value = "/checkout", method = RequestMethod.GET)
+    public String checkout(HttpServletRequest request, Model model)
+    {
+        OrderDTO order = new OrderDTO();
+        model.addAttribute("order", order);
+        Cart cart = getOrCreateCart(request);
+        model.addAttribute("cart", cart);
+        return "checkout";
+    }
 }

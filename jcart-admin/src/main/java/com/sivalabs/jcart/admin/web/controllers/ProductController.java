@@ -149,13 +149,11 @@ public class ProductController extends JCartAdminAbstractController
         if (file != null && !file.isEmpty())
         {
             String name = WebUtils.IMAGES_DIR + productForm.getId() + ".jpg";
-            try
+            try (BufferedOutputStream stream = new BufferedOutputStream(
+                    new FileOutputStream(new File(name))))
             {
                 byte[] bytes = file.getBytes();
-                BufferedOutputStream stream = new BufferedOutputStream(
-                        new FileOutputStream(new File(name)));
                 stream.write(bytes);
-                stream.close();
             }
             catch (IOException e)
             {

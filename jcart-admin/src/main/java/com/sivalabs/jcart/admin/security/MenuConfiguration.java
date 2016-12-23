@@ -3,10 +3,11 @@
  */
 package com.sivalabs.jcart.admin.security;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+
+import lombok.Getter;
 
 /**
  * @author Siva
@@ -14,6 +15,8 @@ import java.util.Set;
  */
 public class MenuConfiguration
 {
+
+    @Getter
     private static Map<String, String> menu_url_pattern_map = new HashMap<>();
 
     static
@@ -26,12 +29,11 @@ public class MenuConfiguration
         menu_url_pattern_map.put("/users", "Users");
         menu_url_pattern_map.put("/roles", "Roles");
         menu_url_pattern_map.put("/permissions", "Permissions");
-
     }
 
-    public static Map<String, String> getMenuUrlPatternMap()
+    private MenuConfiguration()
     {
-        return Collections.unmodifiableMap(menu_url_pattern_map);
+        super();
     }
 
     public static String getMatchingMenu(String uri)

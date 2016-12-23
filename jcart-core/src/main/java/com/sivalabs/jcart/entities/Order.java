@@ -5,7 +5,6 @@ package com.sivalabs.jcart.entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,12 +25,15 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import lombok.Data;
+
 /**
  * @author Siva
  *
  */
 @Entity
 @Table(name = "orders")
+@Data
 public class Order implements Serializable
 {
     private static final long serialVersionUID = 1L;
@@ -65,96 +67,6 @@ public class Order implements Serializable
         this.items = new HashSet<>();
         this.status = OrderStatus.NEW;
         this.createdOn = new Date();
-    }
-
-    public Integer getId()
-    {
-        return id;
-    }
-
-    public void setId(Integer id)
-    {
-        this.id = id;
-    }
-
-    public String getOrderNumber()
-    {
-        return orderNumber;
-    }
-
-    public void setOrderNumber(String orderNumber)
-    {
-        this.orderNumber = orderNumber;
-    }
-
-    public Set<OrderItem> getItems()
-    {
-        return Collections.unmodifiableSet(items);
-    }
-
-    public void setItems(Set<OrderItem> items)
-    {
-        this.items = Collections.unmodifiableSet(items);
-    }
-
-    public Customer getCustomer()
-    {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer)
-    {
-        this.customer = customer;
-    }
-
-    public Address getDeliveryAddress()
-    {
-        return deliveryAddress;
-    }
-
-    public void setDeliveryAddress(Address deliveryAddress)
-    {
-        this.deliveryAddress = deliveryAddress;
-    }
-
-    public Payment getPayment()
-    {
-        return payment;
-    }
-
-    public void setPayment(Payment payment)
-    {
-        this.payment = payment;
-    }
-
-    public OrderStatus getStatus()
-    {
-        return status;
-    }
-
-    public void setStatus(OrderStatus status)
-    {
-        this.status = status;
-    }
-
-    public Date getCreatedOn()
-    {
-        return (Date) createdOn.clone();
-    }
-
-    public void setCreatedOn(Date createdOn)
-    {
-        this.createdOn = (Date) createdOn.clone();
-    }
-
-    public Address getBillingAddress()
-    {
-        return billingAddress;
-    }
-
-    public void setBillingAddress(Address billingAddress)
-    {
-        this.billingAddress = billingAddress;
     }
 
     public BigDecimal getTotalAmount()

@@ -18,12 +18,15 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import lombok.Data;
+
 /**
  * @author Siva
  *
  */
 @Entity
 @Table(name = "products")
+@Data
 public class Product implements Serializable
 {
     private static final long serialVersionUID = 1L;
@@ -47,95 +50,5 @@ public class Product implements Serializable
     @ManyToOne
     @JoinColumn(name = "cat_id")
     private Category category;
-
-    public Integer getId()
-    {
-        return id;
-    }
-
-    public void setId(Integer id)
-    {
-        this.id = id;
-    }
-
-    public String getSku()
-    {
-        return sku;
-    }
-
-    public void setSku(String sku)
-    {
-        this.sku = sku;
-    }
-
-    public String getName()
-    {
-        return name;
-    }
-
-    public void setName(String name)
-    {
-        this.name = name;
-    }
-
-    public String getDescription()
-    {
-        return description;
-    }
-
-    public void setDescription(String description)
-    {
-        this.description = description;
-    }
-
-    public BigDecimal getPrice()
-    {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price)
-    {
-        this.price = price;
-    }
-
-    public String getImageUrl()
-    {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl)
-    {
-        this.imageUrl = imageUrl;
-    }
-
-    public boolean isDisabled()
-    {
-        return disabled;
-    }
-
-    public void setDisabled(boolean disabled)
-    {
-        this.disabled = disabled;
-    }
-
-    public Date getCreatedOn()
-    {
-        return (Date) createdOn.clone();
-    }
-
-    public void setCreatedOn(Date createdOn)
-    {
-        this.createdOn = (Date) createdOn.clone();
-    }
-
-    public Category getCategory()
-    {
-        return category;
-    }
-
-    public void setCategory(Category category)
-    {
-        this.category = category;
-    }
 
 }

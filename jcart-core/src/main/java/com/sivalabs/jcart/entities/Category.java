@@ -3,7 +3,7 @@
  */
 package com.sivalabs.jcart.entities;
 
-import java.util.Collections;
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -16,14 +16,18 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import lombok.Data;
+
 /**
  * @author Siva
  *
  */
 @Entity
 @Table(name = "categories")
-public class Category
+@Data
+public class Category implements Serializable
 {
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -37,65 +41,5 @@ public class Category
     private boolean disabled;
     @OneToMany(mappedBy = "category")
     private Set<Product> products;
-
-    public Integer getId()
-    {
-        return id;
-    }
-
-    public void setId(Integer id)
-    {
-        this.id = id;
-    }
-
-    public String getName()
-    {
-        return name;
-    }
-
-    public void setName(String name)
-    {
-        this.name = name;
-    }
-
-    public String getDescription()
-    {
-        return description;
-    }
-
-    public void setDescription(String description)
-    {
-        this.description = description;
-    }
-
-    public Integer getDisplayOrder()
-    {
-        return displayOrder;
-    }
-
-    public void setDisplayOrder(Integer displayOrder)
-    {
-        this.displayOrder = displayOrder;
-    }
-
-    public boolean isDisabled()
-    {
-        return disabled;
-    }
-
-    public void setDisabled(boolean disabled)
-    {
-        this.disabled = disabled;
-    }
-
-    public Set<Product> getProducts()
-    {
-        return Collections.unmodifiableSet(products);
-    }
-
-    public void setProducts(Set<Product> products)
-    {
-        this.products = Collections.unmodifiableSet(products);
-    }
 
 }

@@ -27,7 +27,7 @@ import com.sivalabs.jcart.site.web.utils.WebUtils;
  *
  */
 @Controller
-public class ProductController extends JCartSiteBaseController
+public class ProductController extends JCartSiteBaseAbstractController
 {
     @Autowired
     private CatalogService catalogService;

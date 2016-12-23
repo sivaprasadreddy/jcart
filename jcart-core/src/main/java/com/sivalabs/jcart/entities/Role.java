@@ -3,7 +3,7 @@
  */
 package com.sivalabs.jcart.entities;
 
-import java.util.Collections;
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -18,14 +18,19 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import lombok.Data;
+
 /**
  * @author Siva
  *
  */
 @Entity
 @Table(name = "roles")
-public class Role
+@Data
+public class Role implements Serializable
 {
+    private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -43,55 +48,5 @@ public class Role
             @JoinColumn(name = "ROLE_ID", referencedColumnName = "ID") }, inverseJoinColumns = {
                     @JoinColumn(name = "PERM_ID", referencedColumnName = "ID") })
     private List<Permission> permissions;
-
-    public Integer getId()
-    {
-        return id;
-    }
-
-    public void setId(Integer id)
-    {
-        this.id = id;
-    }
-
-    public String getName()
-    {
-        return name;
-    }
-
-    public void setName(String name)
-    {
-        this.name = name;
-    }
-
-    public String getDescription()
-    {
-        return description;
-    }
-
-    public void setDescription(String description)
-    {
-        this.description = description;
-    }
-
-    public List<User> getUsers()
-    {
-        return users;
-    }
-
-    public void setUsers(List<User> users)
-    {
-        this.users = Collections.unmodifiableList(users);
-    }
-
-    public List<Permission> getPermissions()
-    {
-        return Collections.unmodifiableList(permissions);
-    }
-
-    public void setPermissions(List<Permission> permissions)
-    {
-        this.permissions = Collections.unmodifiableList(permissions);
-    }
 
 }

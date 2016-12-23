@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author Siva
  *
  */
-public class WebUtils
+public final class WebUtils
 {
     private WebUtils()
     {

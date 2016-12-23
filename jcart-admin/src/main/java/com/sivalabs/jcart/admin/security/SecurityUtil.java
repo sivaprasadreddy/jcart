@@ -20,4 +20,9 @@ public class SecurityUtil
     public static final String MANAGE_PERMISSIONS = "ROLE_MANAGE_PERMISSIONS";
     public static final String MANAGE_SETTINGS = "ROLE_MANAGE_SETTINGS";
 
+    private SecurityUtil()
+    {
+        super();
+    }
+
 }
