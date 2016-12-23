@@ -121,7 +121,7 @@ public class ProductController extends JCartAdminAbstractController
         }
         catch (IOException e)
         {
-            logger.error(e.getMessage());
+            logger.error(e.getMessage(), e);
         }
     }
 

@@ -113,7 +113,7 @@ public class UserAuthController extends JCartAdminAbstractController
                 model.addAttribute("email", email);
                 model.addAttribute("token", token);
                 model.addAttribute("msg",
-                        getMessage(ERROR_PASSWRD_CONF_PASSWORD_MISMATCH));
+                        getMessage(ERROR_PASSWRD_CONF_PASSWRD_MISMATCH));
                 return viewPrefix + "resetPwd";
             }
             String encodedPwd = passwordEncoder.encode(password);
