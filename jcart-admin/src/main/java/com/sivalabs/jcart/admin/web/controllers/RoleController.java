@@ -15,10 +15,10 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sivalabs.jcart.admin.security.SecurityUtil;
@@ -38,7 +38,7 @@ import lombok.extern.slf4j.Slf4j;
 @Secured(SecurityUtil.MANAGE_ROLES)
 public class RoleController extends AbstractJCartAdminController
 {
-    private static final String viewPrefix = "roles/";
+    private static final String VIEWPREFIX = "roles/";
 
     @Autowired
     protected SecurityService securityService;
@@ -57,30 +57,30 @@ public class RoleController extends AbstractJCartAdminController
         return securityService.getAllPermissions();
     }
 
-    @RequestMapping(value = "/roles", method = RequestMethod.GET)
+    @GetMapping(value = "/roles")
     public String listRoles(Model model)
     {
         List<Role> list = securityService.getAllRoles();
         model.addAttribute("roles", list);
-        return viewPrefix + "roles";
+        return VIEWPREFIX + "roles";
     }
 
-    @RequestMapping(value = "/roles/new", method = RequestMethod.GET)
+    @GetMapping(value = "/roles/new")
     public String createRoleForm(Model model)
     {
         Role role = new Role();
         model.addAttribute("role", role);
-        return viewPrefix + "create_role";
+        return VIEWPREFIX + "create_role";
     }
 
-    @RequestMapping(value = "/roles", method = RequestMethod.POST)
+    @PostMapping(value = "/roles")
     public String createRole(@Valid @ModelAttribute("role") Role role,
             BindingResult result, Model model, RedirectAttributes redirectAttributes)
     {
         roleValidator.validate(role, result);
         if (result.hasErrors())
         {
-            return viewPrefix + "create_role";
+            return VIEWPREFIX + "create_role";
         }
         Role persistedRole = securityService.createRole(role);
         log.debug("Created new role with id : {} and name : {}", persistedRole.getId(),
@@ -89,7 +89,7 @@ public class RoleController extends AbstractJCartAdminController
         return "redirect:/roles";
     }
 
-    @RequestMapping(value = "/roles/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/roles/{id}")
     public String editRoleForm(@PathVariable Integer id, Model model)
     {
         Role role = securityService.getRoleById(id);
@@ -114,10 +114,10 @@ public class RoleController extends AbstractJCartAdminController
         }
         role.setPermissions(rolePermissions);
         model.addAttribute("role", role);
-        return viewPrefix + "edit_role";
+        return VIEWPREFIX + "edit_role";
     }
 
-    @RequestMapping(value = "/roles/{id}", method = RequestMethod.POST)
+    @PostMapping(value = "/roles/{id}")
     public String updateRole(@ModelAttribute("role") Role role, BindingResult result,
             Model model, RedirectAttributes redirectAttributes)
     {

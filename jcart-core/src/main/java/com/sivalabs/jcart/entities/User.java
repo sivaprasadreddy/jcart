@@ -1,14 +1,11 @@
-/**
- * 
- */
 package com.sivalabs.jcart.entities;
 
+import static javax.persistence.CascadeType.MERGE;
 import static javax.persistence.GenerationType.AUTO;
 
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -55,7 +52,7 @@ public class User implements Serializable
 
     private String passwordResetToken;
 
-    @ManyToMany(cascade = CascadeType.MERGE)
+    @ManyToMany(cascade = MERGE)
     @JoinTable(name = "user_role", joinColumns = {
             @JoinColumn(name = "USER_ID", referencedColumnName = "ID") }, inverseJoinColumns = {
                     @JoinColumn(name = "ROLE_ID", referencedColumnName = "ID") })

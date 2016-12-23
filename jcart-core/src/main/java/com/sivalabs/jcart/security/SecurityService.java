@@ -1,9 +1,9 @@
-/**
- * 
- */
 package com.sivalabs.jcart.security;
 
-import java.util.ArrayList;
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
+import static java.util.stream.Collectors.toList;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -40,7 +40,7 @@ public class SecurityService
     public String resetPassword(String email)
     {
         User user = findUserByEmail(email);
-        if (user == null)
+        if (isNull(user))
         {
             throw new JCartException("Invalid email address");
         }
@@ -52,7 +52,7 @@ public class SecurityService
     public void updatePassword(String email, String token, String password)
     {
         User user = findUserByEmail(email);
-        if (user == null)
+        if (isNull(user))
         {
             throw new JCartException("Invalid email address");
         }
@@ -67,7 +67,7 @@ public class SecurityService
     public boolean verifyPasswordResetToken(String email, String token)
     {
         User user = findUserByEmail(email);
-        if (user == null)
+        if (isNull(user))
         {
             throw new JCartException("Invalid email address");
         }
@@ -96,24 +96,14 @@ public class SecurityService
     public Role createRole(Role role)
     {
         Role roleByName = getRoleByName(role.getName());
-        if (roleByName != null)
+        if (nonNull(roleByName))
         {
             throw new JCartException("Role " + role.getName() + " already exist");
         }
-        List<Permission> persistedPermissions = new ArrayList<>();
-        List<Permission> permissions = role.getPermissions();
-        if (permissions != null)
-        {
-            for (Permission permission : permissions)
-            {
-                if (permission.getId() != null)
-                {
-                    persistedPermissions
-                            .add(permissionRepository.findOne(permission.getId()));
-                }
-            }
-        }
-
+        List<Permission> persistedPermissions = role.getPermissions().stream()
+                .filter(permission -> nonNull(permission.getId()))
+                .map(permission -> permissionRepository.findOne(permission.getId()))
+                .collect(toList());
         role.setPermissions(persistedPermissions);
         return roleRepository.save(role);
     }
@@ -121,24 +111,16 @@ public class SecurityService
     public Role updateRole(Role role)
     {
         Role persistedRole = getRoleById(role.getId());
-        if (persistedRole == null)
+        if (isNull(persistedRole))
         {
             throw new JCartException("Role " + role.getId() + " doesn't exist");
         }
         persistedRole.setDescription(role.getDescription());
-        List<Permission> updatedPermissions = new ArrayList<>();
-        List<Permission> permissions = role.getPermissions();
-        if (permissions != null)
-        {
-            for (Permission permission : permissions)
-            {
-                if (permission.getId() != null)
-                {
-                    updatedPermissions
-                            .add(permissionRepository.findOne(permission.getId()));
-                }
-            }
-        }
+
+        List<Permission> updatedPermissions = role.getPermissions().stream()
+                .filter(permission -> nonNull(permission.getId()))
+                .map(permission -> permissionRepository.findOne(permission.getId()))
+                .collect(toList());
         persistedRole.setPermissions(updatedPermissions);
         return roleRepository.save(persistedRole);
     }
@@ -161,22 +143,13 @@ public class SecurityService
     public User createUser(User user)
     {
         User userByEmail = findUserByEmail(user.getEmail());
-        if (userByEmail != null)
+        if (nonNull(userByEmail))
         {
             throw new JCartException("Email " + user.getEmail() + " already in use");
         }
-        List<Role> persistedRoles = new ArrayList<>();
-        List<Role> roles = user.getRoles();
-        if (roles != null)
-        {
-            for (Role role : roles)
-            {
-                if (role.getId() != null)
-                {
-                    persistedRoles.add(roleRepository.findOne(role.getId()));
-                }
-            }
-        }
+        List<Role> persistedRoles = user.getRoles().stream()
+                .filter(role -> nonNull(role.getId()))
+                .map(role -> roleRepository.findOne(role.getId())).collect(toList());
         user.setRoles(persistedRoles);
 
         return userRepository.save(user);
@@ -185,23 +158,14 @@ public class SecurityService
     public User updateUser(User user)
     {
         User persistedUser = getUserById(user.getId());
-        if (persistedUser == null)
+        if (isNull(persistedUser))
         {
             throw new JCartException("User " + user.getId() + " doesn't exist");
         }
 
-        List<Role> updatedRoles = new ArrayList<>();
-        List<Role> roles = user.getRoles();
-        if (roles != null)
-        {
-            for (Role role : roles)
-            {
-                if (role.getId() != null)
-                {
-                    updatedRoles.add(roleRepository.findOne(role.getId()));
-                }
-            }
-        }
+        List<Role> updatedRoles = user.getRoles().stream()
+                .filter(role -> nonNull(role.getId()))
+                .map(role -> roleRepository.findOne(role.getId())).collect(toList());
         persistedUser.setRoles(updatedRoles);
         return userRepository.save(persistedUser);
     }

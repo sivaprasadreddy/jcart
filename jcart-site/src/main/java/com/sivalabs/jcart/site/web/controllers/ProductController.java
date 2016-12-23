@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.sivalabs.jcart.site.web.controllers;
 
 import java.io.IOException;
@@ -13,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sivalabs.jcart.catalog.CatalogService;
@@ -30,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Controller
-public class ProductController extends AbstractJCartSiteBaseController
+public class ProductController extends AbstractJCartSiteController
 {
     @Autowired
     private CatalogService catalogService;
@@ -58,7 +55,7 @@ public class ProductController extends AbstractJCartSiteBaseController
         return "products";
     }
 
-    @RequestMapping(value = "/products/images/{productId}", method = RequestMethod.GET)
+    @GetMapping(value = "/products/images/{productId}")
     public void showProductImage(@PathVariable String productId,
             HttpServletRequest request, HttpServletResponse response)
     {

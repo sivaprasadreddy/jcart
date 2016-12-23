@@ -3,6 +3,9 @@
  */
 package com.sivalabs.jcart.catalog;
 
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +54,7 @@ public class CatalogService
     public Category createCategory(Category category)
     {
         Category persistedCategory = getCategoryByName(category.getName());
-        if (persistedCategory != null)
+        if (nonNull(persistedCategory))
         {
             throw new JCartException("Category " + category.getName() + " already exist");
         }
@@ -61,7 +64,7 @@ public class CatalogService
     public Category updateCategory(Category category)
     {
         Category persistedCategory = getCategoryById(category.getId());
-        if (persistedCategory == null)
+        if (isNull(persistedCategory))
         {
             throw new JCartException("Category " + category.getId() + " doesn't exist");
         }
@@ -84,7 +87,7 @@ public class CatalogService
     public Product createProduct(Product product)
     {
         Product persistedProduct = getProductBySku(product.getName());
-        if (persistedProduct != null)
+        if (nonNull(persistedProduct))
         {
             throw new JCartException(
                     "Product SKU " + product.getSku() + " already exist");
@@ -95,7 +98,7 @@ public class CatalogService
     public Product updateProduct(Product product)
     {
         Product persistedProduct = getProductById(product.getId());
-        if (persistedProduct == null)
+        if (isNull(persistedProduct))
         {
             throw new JCartException("Product " + product.getId() + " doesn't exist");
         }

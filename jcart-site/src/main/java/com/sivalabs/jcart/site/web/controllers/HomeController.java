@@ -1,11 +1,8 @@
-/**
- * 
- */
 package com.sivalabs.jcart.site.web.controllers;
 
+import static java.util.stream.Collectors.toSet;
+
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -24,7 +21,7 @@ import com.sivalabs.jcart.entities.Product;
  *
  */
 @Controller
-public class HomeController extends AbstractJCartSiteBaseController
+public class HomeController extends AbstractJCartSiteController
 {
     @Autowired
     private CatalogService catalogService;
@@ -42,24 +39,13 @@ public class HomeController extends AbstractJCartSiteBaseController
         List<Category> categories = catalogService.getAllCategories();
         for (Category category : categories)
         {
-            Set<Product> products = category.getProducts();
-            Set<Product> previewProducts = new HashSet<>();
             int noOfProductsToDisplay = 4;
-            if (products.size() > noOfProductsToDisplay)
-            {
-                Iterator<Product> iterator = products.iterator();
-                for (int i = 0; i < noOfProductsToDisplay; i++)
-                {
-                    previewProducts.add(iterator.next());
-                }
-            }
-            else
-            {
-                previewProducts.addAll(products);
-            }
+            Set<Product> previewProducts = category.getProducts().stream()
+                    .limit(noOfProductsToDisplay).collect(toSet());
             category.setProducts(previewProducts);
             previewCategories.add(category);
         }
+        
         model.addAttribute("categories", previewCategories);
         return "home";
     }

@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
-	layout:decorator="layout/mainLayout">
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/mainLayout}">
 
 <head>
 <title>Roles</title>
@@ -37,10 +38,8 @@
 								<td th:text="${role.name}">Role Name</td>
 								<td th:text="${role.description}">Role Description</td>
 								<td><a th:href="@{/roles/{id}(id=${role.id})}"
-										class="btn btn-sm btn-default">
-										<i class="fa fa-edit"></i>Edit
-									</a>
-								</td>
+									class="btn btn-sm btn-default"> <i class="fa fa-edit"></i>Edit
+								</a></td>
 							</tr>
 
 						</table>

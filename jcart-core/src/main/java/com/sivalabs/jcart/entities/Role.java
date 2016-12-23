@@ -3,13 +3,14 @@
  */
 package com.sivalabs.jcart.entities;
 
+import static javax.persistence.GenerationType.AUTO;
+
 import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.AUTO;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;

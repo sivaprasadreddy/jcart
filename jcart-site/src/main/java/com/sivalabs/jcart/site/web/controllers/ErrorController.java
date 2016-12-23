@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.sivalabs.jcart.site.web.controllers;
 
 import org.springframework.stereotype.Controller;
@@ -11,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-public class ErrorController extends AbstractJCartSiteBaseController
+public class ErrorController extends AbstractJCartSiteController
 {
     private static final String VIEWPREFIX = "error/";
 

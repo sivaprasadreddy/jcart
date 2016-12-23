@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.sivalabs.jcart.admin.web.controllers;
 
 import java.util.ArrayList;
@@ -16,10 +13,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sivalabs.jcart.admin.security.SecurityUtil;
@@ -39,7 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 @Secured(SecurityUtil.MANAGE_USERS)
 public class UserController extends AbstractJCartAdminController
 {
-    private static final String viewPrefix = "users/";
+    private static final String VIEWPREFIX = "users/";
     @Autowired
     protected SecurityService securityService;
     @Autowired
@@ -59,30 +56,30 @@ public class UserController extends AbstractJCartAdminController
         return securityService.getAllRoles();
     }
 
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    @GetMapping(value = "/users")
     public String listUsers(Model model)
     {
         List<User> list = securityService.getAllUsers();
         model.addAttribute("users", list);
-        return viewPrefix + "users";
+        return VIEWPREFIX + "users";
     }
 
-    @RequestMapping(value = "/users/new", method = RequestMethod.GET)
+    @GetMapping(value = "/users/new")
     public String createUserForm(Model model)
     {
         User user = new User();
         model.addAttribute("user", user);
-        return viewPrefix + "create_user";
+        return VIEWPREFIX + "create_user";
     }
 
-    @RequestMapping(value = "/users", method = RequestMethod.POST)
+    @PostMapping(value = "/users")
     public String createUser(@Valid @ModelAttribute("user") User user,
             BindingResult result, Model model, RedirectAttributes redirectAttributes)
     {
         userValidator.validate(user, result);
         if (result.hasErrors())
         {
-            return viewPrefix + "create_user";
+            return VIEWPREFIX + "create_user";
         }
         String password = user.getPassword();
         String encodedPwd = passwordEncoder.encode(password);
@@ -94,7 +91,7 @@ public class UserController extends AbstractJCartAdminController
         return "redirect:/users";
     }
 
-    @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/users/{id}")
     public String editUserForm(@PathVariable Integer id, Model model)
     {
         User user = securityService.getUserById(id);
@@ -104,6 +101,7 @@ public class UserController extends AbstractJCartAdminController
         {
             assignedRoleMap.put(role.getId(), role);
         }
+
         List<Role> userRoles = new ArrayList<>();
         List<Role> allRoles = securityService.getAllRoles();
         for (Role role : allRoles)
@@ -118,17 +116,18 @@ public class UserController extends AbstractJCartAdminController
             }
         }
         user.setRoles(userRoles);
+
         model.addAttribute("user", user);
-        return viewPrefix + "edit_user";
+        return VIEWPREFIX + "edit_user";
     }
 
-    @RequestMapping(value = "/users/{id}", method = RequestMethod.POST)
+    @PostMapping(value = "/users/{id}")
     public String updateUser(@ModelAttribute("user") User user, BindingResult result,
             Model model, RedirectAttributes redirectAttributes)
     {
         if (result.hasErrors())
         {
-            return viewPrefix + "edit_user";
+            return VIEWPREFIX + "edit_user";
         }
         User persistedUser = securityService.updateUser(user);
         log.debug("Updated user with id : {} and name : {}", persistedUser.getId(),

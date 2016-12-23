@@ -1,7 +1,6 @@
-/**
- * 
- */
 package com.sivalabs.jcart.site.security;
+
+import static java.util.Objects.isNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,7 +27,7 @@ public class CustomUserDetailsService implements UserDetailsService
     public UserDetails loadUserByUsername(String email)
     {
         Customer customer = customerService.getCustomerByEmail(email);
-        if (customer == null)
+        if (isNull(customer))
         {
             throw new UsernameNotFoundException("Email " + email + " not found");
         }

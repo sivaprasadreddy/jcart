@@ -1,6 +1,7 @@
 package com.sivalabs.jcart.site.web.controllers;
 
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,7 +18,7 @@ import com.sivalabs.jcart.site.web.models.Cart;
  * @author Siva
  *
  */
-public abstract class AbstractJCartSiteBaseController
+public abstract class AbstractJCartSiteController
 {
 
     @Autowired
@@ -50,7 +51,6 @@ public abstract class AbstractJCartSiteBaseController
 
     public static AuthenticatedUser getCurrentUser()
     {
-
         Object principal = SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
         if (principal instanceof AuthenticatedUser)
@@ -64,15 +64,14 @@ public abstract class AbstractJCartSiteBaseController
 
     public static boolean isLoggedIn()
     {
-        return getCurrentUser() != null;
+        return nonNull(getCurrentUser());
     }
 
     protected Cart getOrCreateCart(HttpServletRequest request)
     {
-        Cart cart;
+        Cart cart = null;
         cart = (Cart) request.getSession().getAttribute("CART_KEY");
-        if (isNull(cart))
-        {
+        if(isNull(cart)){
             cart = new Cart();
             request.getSession().setAttribute("CART_KEY", cart);
         }

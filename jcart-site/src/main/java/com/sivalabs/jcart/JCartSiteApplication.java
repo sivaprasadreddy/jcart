@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.sivalabs.jcart;
 
 import org.springframework.boot.SpringApplication;

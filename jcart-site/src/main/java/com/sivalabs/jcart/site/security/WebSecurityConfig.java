@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.sivalabs.jcart.site.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,14 +31,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
     @Override
     protected void configure(HttpSecurity http) throws Exception
     {
-        http.csrf().disable().authorizeRequests()
+        http.csrf().disable()
+            .authorizeRequests()
                 .antMatchers("/resources/**", "/webjars/**", "/assets/**").permitAll()
                 .antMatchers("/", "/register", "/forgotPwd", "/resetPwd").permitAll()
-                .antMatchers("/myAccount", "/checkout", "/orders").authenticated().and()
-                .formLogin().loginPage("/login").defaultSuccessUrl("/home")
-                .failureUrl("/login?error").permitAll().and().logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll()
-                .and().exceptionHandling().accessDeniedPage("/403");
+                .antMatchers("/myAccount", "/checkout", "/orders").authenticated()
+            .and()
+                .formLogin()
+                    .loginPage("/login")
+                    .defaultSuccessUrl("/home")
+                    .failureUrl("/login?error").permitAll()
+            .and()
+                .logout()
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll()
+            .and()
+                .exceptionHandling().accessDeniedPage("/403");
     }
 
     @Autowired

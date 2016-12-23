@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.sivalabs.jcart.common.services;
 
 import javax.mail.MessagingException;

@@ -1,51 +1,71 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      layout:decorator="layout/guestLayout">
-  <head>
-    <title>Log in</title>    
-  </head>
-  <body>
-  	<div layout:fragment="content">
-    <div class="login-box">
-      <div class="login-logo">
-        <a href="#"><b th:text="#{label.jcart_admin}">JCart Admin</b></a>
-      </div>
-      <div class="login-box-body">
-        <p class="login-box-msg" th:text="#{label_login_header}">Sign in to start your session</p>
-        <form action="home" th:action="@{/login}" method="post">
-          <div class="form-group has-feedback">
-            <input type="email" class="form-control" name="username" placeholder="Email"/>
-            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-          </div>
-          <div class="form-group has-feedback">
-            <input type="password" class="form-control" name="password" placeholder="Password"/>
-            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-          </div>
-          <div class="row">
-            <div class="form-group col-xs-offset-8 col-xs-4">
-              <button type="submit" class="btn btn-primary btn-block btn-flat" th:text="#{label.login}">LogIn</button>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12">
-		        <div th:if="${param.error}" class="alert alert-danger alert-dismissable" >
-		        	<p><i class="icon fa fa-ban"></i> <span th:text="#{error.login_failed}">Invalid Email and Password.</span></p>
-		        </div>
-		        <div th:if="${param.logout}" class="alert alert-info alert-dismissable" >
-		        	<p><i class="icon fa fa-info"></i> <span th:text="#{info.logout_success}">You have been logged out.</span></p>
-		        </div>		          
-		        <div th:if="${msg!=null}" class="alert alert-warning alert-dismissable" >
-		        	<p><i class="icon fa fa-warning"></i> <span th:text="${msg}"></span></p>
-		        </div>                
-            </div>
-            
-          </div>
-        </form>
-        
-        <a href="forgotPwd" th:href="@{/forgotPwd}" th:text="#{label.forgot_password}">I forgot my password</a><br/>
-        
-      </div>
-    </div>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/guestLayout}">
+<head>
+<title>Log in</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="login-box">
+			<div class="login-logo">
+				<a href="#"><b th:text="#{label.jcart_admin}">JCart Admin</b></a>
+			</div>
+			<div class="login-box-body">
+				<p class="login-box-msg" th:text="#{label_login_header}">Sign in
+					to start your session</p>
+				<form action="home" th:action="@{/login}" method="post">
+					<div class="form-group has-feedback">
+						<input type="email" class="form-control" name="username"
+							placeholder="Email" /> <span
+							class="glyphicon glyphicon-envelope form-control-feedback"></span>
+					</div>
+					<div class="form-group has-feedback">
+						<input type="password" class="form-control" name="password"
+							placeholder="Password" /> <span
+							class="glyphicon glyphicon-lock form-control-feedback"></span>
+					</div>
+					<div class="row">
+						<div class="form-group col-xs-offset-8 col-xs-4">
+							<button type="submit" class="btn btn-primary btn-block btn-flat"
+								th:text="#{label.login}">LogIn</button>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							<div th:if="${param.error}"
+								class="alert alert-danger alert-dismissable">
+								<p>
+									<i class="icon fa fa-ban"></i> <span
+										th:text="#{error.login_failed}">Invalid Email and
+										Password.</span>
+								</p>
+							</div>
+							<div th:if="${param.logout}"
+								class="alert alert-info alert-dismissable">
+								<p>
+									<i class="icon fa fa-info"></i> <span
+										th:text="#{info.logout_success}">You have been logged
+										out.</span>
+								</p>
+							</div>
+							<div th:if="${msg!=null}"
+								class="alert alert-warning alert-dismissable">
+								<p>
+									<i class="icon fa fa-warning"></i> <span th:text="${msg}"></span>
+								</p>
+							</div>
+						</div>
+
+					</div>
+				</form>
+
+				<a href="forgotPwd" th:href="@{/forgotPwd}"
+					th:text="#{label.forgot_password}">I forgot my password</a><br />
+
+			</div>
+		</div>
 	</div>
-  </body>
+</body>
 </html>

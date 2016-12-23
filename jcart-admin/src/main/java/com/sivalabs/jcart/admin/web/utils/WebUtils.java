@@ -12,7 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 public final class WebUtils
 {
     public static final String IMAGES_PREFIX = "/products/images/";
-    public static final String IMAGES_DIR = "D:/jcart/products/";
+    public static final String IMAGES_DIR = WebUtils.class.getClassLoader()
+            .getResource("static/assets/").getPath();
 
     private WebUtils()
     {

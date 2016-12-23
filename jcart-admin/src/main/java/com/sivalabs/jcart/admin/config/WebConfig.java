@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.sivalabs.jcart.admin.config;
 
 import javax.servlet.Filter;
@@ -24,7 +21,6 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
-import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 import com.sivalabs.jcart.admin.security.PostAuthorizationFilter;
 
@@ -86,19 +82,6 @@ public class WebConfig extends WebMvcConfigurerAdapter
     public SpringSecurityDialect securityDialect()
     {
         return new SpringSecurityDialect();
-    }
-
-    @Bean
-    public ClassLoaderTemplateResolver emailTemplateResolver()
-    {
-        ClassLoaderTemplateResolver emailTemplateResolver = new ClassLoaderTemplateResolver();
-        emailTemplateResolver.setPrefix("email-templates/");
-        emailTemplateResolver.setSuffix(".html");
-        emailTemplateResolver.setTemplateMode("HTML5");
-        emailTemplateResolver.setCharacterEncoding("UTF-8");
-        emailTemplateResolver.setOrder(2);
-
-        return emailTemplateResolver;
     }
 
     @Bean

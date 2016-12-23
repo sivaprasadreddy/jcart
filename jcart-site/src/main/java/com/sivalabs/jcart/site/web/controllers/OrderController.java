@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.sivalabs.jcart.site.web.controllers;
 
 import java.util.HashSet;
@@ -14,27 +11,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sivalabs.jcart.JCartException;
 import com.sivalabs.jcart.common.services.EmailService;
 import com.sivalabs.jcart.customers.CustomerService;
-import com.sivalabs.jcart.site.web.models.Cart;
-import com.sivalabs.jcart.site.web.models.LineItem;
-import com.sivalabs.jcart.site.web.models.OrderDTO;
-
-import lombok.extern.slf4j.Slf4j;
-
 import com.sivalabs.jcart.entities.Address;
 import com.sivalabs.jcart.entities.Customer;
 import com.sivalabs.jcart.entities.Order;
 import com.sivalabs.jcart.entities.OrderItem;
 import com.sivalabs.jcart.entities.Payment;
 import com.sivalabs.jcart.orders.OrderService;
+import com.sivalabs.jcart.site.web.models.Cart;
+import com.sivalabs.jcart.site.web.models.LineItem;
+import com.sivalabs.jcart.site.web.models.OrderDTO;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Siva
@@ -42,7 +38,7 @@ import com.sivalabs.jcart.orders.OrderService;
  */
 @Slf4j
 @Controller
-public class OrderController extends AbstractJCartSiteBaseController
+public class OrderController extends AbstractJCartSiteController
 {
 
     @Autowired
@@ -58,7 +54,7 @@ public class OrderController extends AbstractJCartSiteBaseController
         return "Order";
     }
 
-    @RequestMapping(value = "/orders", method = RequestMethod.POST)
+    @PostMapping(value = "/orders")
     public String placeOrder(@Valid @ModelAttribute("order") OrderDTO order,
             BindingResult result, Model model, HttpServletRequest request)
     {
@@ -137,7 +133,7 @@ public class OrderController extends AbstractJCartSiteBaseController
         }
     }
 
-    @RequestMapping(value = "/orderconfirmation", method = RequestMethod.GET)
+    @GetMapping(value = "/orderconfirmation")
     public String showOrderConfirmation(
             @RequestParam(value = "orderNumber") String orderNumber, Model model)
     {
@@ -146,7 +142,7 @@ public class OrderController extends AbstractJCartSiteBaseController
         return "orderconfirmation";
     }
 
-    @RequestMapping(value = "/orders/{orderNumber}", method = RequestMethod.GET)
+    @GetMapping(value = "/orders/{orderNumber}")
     public String viewOrder(@PathVariable(value = "orderNumber") String orderNumber,
             Model model)
     {

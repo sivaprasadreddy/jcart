@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.sivalabs.jcart.admin.web.controllers;
 
 import java.util.List;
@@ -10,10 +7,10 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
@@ -50,7 +47,7 @@ public class OrderController extends AbstractJCartAdminController
         return "Manage Orders";
     }
 
-    @RequestMapping(value = "/orders", method = RequestMethod.GET)
+    @GetMapping(value = "/orders")
     public String listOrders(Model model)
     {
         List<Order> list = orderService.getAllOrders();
@@ -58,7 +55,7 @@ public class OrderController extends AbstractJCartAdminController
         return VIEWPREFIX + "orders";
     }
 
-    @RequestMapping(value = "/orders/{orderNumber}", method = RequestMethod.GET)
+    @GetMapping(value = "/orders/{orderNumber}")
     public String editOrderForm(@PathVariable String orderNumber, Model model)
     {
         Order order = orderService.getOrder(orderNumber);
@@ -66,7 +63,7 @@ public class OrderController extends AbstractJCartAdminController
         return VIEWPREFIX + "edit_order";
     }
 
-    @RequestMapping(value = "/orders/{orderNumber}", method = RequestMethod.POST)
+    @PostMapping(value = "/orders/{orderNumber}")
     public String updateOrder(@ModelAttribute("order") Order order, BindingResult result,
             Model model, RedirectAttributes redirectAttributes)
     {

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.sivalabs.jcart.site.web.controllers;
 
 import java.util.ArrayList;
@@ -13,10 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sivalabs.jcart.catalog.CatalogService;
@@ -29,7 +28,7 @@ import com.sivalabs.jcart.site.web.models.LineItem;
  *
  */
 @Controller
-public class CartController extends AbstractJCartSiteBaseController
+public class CartController extends AbstractJCartSiteController
 {
     @Autowired
     private CatalogService catalogService;
@@ -40,7 +39,7 @@ public class CartController extends AbstractJCartSiteBaseController
         return "Cart";
     }
 
-    @RequestMapping(value = "/cart", method = RequestMethod.GET)
+    @GetMapping(value = "/cart")
     public String showCart(HttpServletRequest request, Model model)
     {
         Cart cart = getOrCreateCart(request);
@@ -48,7 +47,7 @@ public class CartController extends AbstractJCartSiteBaseController
         return "cart";
     }
 
-    @RequestMapping(value = "/cart/items/count", method = RequestMethod.GET)
+    @GetMapping(value = "/cart/items/count")
     @ResponseBody
     public Map<String, Object> getCartItemCount(HttpServletRequest request, Model model)
     {
@@ -59,16 +58,16 @@ public class CartController extends AbstractJCartSiteBaseController
         return map;
     }
 
-    @RequestMapping(value = "/cart/items", method = RequestMethod.POST)
+    @PostMapping(value = "/cart/items")
     @ResponseBody
     public void addToCart(@RequestBody Product product, HttpServletRequest request)
     {
         Cart cart = getOrCreateCart(request);
-        Product p = catalogService.getProductBySku(product.getSku());
-        cart.addItem(p);
+        Product cartProduct = catalogService.getProductBySku(product.getSku());
+        cart.addItem(cartProduct);
     }
 
-    @RequestMapping(value = "/cart/items", method = RequestMethod.PUT)
+    @PutMapping(value = "/cart/items")
     @ResponseBody
     public void updateCartItem(@RequestBody LineItem item, HttpServletRequest request,
             HttpServletResponse response)
@@ -85,7 +84,7 @@ public class CartController extends AbstractJCartSiteBaseController
         }
     }
 
-    @RequestMapping(value = "/cart/items/{sku}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/cart/items/{sku}")
     @ResponseBody
     public void removeCartItem(@PathVariable("sku") String sku,
             HttpServletRequest request)
@@ -94,7 +93,7 @@ public class CartController extends AbstractJCartSiteBaseController
         cart.removeItem(sku);
     }
 
-    @RequestMapping(value = "/cart", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/cart")
     @ResponseBody
     public void clearCart(HttpServletRequest request)
     {

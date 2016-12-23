@@ -19,7 +19,6 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
-import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 /**
  * @author Siva
@@ -50,19 +49,6 @@ public class WebConfig extends WebMvcConfigurerAdapter
         registry.addViewController("/register").setViewName("register");
         registry.addRedirectViewController("/", "/home");
 
-    }
-
-    @Bean
-    public ClassLoaderTemplateResolver emailTemplateResolver()
-    {
-        ClassLoaderTemplateResolver emailTemplateResolver = new ClassLoaderTemplateResolver();
-        emailTemplateResolver.setPrefix("email-templates/");
-        emailTemplateResolver.setSuffix(".html");
-        emailTemplateResolver.setTemplateMode("HTML5");
-        emailTemplateResolver.setCharacterEncoding("UTF-8");
-        emailTemplateResolver.setOrder(2);
-
-        return emailTemplateResolver;
     }
 
     @Bean

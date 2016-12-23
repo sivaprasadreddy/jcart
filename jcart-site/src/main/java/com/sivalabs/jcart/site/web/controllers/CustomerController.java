@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.sivalabs.jcart.site.web.controllers;
 
 import java.util.List;
@@ -12,9 +9,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sivalabs.jcart.customers.CustomerService;
@@ -31,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-public class CustomerController extends AbstractJCartSiteBaseController
+public class CustomerController extends AbstractJCartSiteController
 {
     @Autowired
     private CustomerService customerService;
@@ -46,14 +43,14 @@ public class CustomerController extends AbstractJCartSiteBaseController
         return "Login/Register";
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    @GetMapping(value = "/register")
     protected String registerForm(Model model)
     {
         model.addAttribute("customer", new Customer());
         return "register";
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @PostMapping(value = "/register")
     protected String register(@Valid @ModelAttribute("customer") Customer customer,
             BindingResult result, Model model, RedirectAttributes redirectAttributes)
     {
@@ -73,7 +70,7 @@ public class CustomerController extends AbstractJCartSiteBaseController
         return "redirect:/login";
     }
 
-    @RequestMapping(value = "/myAccount", method = RequestMethod.GET)
+    @GetMapping(value = "/myAccount")
     protected String myAccount(Model model)
     {
         String email = getCurrentUser().getCustomer().getEmail();

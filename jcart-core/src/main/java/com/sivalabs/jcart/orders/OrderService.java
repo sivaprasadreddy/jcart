@@ -1,13 +1,11 @@
-/**
- * 
- */
 package com.sivalabs.jcart.orders;
+
+import static org.springframework.data.domain.Sort.Direction.DESC;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,7 +28,6 @@ public class OrderService
 
     public Order createOrder(Order order)
     {
-        // order.setOrderNumber(UUID.randomUUID().toString());
         order.setOrderNumber(String.valueOf(System.currentTimeMillis()));
         Order savedOrder = orderRepository.save(order);
         log.info("New order created. Order Number : {}", savedOrder.getOrderNumber());
@@ -44,15 +41,15 @@ public class OrderService
 
     public List<Order> getAllOrders()
     {
-        Sort sort = new Sort(Direction.DESC, "createdOn");
+        Sort sort = new Sort(DESC, "createdOn");
         return orderRepository.findAll(sort);
     }
 
     public Order updateOrder(Order order)
     {
-        Order o = getOrder(order.getOrderNumber());
-        o.setStatus(order.getStatus());
-        Order savedOrder = orderRepository.save(o);
+        Order persistOrder = getOrder(order.getOrderNumber());
+        persistOrder.setStatus(order.getStatus());
+        Order savedOrder = orderRepository.save(persistOrder);
         log.info("Updated Order with Order Number : {}", savedOrder.getOrderNumber());
         return savedOrder;
     }

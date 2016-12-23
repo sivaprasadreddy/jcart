@@ -1,7 +1,6 @@
-/**
- * 
- */
 package com.sivalabs.jcart.site.web.validators;
+
+import static java.util.Objects.nonNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -33,7 +32,7 @@ public class CustomerValidator implements Validator
         Customer customer = (Customer) target;
         Customer customerByEmail = custmoerService
                 .getCustomerByEmail(customer.getEmail());
-        if (customerByEmail != null)
+        if (nonNull(customerByEmail))
         {
             errors.rejectValue("email", "error.exists",
                     new Object[] { customer.getEmail() },

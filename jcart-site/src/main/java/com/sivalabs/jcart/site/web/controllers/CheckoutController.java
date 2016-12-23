@@ -1,14 +1,10 @@
-/**
- * 
- */
 package com.sivalabs.jcart.site.web.controllers;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import com.sivalabs.jcart.site.web.models.Cart;
 import com.sivalabs.jcart.site.web.models.OrderDTO;
@@ -18,7 +14,7 @@ import com.sivalabs.jcart.site.web.models.OrderDTO;
  *
  */
 @Controller
-public class CheckoutController extends AbstractJCartSiteBaseController
+public class CheckoutController extends AbstractJCartSiteController
 {
 
     @Override
@@ -27,7 +23,7 @@ public class CheckoutController extends AbstractJCartSiteBaseController
         return "Checkout";
     }
 
-    @RequestMapping(value = "/checkout", method = RequestMethod.GET)
+    @GetMapping(value = "/checkout")
     public String checkout(HttpServletRequest request, Model model)
     {
         OrderDTO order = new OrderDTO();

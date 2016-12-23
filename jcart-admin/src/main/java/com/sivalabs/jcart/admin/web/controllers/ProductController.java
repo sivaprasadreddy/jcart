@@ -19,10 +19,10 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -46,9 +46,9 @@ import lombok.extern.slf4j.Slf4j;
 @Secured(SecurityUtil.MANAGE_PRODUCTS)
 public class ProductController extends AbstractJCartAdminController
 {
-    
+
     private static final String VIEWPREFIX = "products/";
-    
+
     @Autowired
     private CatalogService catalogService;
 
@@ -67,14 +67,14 @@ public class ProductController extends AbstractJCartAdminController
         return catalogService.getAllCategories();
     }
 
-    @RequestMapping(value = "/products", method = RequestMethod.GET)
+    @GetMapping(value = "/products")
     public String listProducts(Model model)
     {
         model.addAttribute("products", catalogService.getAllProducts());
         return VIEWPREFIX + "products";
     }
 
-    @RequestMapping(value = "/products/new", method = RequestMethod.GET)
+    @GetMapping(value = "/products/new")
     public String createProductForm(Model model)
     {
         ProductForm product = new ProductForm();
@@ -82,7 +82,7 @@ public class ProductController extends AbstractJCartAdminController
         return VIEWPREFIX + "create_product";
     }
 
-    @RequestMapping(value = "/products", method = RequestMethod.POST)
+    @PostMapping(value = "/products")
     public String createProduct(@Valid @ModelAttribute("product") ProductForm productForm,
             BindingResult result, Model model, RedirectAttributes redirectAttributes)
     {
@@ -101,7 +101,7 @@ public class ProductController extends AbstractJCartAdminController
         return "redirect:/products";
     }
 
-    @RequestMapping(value = "/products/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/products/{id}")
     public String editProductForm(@PathVariable Integer id, Model model)
     {
         Product product = catalogService.getProductById(id);
@@ -109,7 +109,7 @@ public class ProductController extends AbstractJCartAdminController
         return VIEWPREFIX + "edit_product";
     }
 
-    @RequestMapping(value = "/products/images/{productId}", method = RequestMethod.GET)
+    @GetMapping(value = "/products/images/{productId}")
     public void showProductImage(@PathVariable String productId,
             HttpServletRequest request, HttpServletResponse response)
     {
@@ -128,7 +128,7 @@ public class ProductController extends AbstractJCartAdminController
         }
     }
 
-    @RequestMapping(value = "/products/{id}", method = RequestMethod.POST)
+    @PostMapping(value = "/products/{id}")
     public String updateProduct(@Valid @ModelAttribute("product") ProductForm productForm,
             BindingResult result, Model model, RedirectAttributes redirectAttributes)
     {
@@ -140,8 +140,8 @@ public class ProductController extends AbstractJCartAdminController
         Product product = productForm.toProduct();
         Product persistedProduct = catalogService.updateProduct(product);
         this.saveProductImageToDisk(productForm);
-        log.debug("Updated product with id : {} and name : {}",
-                persistedProduct.getId(), persistedProduct.getName());
+        log.debug("Updated product with id : {} and name : {}", persistedProduct.getId(),
+                persistedProduct.getName());
         redirectAttributes.addFlashAttribute("info", "Product updated successfully");
         return "redirect:/products";
     }

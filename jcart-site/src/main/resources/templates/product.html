@@ -1,72 +1,81 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
-      layout:decorator="layout/mainLayout">
-      
-      <head>
-        <title>Product</title>
-    </head>
-    <body>
-    	<div layout:fragment="content">
-    
-    <div class="single-product-area">
-        <div class="zigzag-bottom"></div>
-        <div class="container">
-            <div class="row">
-                
-                <div class="col-md-offset-2 col-md-8">
-                    <div class="product-content-right">
-                        <div class="product-breadcroumb">
-                            <a href="" th:href="@{/}">Home</a>
-                            <a href="" th:href="@{/categories/{name}(name=${product.category.name})}"><span th:text="${product.category.name}">Category Name</span></a>
-                            <a href="" th:href="@{/products/{sku}(sku=${product.sku})}"><span th:text="${product.name}">ProductName</span></a>
-                        </div>
-                        
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="product-images">
-                                    <div class="product-main-img">
-                                        <img src="assets/img/product-2.jpg" alt="" th:src="@{'/products/images/{id}.jpg'(id=${product.id})}"/>
-                                    </div>
-                                                                        
-                                </div>
-                            </div>
-                            
-                            <div class="col-sm-6">
-                                <div class="product-inner">
-                                    <h2 class="product-name" th:text="${product.name}">ProductName</h2>
-                                    <div class="product-inner-price">
-                                        <ins th:text="${product.price}">$9.00</ins>
-                                    </div>    
-                                    
-                                    <div>
-                                        <button class="add_to_cart_button" type="submit" 
-                                        		th:onclick="'javascript:addItemToCart(\'' + ${product.sku} + '\');'">Add to cart</button>
-                                    </div>   
-                                    
-                                    <div class="product-inner-category">
-                                        <h2>Product Description</h2>  
-                                        <p th:text="${product.description}">
-                                        	Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                                        	Nam tristique, diam in consequat iaculis, est purus iaculis mauris, imperdiet facilisis 
-                                        	ante ligula at nulla. Quisque volutpat nulla risus, id maximus ex aliquet ut. 
-                                        	Suspendisse potenti. Nulla varius lectus id turpis dignissim porta. Quisque magna arcu, 
-                                        	blandit quis felis vehicula, feugiat gravida diam. Nullam nec turpis ligula. 
-                                        	Aliquam quis blandit elit, ac sodales nisl. Aliquam eget dolor eget elit malesuada aliquet. 
-                                        	In varius lorem lorem, semper bibendum lectus lobortis ac.<br/>
-                                        </p>
-                                    </div> 
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div>                    
-                </div>
-            </div>
-        </div>
-    </div>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/mainLayout}">
 
-</div>
-  </body>
+<head>
+<title>Product</title>
+</head>
+<body>
+	<div layout:fragment="content">
+
+		<div class="single-product-area">
+			<div class="zigzag-bottom"></div>
+			<div class="container">
+				<div class="row">
+
+					<div class="col-md-offset-2 col-md-8">
+						<div class="product-content-right">
+							<div class="product-breadcroumb">
+								<a href="" th:href="@{/}">Home</a> <a href=""
+									th:href="@{/categories/{name}(name=${product.category.name})}"><span
+									th:text="${product.category.name}">Category Name</span></a> <a
+									href="" th:href="@{/products/{sku}(sku=${product.sku})}"><span
+									th:text="${product.name}">ProductName</span></a>
+							</div>
+
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="product-images">
+										<div class="product-main-img">
+											<img src="assets/img/product-2.jpg" alt=""
+												th:src="@{'/products/images/{id}.jpg'(id=${product.id})}" />
+										</div>
+
+									</div>
+								</div>
+
+								<div class="col-sm-6">
+									<div class="product-inner">
+										<h2 class="product-name" th:text="${product.name}">ProductName</h2>
+										<div class="product-inner-price">
+											<ins th:text="${product.price}">$9.00</ins>
+										</div>
+
+										<div>
+											<button class="add_to_cart_button" type="submit"
+												th:onclick="'javascript:addItemToCart(\'' + ${product.sku} + '\');'">Add
+												to cart</button>
+										</div>
+
+										<div class="product-inner-category">
+											<h2>Product Description</h2>
+											<p th:text="${product.description}">
+												Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
+												tristique, diam in consequat iaculis, est purus iaculis
+												mauris, imperdiet facilisis ante ligula at nulla. Quisque
+												volutpat nulla risus, id maximus ex aliquet ut. Suspendisse
+												potenti. Nulla varius lectus id turpis dignissim porta.
+												Quisque magna arcu, blandit quis felis vehicula, feugiat
+												gravida diam. Nullam nec turpis ligula. Aliquam quis blandit
+												elit, ac sodales nisl. Aliquam eget dolor eget elit
+												malesuada aliquet. In varius lorem lorem, semper bibendum
+												lectus lobortis ac.<br />
+											</p>
+										</div>
+
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</body>
 </html>

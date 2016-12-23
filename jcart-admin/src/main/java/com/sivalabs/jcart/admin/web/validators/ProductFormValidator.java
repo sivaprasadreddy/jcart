@@ -1,7 +1,6 @@
-/**
- * 
- */
 package com.sivalabs.jcart.admin.web.validators;
+
+import static java.util.Objects.nonNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -34,10 +33,10 @@ public class ProductFormValidator implements Validator
     @Override
     public void validate(Object target, Errors errors)
     {
-        ProductForm product = (ProductForm) target;
-        String sku = product.getSku();
-        Product p = catalogService.getProductBySku(sku);
-        if (p != null)
+        ProductForm productForm = (ProductForm) target;
+        String sku = productForm.getSku();
+        Product product = catalogService.getProductBySku(sku);
+        if (nonNull(product))
         {
             errors.rejectValue("sku", "error.exists", new Object[] { sku },
                     "Product SKU " + sku + " already exists");

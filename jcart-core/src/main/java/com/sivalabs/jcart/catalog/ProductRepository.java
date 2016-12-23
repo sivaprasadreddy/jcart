@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.sivalabs.jcart.catalog;
 
 import java.util.List;
