@@ -64,7 +64,7 @@
 							data-toggle="dropdown"> <!-- The user image in the navbar-->
 								<img th:src="@{/assets/dist/img/user.png}" class="user-image"
 								alt="User Image" /> <!-- hidden-xs hides the username on small devices so only the image appears. -->
-								<span class="hidden-xs" sec:authentication="principal.user.name">User</span>
+								<span class="hidden-xs" sec:authentication="principal.Username">User</span>
 						</a>
 							<ul class="dropdown-menu">
 								<!-- The user image in the menu -->
@@ -72,7 +72,7 @@
 									th:src="@{/assets/dist/img/user.png}" class="img-circle"
 									alt="User Image" />
 									<p>
-										<span sec:authentication="principal.user.name">User</span>
+										<span sec:authentication="principal.Username">User</span>
 									</p></li>
 
 								<!-- Menu Footer-->
@@ -107,7 +107,7 @@
 					</div>
 					<div class="pull-left info">
 						<p>
-							<span sec:authentication="principal.user.name">User</span>
+							<span sec:authentication="principal.Username">User</span>
 						</p>
 						<!-- Status -->
 						<a href="#"><i class="fa fa-circle text-success"></i> Online</a>

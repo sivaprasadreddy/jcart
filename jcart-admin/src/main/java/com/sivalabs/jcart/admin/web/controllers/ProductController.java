@@ -58,7 +58,6 @@ public class ProductController extends AbstractJCartAdminController
     public ProductController(CatalogService catalogService,
             ProductFormValidator productFormValidator)
     {
-        super();
         this.catalogService = catalogService;
         this.productFormValidator = productFormValidator;
     }
