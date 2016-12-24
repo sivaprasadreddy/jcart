@@ -3,6 +3,8 @@
  */
 package com.sivalabs.jcart.admin.web.controllers;
 
+import static java.util.Objects.nonNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -55,6 +57,6 @@ public abstract class AbstractJCartAdminController
 
     public static boolean isLoggedIn()
     {
-        return getCurrentUser() != null;
+        return nonNull(getCurrentUser());
     }
 }

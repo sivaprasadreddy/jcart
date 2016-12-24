@@ -1,7 +1,8 @@
-/**
- * 
- */
 package com.sivalabs.jcart.admin.web.controllers;
+
+import static com.sivalabs.jcart.admin.security.SecurityUtil.MANAGE_PRODUCTS;
+import static com.sivalabs.jcart.admin.web.utils.HeaderTitleConstants.PRODUCTTITLE;
+import static com.sivalabs.jcart.admin.web.utils.WebUtils.IMAGES_DIR;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -26,9 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sivalabs.jcart.JCartException;
-import com.sivalabs.jcart.admin.security.SecurityUtil;
 import com.sivalabs.jcart.admin.web.models.ProductForm;
-import com.sivalabs.jcart.admin.web.utils.WebUtils;
 import com.sivalabs.jcart.admin.web.validators.ProductFormValidator;
 import com.sivalabs.jcart.catalog.CatalogService;
 import com.sivalabs.jcart.entities.Category;
@@ -38,11 +38,12 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Siva
+ * @author rajakolli
  *
  */
 @Slf4j
 @Controller
-@Secured(SecurityUtil.MANAGE_PRODUCTS)
+@Secured(MANAGE_PRODUCTS)
 public class ProductController extends AbstractJCartAdminController
 {
 
@@ -52,6 +53,8 @@ public class ProductController extends AbstractJCartAdminController
     private ProductFormValidator productFormValidator;
 
     /**
+     * Spring {@link Autowired} Constructor Injection
+     * 
      * @param catalogService
      * @param productFormValidator
      */
@@ -65,7 +68,7 @@ public class ProductController extends AbstractJCartAdminController
     @Override
     protected String getHeaderTitle()
     {
-        return "Manage Products";
+        return PRODUCTTITLE;
     }
 
     @ModelAttribute("categoriesList")
@@ -123,7 +126,7 @@ public class ProductController extends AbstractJCartAdminController
         try
         {
             FileSystemResource file = new FileSystemResource(
-                    WebUtils.IMAGES_DIR + productId + ".jpg");
+                    IMAGES_DIR + productId + ".jpg");
             response.setContentType("image/jpg");
             org.apache.commons.io.IOUtils.copy(file.getInputStream(),
                     response.getOutputStream());
@@ -158,7 +161,7 @@ public class ProductController extends AbstractJCartAdminController
         MultipartFile file = productForm.getImage();
         if (file != null && !file.isEmpty())
         {
-            String name = WebUtils.IMAGES_DIR + productForm.getId() + ".jpg";
+            String name = IMAGES_DIR + productForm.getId() + ".jpg";
             try (BufferedOutputStream stream = new BufferedOutputStream(
                     new FileOutputStream(new File(name))))
             {

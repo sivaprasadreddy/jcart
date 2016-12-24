@@ -3,6 +3,8 @@
  */
 package com.sivalabs.jcart.admin.web.validators;
 
+import static java.util.Objects.nonNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
@@ -36,7 +38,7 @@ public class CategoryValidator implements Validator
         Category category = (Category) target;
         String name = category.getName();
         Category categoryByName = catalogService.getCategoryByName(name);
-        if (categoryByName != null)
+        if (nonNull(categoryByName))
         {
             errors.rejectValue("name", "error.exists", new Object[] { name },
                     "Category " + category.getName() + " already exists");

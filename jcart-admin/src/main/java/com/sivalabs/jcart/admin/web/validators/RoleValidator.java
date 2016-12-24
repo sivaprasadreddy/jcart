@@ -3,6 +3,8 @@
  */
 package com.sivalabs.jcart.admin.web.validators;
 
+import static java.util.Objects.nonNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
@@ -36,7 +38,7 @@ public class RoleValidator implements Validator
         Role role = (Role) target;
         String name = role.getName();
         Role roleByName = securityService.getRoleByName(name);
-        if (roleByName != null)
+        if (nonNull(roleByName))
         {
             errors.rejectValue("name", "error.exists", new Object[] { name },
                     "Role " + name + " already exists");
