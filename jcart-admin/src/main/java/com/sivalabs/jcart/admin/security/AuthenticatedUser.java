@@ -1,5 +1,6 @@
 package com.sivalabs.jcart.admin.security;
 
+import static java.util.Objects.nonNull;
 import static java.util.stream.Collectors.toSet;
 
 import java.util.Collection;
@@ -37,6 +38,7 @@ public class AuthenticatedUser extends org.springframework.security.core.userdet
     private static Collection<? extends GrantedAuthority> getAuthorities(User user)
     {
         return user.getRoles().stream()
+                .filter(role -> nonNull(role.getPermissions()))
                 .flatMap(role -> Stream.concat(
                         Stream.of(new SimpleGrantedAuthority(role.getName())),
                         role.getPermissions().stream()

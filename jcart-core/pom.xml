@@ -36,6 +36,12 @@
             <version>2.2.4</version>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>com.icegreen</groupId>
+            <artifactId>greenmail</artifactId>
+            <version>1.5.2</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 </project>

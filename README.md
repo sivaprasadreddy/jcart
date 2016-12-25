@@ -7,3 +7,5 @@ login to Admin by using the url http://localhost:9090 and by entering the creden
 	Username :: rajadileepkolli@gmail.com
 	Password :: superadmin
 	
+To run sonar report execute below command
+mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar

@@ -1,8 +1,25 @@
+/*
+ * Copyright 2016 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.sivalabs.jcart.admin.web.controllers;
 
 import static com.sivalabs.jcart.admin.security.SecurityUtil.MANAGE_PRODUCTS;
 import static com.sivalabs.jcart.admin.web.utils.HeaderTitleConstants.PRODUCTTITLE;
 import static com.sivalabs.jcart.admin.web.utils.WebUtils.IMAGES_DIR;
+import static java.util.Objects.nonNull;
+import static org.apache.commons.io.IOUtils.copy;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -104,7 +121,7 @@ public class ProductController extends AbstractJCartAdminController
         Product product = productForm.toProduct();
         Product persistedProduct = catalogService.createProduct(product);
         productForm.setId(product.getId());
-        ProductController.saveProductImageToDisk(productForm);
+        this.saveProductImageToDisk(productForm);
         log.debug("Created new product with id : {} and name : {}",
                 persistedProduct.getId(), persistedProduct.getName());
         redirectAttributes.addFlashAttribute("info", "Product created successfully");
@@ -128,8 +145,7 @@ public class ProductController extends AbstractJCartAdminController
             FileSystemResource file = new FileSystemResource(
                     IMAGES_DIR + productId + ".jpg");
             response.setContentType("image/jpg");
-            org.apache.commons.io.IOUtils.copy(file.getInputStream(),
-                    response.getOutputStream());
+            copy(file.getInputStream(), response.getOutputStream());
             response.flushBuffer();
         }
         catch (IOException e)
@@ -142,26 +158,26 @@ public class ProductController extends AbstractJCartAdminController
     public String updateProduct(@Valid @ModelAttribute("product") ProductForm productForm,
             BindingResult result, Model model, RedirectAttributes redirectAttributes)
     {
-        productFormValidator.validate(productForm, result);
         if (result.hasErrors())
         {
             return VIEWPREFIX + "edit_product";
         }
         Product product = productForm.toProduct();
         Product persistedProduct = catalogService.updateProduct(product);
-        ProductController.saveProductImageToDisk(productForm);
+        this.saveProductImageToDisk(productForm);
         log.debug("Updated product with id : {} and name : {}", persistedProduct.getId(),
                 persistedProduct.getName());
         redirectAttributes.addFlashAttribute("info", "Product updated successfully");
         return "redirect:/products";
     }
 
-    private static void saveProductImageToDisk(ProductForm productForm)
+    protected void saveProductImageToDisk(ProductForm productForm)
     {
         MultipartFile file = productForm.getImage();
-        if (file != null && !file.isEmpty())
+        if (nonNull(file) && !file.isEmpty())
         {
-            String name = IMAGES_DIR + productForm.getId() + ".jpg";
+            String name = new StringBuilder(IMAGES_DIR).append(productForm.getId())
+                    .append(".jpg").toString();
             try (BufferedOutputStream stream = new BufferedOutputStream(
                     new FileOutputStream(new File(name))))
             {

@@ -25,6 +25,7 @@ import com.sivalabs.jcart.entities.User;
 @Transactional
 public class SecurityService
 {
+    private static final String INVALID_EMAILADDRESS = "INVALID_EMAILADDRESS";
     private UserRepository userRepository;
     private PermissionRepository permissionRepository;
     private RoleRepository roleRepository;
@@ -55,7 +56,7 @@ public class SecurityService
         User user = findUserByEmail(email);
         if (isNull(user))
         {
-            throw new JCartException("Invalid email address");
+            throw new JCartException(INVALID_EMAILADDRESS);
         }
         String uuid = UUID.randomUUID().toString();
         user.setPasswordResetToken(uuid);
@@ -67,7 +68,7 @@ public class SecurityService
         User user = findUserByEmail(email);
         if (isNull(user))
         {
-            throw new JCartException("Invalid email address");
+            throw new JCartException(INVALID_EMAILADDRESS);
         }
         if (!StringUtils.hasText(token) || !token.equals(user.getPasswordResetToken()))
         {
@@ -82,7 +83,7 @@ public class SecurityService
         User user = findUserByEmail(email);
         if (isNull(user))
         {
-            throw new JCartException("Invalid email address");
+            throw new JCartException(INVALID_EMAILADDRESS);
         }
         if (!StringUtils.hasText(token) || !token.equals(user.getPasswordResetToken()))
         {
