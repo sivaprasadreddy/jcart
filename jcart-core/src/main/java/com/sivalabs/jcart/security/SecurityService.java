@@ -19,13 +19,13 @@ import com.sivalabs.jcart.entities.User;
 
 /**
  * @author Siva
- *
+ * @author rajakolli
  */
 @Service
 @Transactional
 public class SecurityService
 {
-    private static final String INVALID_EMAILADDRESS = "INVALID_EMAILADDRESS";
+    private static final String INVALID_EMAILADDRESS = "Invalid email address";
     private UserRepository userRepository;
     private PermissionRepository permissionRepository;
     private RoleRepository roleRepository;

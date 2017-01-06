@@ -1,29 +1,33 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
-      layout:decorate="layout/mainLayout">
-      
-      <head>
-        <title>Access Denied</title>
-    </head>
-    <body>
-    	<div layout:fragment="pageHeader">
-        <section class="content-header">
-        	<h3><i class="fa fa-warning text-red"></i> You are not allowed to view this content.</h3>
-        </section>
-        </div>
-    	<div layout:fragment="content">
-	        
-	        <div>
-              
-              <p>
-                You may want to go <a th:href="@{/home}">Home</a>
-              </p>
-              
-          </div>
-          
-    	</div>
-    	
-    </body>
-    
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	layout:decorate="layout/mainLayout">
+
+<head>
+<title>Access Denied</title>
+</head>
+<body>
+	<div layout:fragment="pageHeader">
+		<section class="content-header">
+			<h3>
+				<i class="fa fa-warning text-red"></i> You are not allowed to view
+				this content.
+			</h3>
+		</section>
+	</div>
+	<div layout:fragment="content">
+
+		<div>
+
+			<p>
+				You may want to go <a th:href="@{/home}">Home</a>
+			</p>
+
+		</div>
+
+	</div>
+
+</body>
+
 </html>
