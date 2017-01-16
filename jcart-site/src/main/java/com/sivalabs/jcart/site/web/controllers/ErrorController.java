@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.sivalabs.jcart.site.web.controllers;
 
 import org.springframework.stereotype.Controller;
@@ -11,25 +8,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-public class ErrorController extends JCartSiteBaseController
+public class ErrorController extends AbstractJCartSiteController
 {
-	private static final String viewPrefix = "error/";
-	
-	@Override
-	protected String getHeaderTitle()
-	{
-		return "Error";
-	}
-	
-	@RequestMapping("/403")
-	public String accessDenied()
-	{
-		return viewPrefix+"accessDenied";
-	}
-	
-	/*@RequestMapping("/error")
-	public String error()
-	{
-		return viewPrefix+"error";
-	}*/
+    private static final String VIEWPREFIX = "error/";
+
+    @Override
+    protected String getHeaderTitle()
+    {
+        return "Error";
+    }
+
+    @RequestMapping("/403")
+    public String accessDenied()
+    {
+        return VIEWPREFIX + "accessDenied";
+    }
+
 }

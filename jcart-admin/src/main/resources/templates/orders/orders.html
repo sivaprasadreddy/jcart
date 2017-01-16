@@ -1,47 +1,54 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
-      layout:decorator="layout/mainLayout">
-      
-      <head>
-        <title>Orders</title>
-    </head>
-    <body>
-    	        
-    	<div layout:fragment="content">
-	        <div class="row">
-            <div class="col-md-12">
-              <div class="box">
-                <div class="box-header">
-                  <h3 class="box-title">List of Orders</h3>
-                </div>
-                <div class="box-body table-responsive no-padding">
-                  <table class="table table-hover">
-                    <tr>
-                      <th style="width: 10px">#</th>
-                      <th>Order Number</th>
-                      <th>Customer Name</th>
-                      <th>Email</th>
-                      <th>Edit</th>
-                      
-                    </tr>
-                    <tr th:each="order,iterStat : ${orders}">
-                      <td><span th:text="${iterStat.count}">1</span></td>
-                      <td th:text="${order.orderNumber}">Order Number</td>
-                      <td th:text="${order.customer.firstName}">Customer Name</td>
-                      <td th:text="${order.customer.email}">Customer Email</td>
-                      <td><a th:href="@{/orders/{orderNumber}(orderNumber=${order.orderNumber})}" class="btn btn-sm btn-default"><i class="fa fa-edit"></i> Edit</a></td>
-                    </tr>
-                    
-                  </table>
-                </div><!-- /.box-body -->
-                
-              </div><!-- /.box -->
-              </div>
-              </div>
-              
-    	</div>
-    	
-    </body>
-    
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/mainLayout}">
+
+<head>
+<title>Orders</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="box">
+					<div class="box-header">
+						<h3 class="box-title">List of Orders</h3>
+					</div>
+					<div class="box-body table-responsive no-padding">
+						<table class="table table-hover">
+							<tr>
+								<th style="width: 10px">#</th>
+								<th>Order Number</th>
+								<th>Customer Name</th>
+								<th>Email</th>
+								<th>Edit</th>
+
+							</tr>
+							<tr th:each="order,iterStat : ${orders}">
+								<td><span th:text="${iterStat.count}">1</span></td>
+								<td th:text="${order.orderNumber}">Order Number</td>
+								<td th:text="${order.customer.firstName}">Customer Name</td>
+								<td th:text="${order.customer.email}">Customer Email</td>
+								<td><a
+									th:href="@{/orders/{orderNumber}(orderNumber=${order.orderNumber})}"
+									class="btn btn-sm btn-default"><i class="fa fa-edit"></i>
+										Edit</a></td>
+							</tr>
+
+						</table>
+					</div>
+					<!-- /.box-body -->
+
+				</div>
+				<!-- /.box -->
+			</div>
+		</div>
+
+	</div>
+
+</body>
+
 </html>

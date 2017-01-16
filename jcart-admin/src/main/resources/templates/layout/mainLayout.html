@@ -1,171 +1,211 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-  <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <title layout:title-pattern="$DECORATOR_TITLE - $CONTENT_TITLE">JCart Admin</title>
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" th:href="@{/assets/bootstrap/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
-    						th:href="@{https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css}"/>
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
-    						th:href="@{https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css}"/>
-    <link rel="stylesheet" href="assets/dist/css/AdminLTE.min.css" th:href="@{/assets/dist/css/AdminLTE.min.css}"/>
-    <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">JCart
+	Admin</title>
+<meta
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+	name="viewport" />
+<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css"
+	th:href="@{/assets/bootstrap/css/bootstrap.min.css}" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
+	th:href="@{https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css}" />
+<link rel="stylesheet"
+	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
+	th:href="@{https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css}" />
+<link rel="stylesheet" href="assets/dist/css/AdminLTE.min.css"
+	th:href="@{/assets/dist/css/AdminLTE.min.css}" />
+<!-- AdminLTE Skins. We have chosen the skin-blue for this starter
           page. However, you can choose any other skin. Make sure you
           apply the skin class to the body tag so the changes take effect.
     -->
-    <link rel="stylesheet" href="assets/dist/css/skins/skin-blue.min.css" th:href="@{/assets/dist/css/skins/skin-blue.min.css}"/>
+<link rel="stylesheet" href="assets/dist/css/skins/skin-blue.min.css"
+	th:href="@{/assets/dist/css/skins/skin-blue.min.css}" />
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-  </head>
-  
-  <body class="hold-transition skin-blue sidebar-mini">
-    <div class="wrapper">
+</head>
 
-      <!-- Main Header -->
-      <header class="main-header">
+<body class="hold-transition skin-blue sidebar-mini">
+	<div class="wrapper">
 
-        <!-- Logo -->
-        <a href="#" th:href="@{/home}" class="logo">
-          <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini"><b>JC</b></span>
-          <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>JCart Admin</b></span>
-        </a>
+		<!-- Main Header -->
+		<header class="main-header">
 
-        <!-- Header Navbar -->
-        <nav class="navbar navbar-static-top" role="navigation">
-          <!-- Sidebar toggle button-->
-          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-            <span class="sr-only">Toggle navigation</span>
-          </a>
-          <!-- Navbar Right Menu -->
-          <div class="navbar-custom-menu">
-            <ul class="nav navbar-nav">
-              
-              <!-- User Account Menu -->
-              <li class="dropdown user user-menu">
-                <!-- Menu Toggle Button -->
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <!-- The user image in the navbar-->
-                  <img th:src="@{/assets/dist/img/user.png}" class="user-image" alt="User Image"/>
-                  <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                  <span class="hidden-xs" sec:authentication="principal.user.name">User</span>
-                </a>
-                <ul class="dropdown-menu">
-                  <!-- The user image in the menu -->
-                  <li class="user-header">
-                    <img th:src="@{/assets/dist/img/user.png}" class="img-circle" alt="User Image"/>
-                    <p>
-                      <span sec:authentication="principal.user.name">User</span>
-                    </p>
-                  </li>
-                  
-                  <!-- Menu Footer-->
-                  <li class="user-footer">
-                    <div class="pull-left">
-                      <a href="#" th:href="@{/myAccount}" class="btn btn-default btn-flat">Profile</a>
-                    </div>
-                    <div class="pull-right">
-                      <a href="logout" th:href="@{/logout}" class="btn btn-default btn-flat">Sign out</a>
-                    </div>
-                  </li>
-                </ul>
-              </li>
-              
-            </ul>
-          </div>
-        </nav>
-      </header>
-      <!-- Left side column. contains the logo and sidebar -->
-      <aside class="main-sidebar">
+			<!-- Logo -->
+			<a href="#" th:href="@{/home}" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
+				<span class="logo-mini"><b>JC</b></span> <!-- logo for regular state and mobile devices -->
+				<span class="logo-lg"><b>JCart Admin</b></span>
+			</a>
 
-        <!-- sidebar: style can be found in sidebar.less -->
-        <section class="sidebar">
+			<!-- Header Navbar -->
+			<nav class="navbar navbar-static-top" role="navigation">
+				<!-- Sidebar toggle button-->
+				<a href="#" class="sidebar-toggle" data-toggle="offcanvas"
+					role="button"> <span class="sr-only">Toggle navigation</span>
+				</a>
+				<!-- Navbar Right Menu -->
+				<div class="navbar-custom-menu">
+					<ul class="nav navbar-nav">
 
-          <!-- Sidebar user panel (optional) -->
-          <div class="user-panel">
-            <div class="pull-left image">
-              <img th:src="@{/assets/dist/img/user.png}" class="img-circle" alt="User Image"/>
-            </div>
-            <div class="pull-left info">
-              <p><span sec:authentication="principal.user.name">User</span></p>
-              <!-- Status -->
-              <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-            </div>
-          </div>
+						<!-- User Account Menu -->
+						<li class="dropdown user user-menu">
+							<!-- Menu Toggle Button --> <a href="#" class="dropdown-toggle"
+							data-toggle="dropdown"> <!-- The user image in the navbar-->
+								<img th:src="@{/assets/dist/img/user.png}" class="user-image"
+								alt="User Image" /> <!-- hidden-xs hides the username on small devices so only the image appears. -->
+								<span class="hidden-xs" sec:authentication="principal.Username">User</span>
+						</a>
+							<ul class="dropdown-menu">
+								<!-- The user image in the menu -->
+								<li class="user-header"><img
+									th:src="@{/assets/dist/img/user.png}" class="img-circle"
+									alt="User Image" />
+									<p>
+										<span sec:authentication="principal.Username">User</span>
+									</p></li>
 
-          <!-- Sidebar Menu -->
-          <ul class="sidebar-menu">
-            <!-- <li class="header">HEADER</li> -->
-            <!-- Optionally, you can add icons to the links -->
-            <li th:class="${CURRENT_MENU == 'Home'}? 'active' : ''" ><a href="#" th:href="@{'/home'}"><i class="fa fa-home"></i> <span>Home</span></a></li>
-            <li th:class="${CURRENT_MENU == 'Categories'}? 'active' : ''"  sec:authorize="hasRole('ROLE_MANAGE_CATEGORIES')"><a href="#" th:href="@{'/categories'}"><i class="fa fa-folder-open"></i> <span>Categories</span></a></li>
-            <li th:class="${CURRENT_MENU == 'Products'}? 'active' : ''"  sec:authorize="hasRole('ROLE_MANAGE_PRODUCTS')"><a href="#" th:href="@{'/products'}"><i class="fa fa-file"></i> <span>Products</span></a></li>
-            <li th:class="${CURRENT_MENU == 'Orders'}? 'active' : ''"  sec:authorize="hasRole('ROLE_MANAGE_ORDERS')"><a href="#" th:href="@{'/orders'}"><i class="fa fa-cart-arrow-down"></i> <span>Orders</span></a></li>
-            <li th:class="${CURRENT_MENU == 'Customers'}? 'active' : ''"  sec:authorize="hasRole('ROLE_MANAGE_CUSTOMERS')"><a href="#" th:href="@{'/customers'}"><i class="fa fa-smile-o"></i> <span>Customers</span></a></li>
-            <li th:class="${CURRENT_MENU == 'Users'}? 'active' : ''"  sec:authorize="hasRole('ROLE_MANAGE_USERS')"><a href="#" th:href="@{'/users'}"><i class="fa fa-users"></i> Users</a></li>
-            <li th:class="${CURRENT_MENU == 'Roles'}? 'active' : ''"  sec:authorize="hasRole('ROLE_MANAGE_ROLES')"><a href="#" th:href="@{'/roles'}"><i class="fa fa-user"></i> Roles</a></li>
-            <li th:class="${CURRENT_MENU == 'Permissions'}? 'active' : ''"  sec:authorize="hasRole('ROLE_MANAGE_PERMISSIONS')"><a href="#" th:href="@{'/permissions'}"><i class="fa fa-shield"></i> Permissions</a></li>
-            
-          </ul><!-- /.sidebar-menu -->
-        </section>
-        <!-- /.sidebar -->
-      </aside>
+								<!-- Menu Footer-->
+								<li class="user-footer">
+									<div class="pull-left">
+										<a href="#" th:href="@{/myAccount}"
+											class="btn btn-default btn-flat">Profile</a>
+									</div>
+									<div class="pull-right">
+										<a href="logout" th:href="@{/logout}"
+											class="btn btn-default btn-flat">Sign out</a>
+									</div>
+								</li>
+							</ul>
+						</li>
 
-      <!-- Content Wrapper. Contains page content -->
-      <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <div layout:fragment="pageHeader">
-        	<section class="content-header">
-	        	<h1 th:text="${headerTitle}">
-	            	Manage Roles
-	          	</h1>
-	          	<div th:if="${info}" class="col-md-3 alert alert-info alert-dismissable" >
-	          		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-		        	<p><i class="icon fa fa-info"></i> <span th:text="${info}">Info</span></p>
-		        </div>
-                  
-		        <div th:if="${error}" class="col-md-3 alert alert-danger alert-dismissable" >
-		        	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-		        	<p><i class="icon fa fa-ban"></i> <span th:text="${error}">Error</span></p>
-		        </div>
-	        </section>
-        </div>
+					</ul>
+				</div>
+			</nav>
+		</header>
+		<!-- Left side column. contains the logo and sidebar -->
+		<aside class="main-sidebar">
 
-        <!-- Main content -->
-        <section class="content">
-          <div layout:fragment="content">
-	          <!-- Your Page Content Here -->
-		  </div>
+			<!-- sidebar: style can be found in sidebar.less -->
+			<section class="sidebar">
 
-        </section><!-- /.content -->
-      </div><!-- /.content-wrapper -->
+				<!-- Sidebar user panel (optional) -->
+				<div class="user-panel">
+					<div class="pull-left image">
+						<img th:src="@{/assets/dist/img/user.png}" class="img-circle"
+							alt="User Image" />
+					</div>
+					<div class="pull-left info">
+						<p>
+							<span sec:authentication="principal.Username">User</span>
+						</p>
+						<!-- Status -->
+						<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+					</div>
+				</div>
 
-      <!-- Main Footer -->
-      <footer class="main-footer">
-        <!-- To the right -->
-        <div class="pull-right hidden-xs">
-          <strong><a href="http://sivaprasadreddy.com" target="_blank">http://sivaprasadreddy.com</a></strong>
-        </div>
-        <!-- Default to the left -->
-        <strong>Copyright &copy; 2015 <a href="#">SivaLabs</a>.</strong> All rights reserved.
-      </footer>
+				<!-- Sidebar Menu -->
+				<ul class="sidebar-menu">
+					<!-- <li class="header">HEADER</li> -->
+					<!-- Optionally, you can add icons to the links -->
+					<li th:class="${CURRENT_MENU == 'Home'}? 'active' : ''"><a
+						href="#" th:href="@{'/home'}"><i class="fa fa-home"></i> <span>Home</span></a></li>
+					<li th:class="${CURRENT_MENU == 'Categories'}? 'active' : ''"
+						sec:authorize="hasRole('ROLE_MANAGE_CATEGORIES')"><a href="#"
+						th:href="@{'/categories'}"><i class="fa fa-folder-open"></i> <span>Categories</span></a></li>
+					<li th:class="${CURRENT_MENU == 'Products'}? 'active' : ''"
+						sec:authorize="hasRole('ROLE_MANAGE_PRODUCTS')"><a href="#"
+						th:href="@{'/products'}"><i class="fa fa-file"></i> <span>Products</span></a></li>
+					<li th:class="${CURRENT_MENU == 'Orders'}? 'active' : ''"
+						sec:authorize="hasRole('ROLE_MANAGE_ORDERS')"><a href="#"
+						th:href="@{'/orders'}"><i class="fa fa-cart-arrow-down"></i> <span>Orders</span></a></li>
+					<li th:class="${CURRENT_MENU == 'Customers'}? 'active' : ''"
+						sec:authorize="hasRole('ROLE_MANAGE_CUSTOMERS')"><a href="#"
+						th:href="@{'/customers'}"><i class="fa fa-smile-o"></i> <span>Customers</span></a></li>
+					<li th:class="${CURRENT_MENU == 'Users'}? 'active' : ''"
+						sec:authorize="hasRole('ROLE_MANAGE_USERS')"><a href="#"
+						th:href="@{'/users'}"><i class="fa fa-users"></i> Users</a></li>
+					<li th:class="${CURRENT_MENU == 'Roles'}? 'active' : ''"
+						sec:authorize="hasRole('ROLE_MANAGE_ROLES')"><a href="#"
+						th:href="@{'/roles'}"><i class="fa fa-user"></i> Roles</a></li>
+					<li th:class="${CURRENT_MENU == 'Permissions'}? 'active' : ''"
+						sec:authorize="hasRole('ROLE_MANAGE_PERMISSIONS')"><a
+						href="#" th:href="@{'/permissions'}"><i class="fa fa-shield"></i>
+							Permissions</a></li>
 
-      
-    </div><!-- ./wrapper -->
+				</ul>
+				<!-- /.sidebar-menu -->
+			</section>
+			<!-- /.sidebar -->
+		</aside>
 
-    <!-- REQUIRED JS SCRIPTS -->
-    <script th:src="@{'/assets/plugins/jQuery/jQuery-2.1.4.min.js'}"></script>
-    <script th:src="@{'/assets/bootstrap/js/bootstrap.min.js'}"></script>
-    <script th:src="@{'/assets/dist/js/app.min.js'}"></script>
-    
-  </body>
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
+			<div layout:fragment="pageHeader">
+				<section class="content-header">
+					<h1 th:text="${headerTitle}">Manage Roles</h1>
+					<div th:if="${info}"
+						class="col-md-3 alert alert-info alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert"
+							aria-hidden="true">&times;</button>
+						<p>
+							<i class="icon fa fa-info"></i> <span th:text="${info}">Info</span>
+						</p>
+					</div>
+
+					<div th:if="${error}"
+						class="col-md-3 alert alert-danger alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert"
+							aria-hidden="true">&times;</button>
+						<p>
+							<i class="icon fa fa-ban"></i> <span th:text="${error}">Error</span>
+						</p>
+					</div>
+				</section>
+			</div>
+
+			<!-- Main content -->
+			<section class="content">
+				<div layout:fragment="content">
+					<!-- Your Page Content Here -->
+				</div>
+
+			</section>
+			<!-- /.content -->
+		</div>
+		<!-- /.content-wrapper -->
+
+		<!-- Main Footer -->
+		<footer class="main-footer">
+			<!-- To the right -->
+			<div class="pull-right hidden-xs">
+				<strong><a href="http://sivaprasadreddy.com"
+					target="_blank">http://sivaprasadreddy.com</a></strong>
+			</div>
+			<!-- Default to the left -->
+			<strong>Copyright &copy; 2016 <a href="#">SivaLabs</a>.
+			</strong> All rights reserved.
+		</footer>
+
+
+	</div>
+	<!-- ./wrapper -->
+
+	<!-- REQUIRED JS SCRIPTS -->
+	<script th:src="@{'/assets/plugins/jQuery/jQuery-2.1.4.min.js'}"></script>
+	<script th:src="@{'/assets/bootstrap/js/bootstrap.min.js'}"></script>
+	<script th:src="@{'/assets/dist/js/app.min.js'}"></script>
+
+</body>
 </html>

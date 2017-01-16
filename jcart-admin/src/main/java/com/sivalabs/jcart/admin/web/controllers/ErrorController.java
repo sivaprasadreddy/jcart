@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ErrorController
 {
-	private static final String viewPrefix = "error/";
-	
-	@RequestMapping("/403")
-	public String accessDenied()
-	{
-		return viewPrefix+"accessDenied";
-	}
-	
+    private static final String VIEWPREFIX = "error/";
+
+    @RequestMapping("/403")
+    public String accessDenied()
+    {
+        return VIEWPREFIX + "accessDenied";
+    }
+
 }

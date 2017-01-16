@@ -9,19 +9,21 @@ import javax.servlet.http.HttpServletRequest;
  * @author Siva
  *
  */
-public class WebUtils
+public final class WebUtils
 {
-	private WebUtils()
-	{
-	}
-	public static final String IMAGES_PREFIX = "/products/images/";
-	public static final String IMAGES_DIR = "D:/jcart/products/";
-	
-	public static String getURLWithContextPath(HttpServletRequest request)
-	{
-		return request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
-				+ request.getContextPath();
-	}
-	
-	
+    public static final String IMAGES_PREFIX = "/products/images/";
+    public static final String IMAGES_DIR = WebUtils.class.getClassLoader()
+            .getResource("static/assets/").getPath();
+
+    private WebUtils()
+    {
+        super();
+    }
+
+    public static String getURLWithContextPath(HttpServletRequest request)
+    {
+        return request.getScheme() + "://" + request.getServerName() + ":"
+                + request.getServerPort() + request.getContextPath();
+    }
+
 }

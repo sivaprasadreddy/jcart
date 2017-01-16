@@ -37,7 +37,8 @@ INSERT INTO users (id, email, password, name) VALUES
 (2, 'admin@gmail.com', '$2a$10$hKDVYxLefVHV/vtuPhWD3OigtRyOykRLDdUAp80Z1crSoS1lFqaFS', 'Admin'),
 (3, 'cms@gmail.com', '$2a$10$/Y0IarSOuH2dz.UOLrZbaus17K6AJF7n15qWr02aWN1MOz5vEKT8y', 'CMSGuy'),
 (4, 'siva@gmail.com', '$2a$10$UFEPYW7Rx1qZqdHajzOnB.VBR3rvm7OI7uSix4RadfQiNhkZOi2fi', 'Siva'),
-(5, 'user@gmail.com', '$2a$10$ByIUiNaRfBKSV6urZoBBxe4UbJ/sS6u1ZaPORHF9AtNWAuVPVz1by', 'DemoUser')
+(5, 'user@gmail.com', '$2a$10$ByIUiNaRfBKSV6urZoBBxe4UbJ/sS6u1ZaPORHF9AtNWAuVPVz1by', 'DemoUser'),
+(6, 'rajadileepkolli@gmail.com','$2a$08$vrmtYm/9JQAIvU77MxouFeeVP7v.15Z7hE0ML8m9CxCmSTVF1Gtky','superadmin')
 
 ;
 
@@ -52,7 +53,8 @@ insert into user_role(user_id, role_id) values
 (2,2),
 (3,3),
 (4,2),(4,3),
-(5,4)
+(5,4),
+(6,1)
 ;
 
 insert into categories(id, name, disp_order,disabled) values

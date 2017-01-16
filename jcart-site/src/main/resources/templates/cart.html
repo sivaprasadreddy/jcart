@@ -1,112 +1,115 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
-      layout:decorator="layout/mainLayout">
-      
-      <head>
-        <title>Cart</title>
-    </head>
-    <body>
-    	<div layout:fragment="content">
-    
-		    <div class="single-product-area">
-		        <div class="zigzag-bottom"></div>
-		        <div class="container">
-		            <div class="row">
-		                <div class="woocommerce-info col-md-offset-2 col-md-8" th:if="${#lists.isEmpty(cart.items)}">
-							<h2>Cart is Empty</h2>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/mainLayout}">
+
+<head>
+<title>Cart</title>
+</head>
+<body>
+	<div layout:fragment="content">
+
+		<div class="single-product-area">
+			<div class="zigzag-bottom"></div>
+			<div class="container">
+				<div class="row">
+					<div class="woocommerce-info col-md-offset-2 col-md-8"
+						th:if="${#lists.isEmpty(cart.items)}">
+						<h2>Cart is Empty</h2>
+					</div>
+					<div class="col-md-offset-2 col-md-8"
+						th:unless="${#lists.isEmpty(cart.items)}">
+						<div class="product-content-right">
+							<div class="woocommerce">
+								<form method="post" action="#">
+									<table cellspacing="0" class="shop_table cart">
+										<thead>
+											<tr>
+												<th class="product-remove">&nbsp;</th>
+												<th class="product-thumbnail">&nbsp;</th>
+												<th class="product-name">Product</th>
+												<th class="product-price">Price</th>
+												<th class="product-quantity">Quantity</th>
+												<th class="product-subtotal">Total</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr class="cart_item" th:each="item : ${cart.items}">
+												<td class="product-remove"><a title="Remove this item"
+													class="remove" href="#"
+													th:onclick="'javascript:removeItemFromCart( \''+${item.product.sku}+'\');'">×</a>
+												</td>
+
+												<td class="product-thumbnail"><a href="#"
+													th:href="@{/products/{sku}(sku=${item.product.sku})}">
+														<img width="145" height="145" alt="poster_1_up"
+														class="shop_thumbnail" src="assets/img/products/2.jpg"
+														th:src="@{'/products/images/{id}.jpg'(id=${item.product.id})}" />
+												</a></td>
+
+												<td class="product-name"><a href="#"
+													th:href="@{/products/{sku}(sku=${item.product.sku})}"
+													th:text="${item.product.name}">Product name</a></td>
+
+												<td class="product-price"><span class="amount"
+													th:text="${item.product.price}">$15.00</span></td>
+
+												<td class="product-quantity">
+													<div class="quantity buttons_added">
+														<input type="text" size="5" value="1"
+															th:value="${item.quantity}"
+															th:onchange="'javascript:updateCartItemQuantity( \''+${item.product.sku}+'\' , '+this.value+');'" />
+													</div>
+												</td>
+
+												<td class="product-subtotal"><span class="amount"
+													th:text="${item.product.price * item.quantity}">$150.00</span>
+												</td>
+											</tr>
+											<tr>
+												<td class="actions" colspan="6"><a
+													class="add_to_cart_button" href="#" th:href="@{/checkout}">CHECKOUT</a>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</form>
+
+								<div class="cart-collaterals">
+									<div class="cart_totals ">
+										<h2>Cart Totals</h2>
+
+										<table cellspacing="0">
+											<tbody>
+												<tr class="cart-subtotal">
+													<th>Cart Subtotal</th>
+													<td><span class="amount" th:text="${cart.totalAmount}">$15.00</span></td>
+												</tr>
+
+												<tr class="shipping">
+													<th>Shipping and Handling</th>
+													<td>Free Shipping</td>
+												</tr>
+
+												<tr class="order-total">
+													<th>Order Total</th>
+													<td><strong><span class="amount"
+															th:text="${cart.totalAmount}">$15.00</span></strong></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+
+								</div>
+							</div>
 						</div>
-		                <div class="col-md-offset-2 col-md-8" th:unless="${#lists.isEmpty(cart.items)}">
-		                    <div class="product-content-right">
-		                        <div class="woocommerce">
-		                            <form method="post" action="#">
-		                                <table cellspacing="0" class="shop_table cart">
-		                                    <thead>
-		                                        <tr>
-		                                            <th class="product-remove">&nbsp;</th>
-		                                            <th class="product-thumbnail">&nbsp;</th>
-		                                            <th class="product-name">Product</th>
-		                                            <th class="product-price">Price</th>
-		                                            <th class="product-quantity">Quantity</th>
-		                                            <th class="product-subtotal">Total</th>
-		                                        </tr>
-		                                    </thead>
-		                                    <tbody>
-		                                        <tr class="cart_item" th:each="item : ${cart.items}">
-		                                            <td class="product-remove">
-		                                                <a title="Remove this item" class="remove" href="#" 
-		                                                	th:onclick="'javascript:removeItemFromCart( \''+${item.product.sku}+'\');'">×</a> 
-		                                            </td>
-		
-		                                            <td class="product-thumbnail">
-		                                                <a href="#" th:href="@{/products/{sku}(sku=${item.product.sku})}">
-		                                                	<img width="145" height="145" alt="poster_1_up" 
-		                                                	class="shop_thumbnail" src="assets/img/products/2.jpg"
-		                                                	th:src="@{'/products/images/{id}.jpg'(id=${item.product.id})}"/>
-		                                                </a>
-		                                            </td>
-		
-		                                            <td class="product-name">
-		                                                <a href="#" th:href="@{/products/{sku}(sku=${item.product.sku})}"
-		                                                	th:text="${item.product.name}">Product name</a> 
-		                                            </td>
-		
-		                                            <td class="product-price">
-		                                                <span class="amount" th:text="${item.product.price}">$15.00</span> 
-		                                            </td>
-		
-		                                            <td class="product-quantity">
-		                                                <div class="quantity buttons_added">
-		                                                	<input type="text" size="5" value="1" th:value="${item.quantity}" 
-		                                                			th:onchange="'javascript:updateCartItemQuantity( \''+${item.product.sku}+'\' , '+this.value+');'"/>
-		                                                </div>
-		                                            </td>
-		
-		                                            <td class="product-subtotal">
-		                                                <span class="amount" th:text="${item.product.price * item.quantity}">$150.00</span> 
-		                                            </td>
-		                                        </tr>
-		                                        <tr>
-		                                            <td class="actions" colspan="6">
-		                                                <a class="add_to_cart_button" href="#" th:href="@{/checkout}">CHECKOUT</a>
-		                                            </td>
-		                                        </tr>
-		                                    </tbody>
-		                                </table>
-		                            </form>
-		
-		                            <div class="cart-collaterals">
-					                     <div class="cart_totals ">
-		                                <h2>Cart Totals</h2>
-		
-		                                <table cellspacing="0">
-		                                    <tbody>
-		                                        <tr class="cart-subtotal">
-		                                            <th>Cart Subtotal</th>
-		                                            <td><span class="amount" th:text="${cart.totalAmount}">$15.00</span></td>
-		                                        </tr>
-		
-		                                        <tr class="shipping">
-		                                            <th>Shipping and Handling</th>
-		                                            <td>Free Shipping</td>
-		                                        </tr>
-		
-		                                        <tr class="order-total">
-		                                            <th>Order Total</th>
-		                                            <td><strong><span class="amount" th:text="${cart.totalAmount}">$15.00</span></strong> </td>
-		                                        </tr>
-		                                    </tbody>
-		                                </table>
-		                            </div>
-		
-		                            </div>
-		                        </div>                        
-		                    </div>                    
-		                </div>
-		            </div>
-		        </div>
-		    </div>
-		
+					</div>
+				</div>
+			</div>
 		</div>
-  </body>
+
+	</div>
+</body>
 </html>

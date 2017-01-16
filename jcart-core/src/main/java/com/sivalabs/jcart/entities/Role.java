@@ -1,93 +1,70 @@
-/**
- * 
+/*
+ * Copyright 2016 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.sivalabs.jcart.entities;
 
+import static javax.persistence.GenerationType.AUTO;
+
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.validator.constraints.NotEmpty;
+
+import lombok.Data;
 
 /**
  * @author Siva
+ * @author rajakolli
  *
  */
 @Entity
-@Table(name="roles")
-public class Role
+@Table(name = "roles")
+@Data
+@DynamicInsert
+public class Role implements Serializable
 {
-	@Id @GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer id;
-	@Column(nullable=false, unique=true)
-	@NotEmpty
-	private String name;
-	@Column(length=1024)
-	private String description;
-		
-	@ManyToMany(mappedBy="roles")
-	private List<User> users;
+    private static final long serialVersionUID = 1L;
 
-	@ManyToMany
-	  @JoinTable(
-	      name="role_permission",
-	      joinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")},
-	      inverseJoinColumns={@JoinColumn(name="PERM_ID", referencedColumnName="ID")})
-	  private List<Permission> permissions;
+    @Id
+    @GeneratedValue(strategy = AUTO)
+    private Integer id;
 
-	public Integer getId()
-	{
-		return id;
-	}
+    @NotEmpty
+    @Column(unique = true, nullable = false)
+    private String name;
 
-	public void setId(Integer id)
-	{
-		this.id = id;
-	}
+    @Column(length = 1024)
+    private String description;
 
-	public String getName()
-	{
-		return name;
-	}
+    @ManyToMany(mappedBy = "roles")
+    private List<User> users;
 
-	public void setName(String name)
-	{
-		this.name = name;
-	}
+    @ManyToMany
+    @JoinTable(name = "role_permission", joinColumns = {
+            @JoinColumn(name = "ROLE_ID", referencedColumnName = "ID") }, inverseJoinColumns = {
+                    @JoinColumn(name = "PERM_ID", referencedColumnName = "ID") })
+    private List<Permission> permissions;
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public List<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
-
-	public List<Permission> getPermissions()
-	{
-		return permissions;
-	}
-
-	public void setPermissions(List<Permission> permissions)
-	{
-		this.permissions = permissions;
-	}
-	
-	
 }

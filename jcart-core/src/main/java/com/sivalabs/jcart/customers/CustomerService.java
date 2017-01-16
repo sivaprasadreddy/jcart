@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.sivalabs.jcart.customers;
 
 import java.util.List;
@@ -18,27 +15,43 @@ import com.sivalabs.jcart.entities.Order;
  */
 @Service
 @Transactional
-public class CustomerService {
-	@Autowired CustomerRepository customerRepository;
-	
-	public Customer getCustomerByEmail(String email) {
-		return customerRepository.findByEmail(email);
-	}
+public class CustomerService
+{
+    private CustomerRepository customerRepository;
 
-	public Customer createCustomer(Customer customer) {
-		return customerRepository.save(customer);
-	}
+    /**
+     * Spring {@link Autowired}
+     * 
+     * @param customerRepository
+     */
+    public CustomerService(CustomerRepository customerRepository)
+    {
+        this.customerRepository = customerRepository;
+    }
 
-	public List<Customer> getAllCustomers() {
-		return customerRepository.findAll();
-	}
+    public Customer getCustomerByEmail(String email)
+    {
+        return customerRepository.findByEmail(email);
+    }
 
-	public Customer getCustomerById(Integer id) {
-		return customerRepository.findOne(id);
-	}
+    public Customer createCustomer(Customer customer)
+    {
+        return customerRepository.save(customer);
+    }
 
-	public List<Order> getCustomerOrders(String email) {
-		return customerRepository.getCustomerOrders(email);
-	}
+    public List<Customer> getAllCustomers()
+    {
+        return customerRepository.findAll();
+    }
+
+    public Customer getCustomerById(Integer id)
+    {
+        return customerRepository.findOne(id);
+    }
+
+    public List<Order> getCustomerOrders(String email)
+    {
+        return customerRepository.getCustomerOrders(email);
+    }
 
 }

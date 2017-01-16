@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.sivalabs.jcart;
 
 import org.springframework.boot.SpringApplication;
@@ -14,9 +11,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class JCartSiteApplication
 {
 
-	public static void main(String[] args)
-	{
-		SpringApplication.run(JCartSiteApplication.class, args);
-	}
+    public static void main(String[] args)
+    {
+        SpringApplication.run(JCartSiteApplication.class, args);
+    }
 
 }

@@ -3,6 +3,7 @@
  */
 package com.sivalabs.jcart.site.web.models;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,119 +13,103 @@ import com.sivalabs.jcart.entities.Customer;
 import com.sivalabs.jcart.entities.Payment;
 import com.sivalabs.jcart.entities.Product;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * @author Siva
  *
  */
-public class Cart
+public class Cart implements Serializable
 {
-	private List<LineItem> items;
-	private Customer customer;
-	private Address deliveryAddress;
-	private Payment payment;
-	
-	public Cart()
-	{
-		items = new ArrayList<LineItem>();
-		customer = new Customer();
-		deliveryAddress = new Address();
-		payment = new Payment();
-	}
-	
+    private static final long serialVersionUID = 1L;
 
-	public void addItem(Product product)
-	{
-		for (LineItem lineItem : items)
-		{
-			if(lineItem.getProduct().getSku().equals(product.getSku())){
-				lineItem.setQuantity(lineItem.getQuantity()+1);
-				return;
-			}
-		}
-		LineItem item = new LineItem(product, 1);
-		this.items.add(item);		
-	}
-	
-	public void updateItemQuantity(Product product, int quantity)
-	{
-		for (LineItem lineItem : items)
-		{
-			if(lineItem.getProduct().getSku().equals(product.getSku())){
-				lineItem.setQuantity(quantity);
-			}
-		}
-	}
-	
-	public void removeItem(String sku)
-	{
-		LineItem  item = null;
-		for (LineItem lineItem : items)
-		{
-			if(lineItem.getProduct().getSku().equals(sku)){
-				item = lineItem;
-				break;
-			}
-		}
-		if(item != null){
-			items.remove(item);
-		}
-	}
-	
-	public void clearItems()
-	{
-		items = new ArrayList<LineItem>();
-	}
-	
-	public int getItemCount()
-	{
-		int count = 0;
-		for (LineItem lineItem : items) {
-			count +=  lineItem.getQuantity();
-		}
-		return count;
-	}
-	
-	public List<LineItem> getItems()
-	{
-		return items;
-	}
-	public void setItems(List<LineItem> items)
-	{
-		this.items = items;
-	}
-	public BigDecimal getTotalAmount()
-	{
-		BigDecimal amount = new BigDecimal("0.0");
-		for (LineItem lineItem : items)
-		{
-			amount = amount.add(lineItem.getSubTotal());
-		}
-		return amount;
-	}
-	
-	public Customer getCustomer()
-	{
-		return customer;
-	}
-	public void setCustomer(Customer customer)
-	{
-		this.customer = customer;
-	}
-	public Address getDeliveryAddress()
-	{
-		return deliveryAddress;
-	}
-	public void setDeliveryAddress(Address deliveryAddress)
-	{
-		this.deliveryAddress = deliveryAddress;
-	}
-	public Payment getPayment()
-	{
-		return payment;
-	}
-	public void setPayment(Payment payment)
-	{
-		this.payment = payment;
-	}
-	
+    @Getter
+    @Setter
+    private List<LineItem> items;
+    @Getter
+    @Setter
+    private Customer customer;
+    @Getter
+    @Setter
+    private Address deliveryAddress;
+    @Getter
+    @Setter
+    private Payment payment;
+
+    public Cart()
+    {
+        items = new ArrayList<>();
+        customer = new Customer();
+        deliveryAddress = new Address();
+        payment = new Payment();
+    }
+
+    public void addItem(Product product)
+    {
+        for (LineItem lineItem : items)
+        {
+            if (lineItem.getProduct().getSku().equals(product.getSku()))
+            {
+                lineItem.setQuantity(lineItem.getQuantity() + 1);
+                return;
+            }
+        }
+        LineItem item = new LineItem(product, 1);
+        this.items.add(item);
+    }
+
+    public void updateItemQuantity(Product product, int quantity)
+    {
+        for (LineItem lineItem : items)
+        {
+            if (lineItem.getProduct().getSku().equals(product.getSku()))
+            {
+                lineItem.setQuantity(quantity);
+            }
+        }
+    }
+
+    public void removeItem(String sku)
+    {
+        LineItem item = null;
+        for (LineItem lineItem : items)
+        {
+            if (lineItem.getProduct().getSku().equals(sku))
+            {
+                item = lineItem;
+                break;
+            }
+        }
+        if (item != null)
+        {
+            items.remove(item);
+        }
+    }
+
+    public void clearItems()
+    {
+        items = new ArrayList<>();
+    }
+
+    public int getItemCount()
+    {
+        int count = 0;
+        for (LineItem lineItem : items)
+        {
+            count += lineItem.getQuantity();
+        }
+        return count;
+    }
+
+    public BigDecimal getTotalAmount()
+    {
+        BigDecimal amount = new BigDecimal("0.0");
+        for (LineItem lineItem : items)
+        {
+            amount = amount.add(lineItem.getSubTotal());
+        }
+        return amount;
+    }
+
 }
