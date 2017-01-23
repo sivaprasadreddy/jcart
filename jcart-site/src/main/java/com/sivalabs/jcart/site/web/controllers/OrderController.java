@@ -7,7 +7,6 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,35 +29,22 @@ import com.sivalabs.jcart.site.web.models.Cart;
 import com.sivalabs.jcart.site.web.models.LineItem;
 import com.sivalabs.jcart.site.web.models.OrderDTO;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Siva
  *
  */
-@Slf4j
 @Controller
+@RequiredArgsConstructor
+@Slf4j
 public class OrderController extends AbstractJCartSiteController
 {
 
-    private CustomerService customerService;
-    private OrderService orderService;
-    private EmailService emailService;
-
-    /**
-     * Spring {@link Autowired} Constructor Injection
-     * 
-     * @param customerService
-     * @param orderService
-     * @param emailService
-     */
-    public OrderController(CustomerService customerService, OrderService orderService,
-            EmailService emailService)
-    {
-        this.customerService = customerService;
-        this.orderService = orderService;
-        this.emailService = emailService;
-    }
+    private final CustomerService customerService;
+    private final OrderService orderService;
+    private final EmailService emailService;
 
     @Override
     protected String getHeaderTitle()

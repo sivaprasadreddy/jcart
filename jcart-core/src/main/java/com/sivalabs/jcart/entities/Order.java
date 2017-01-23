@@ -42,57 +42,42 @@ import lombok.Setter;
 @Table(name = "orders")
 @DynamicInsert
 @DynamicUpdate
+@Getter
+@Setter
 public class Order implements Serializable
 {
     private static final long serialVersionUID = 1L;
     
-    @Getter
-    @Setter
+   
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Integer id;
 
-    @Getter
-    @Setter
     @Column(unique = true, nullable = false)
     private String orderNumber;
 
-    @Getter
-    @Setter
     @OneToMany(cascade = ALL, mappedBy = "order")
     private Set<OrderItem> items;
 
-    @Getter
-    @Setter
     @ManyToOne(cascade = MERGE)
     @JoinColumn(name = "cust_id")
     private Customer customer;
 
-    @Getter
-    @Setter
     @OneToOne(cascade = PERSIST)
     @JoinColumn(name = "delivery_addr_id")
     private Address deliveryAddress;
 
-    @Getter
-    @Setter
     @OneToOne(cascade = PERSIST)
     @JoinColumn(name = "billing_addr_id")
     private Address billingAddress;
 
-    @Getter
-    @Setter
     @OneToOne(cascade = PERSIST)
     @JoinColumn(name = "payment_id")
     private Payment payment;
 
-    @Getter
-    @Setter
     @Enumerated(STRING)
     private OrderStatus status;
 
-    @Getter
-    @Setter
     @Temporal(TIMESTAMP)
     @Column(name = "created_on")
     private Date createdOn;

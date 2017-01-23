@@ -18,7 +18,6 @@ package com.sivalabs.jcart.common.services;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -27,6 +26,7 @@ import org.springframework.stereotype.Component;
 
 import com.sivalabs.jcart.JCartException;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -36,22 +36,13 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class EmailService
 {
-    private JavaMailSender javaMailSender;
+    private final JavaMailSender javaMailSender;
 
     @Value("${support.email}")
     private String supportEmail;
-
-    /**
-     * Spring {@link Autowired}
-     * 
-     * @param javaMailSender
-     */
-    public EmailService(JavaMailSender javaMailSender)
-    {
-        this.javaMailSender = javaMailSender;
-    }
 
     public void sendEmail(String to, String subject, String content)
     {

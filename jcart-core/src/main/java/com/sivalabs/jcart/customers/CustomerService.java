@@ -2,12 +2,13 @@ package com.sivalabs.jcart.customers;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sivalabs.jcart.entities.Customer;
 import com.sivalabs.jcart.entities.Order;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author Siva
@@ -15,19 +16,10 @@ import com.sivalabs.jcart.entities.Order;
  */
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class CustomerService
 {
-    private CustomerRepository customerRepository;
-
-    /**
-     * Spring {@link Autowired}
-     * 
-     * @param customerRepository
-     */
-    public CustomerService(CustomerRepository customerRepository)
-    {
-        this.customerRepository = customerRepository;
-    }
+    private final CustomerRepository customerRepository;
 
     public Customer getCustomerByEmail(String email)
     {

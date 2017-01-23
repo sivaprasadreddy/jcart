@@ -8,7 +8,6 @@ import static java.util.Objects.nonNull;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,40 +15,27 @@ import com.sivalabs.jcart.JCartException;
 import com.sivalabs.jcart.entities.Category;
 import com.sivalabs.jcart.entities.Product;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author Siva
  *
  */
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class CatalogService
 {
-    private CategoryRepository categoryRepository;
-    private ProductRepository productRepository;
-
-    /**
-     * Spring {@link Autowired}
-     * 
-     * @param categoryRepository
-     * @param productRepository
-     */
-    public CatalogService(CategoryRepository categoryRepository,
-            ProductRepository productRepository)
-    {
-        super();
-        this.categoryRepository = categoryRepository;
-        this.productRepository = productRepository;
-    }
+    private final CategoryRepository categoryRepository;
+    private final ProductRepository productRepository;
 
     public List<Category> getAllCategories()
     {
-
         return categoryRepository.findAll();
     }
 
     public List<Product> getAllProducts()
     {
-
         return productRepository.findAll();
     }
 

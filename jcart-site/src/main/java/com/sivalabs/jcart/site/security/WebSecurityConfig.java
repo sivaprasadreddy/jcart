@@ -6,30 +6,22 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import lombok.RequiredArgsConstructor;
+
 @Configuration
-@EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true, proxyTargetClass = true)
+@RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 {
 
-    private UserDetailsService customUserDetailsService;
+    private final UserDetailsService customUserDetailsService;
 
-    /**
-     * Spring {@link Autowired} Constructor Injection
-     * 
-     * @param customUserDetailsService
-     */
-    public WebSecurityConfig(UserDetailsService customUserDetailsService)
-    {
-        this.customUserDetailsService = customUserDetailsService;
-    }
 
     @Bean
     public PasswordEncoder passwordEncoder()

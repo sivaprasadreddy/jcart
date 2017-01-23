@@ -1,13 +1,10 @@
 package com.sivalabs.jcart.admin.config;
 
-import javax.servlet.Filter;
-
 import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;
 import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
@@ -15,7 +12,6 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -59,7 +55,7 @@ public class WebConfig extends WebMvcConfigurerAdapter
     }
 
     // http://stackoverflow.com/questions/25957879/filter-order-in-spring-boot
-    @Bean
+ /*   @Bean
     public FilterRegistrationBean securityFilterChain(
             @Qualifier(AbstractSecurityWebApplicationInitializer.DEFAULT_FILTER_NAME) Filter securityFilter)
     {
@@ -68,7 +64,7 @@ public class WebConfig extends WebMvcConfigurerAdapter
         registration
                 .setName(AbstractSecurityWebApplicationInitializer.DEFAULT_FILTER_NAME);
         return registration;
-    }
+    }*/
 
     @Bean
     public FilterRegistrationBean postAuthorizationFilterRegistrationBean()

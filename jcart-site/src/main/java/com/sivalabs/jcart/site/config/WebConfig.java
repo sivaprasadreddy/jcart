@@ -7,7 +7,6 @@ import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;
 import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
@@ -20,27 +19,20 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author Siva
  *
  */
 @Configuration
+@RequiredArgsConstructor
 public class WebConfig extends WebMvcConfigurerAdapter
 {
     @Value("${server.port:8443}")
     private int serverPort;
 
-    private MessageSource messageSource;
-
-    /**
-     * Spring {@link Autowired} Constructor Injection
-     * 
-     * @param messageSource
-     */
-    public WebConfig(MessageSource messageSource)
-    {
-        this.messageSource = messageSource;
-    }
+    private final MessageSource messageSource;
 
     @Override
     public Validator getValidator()

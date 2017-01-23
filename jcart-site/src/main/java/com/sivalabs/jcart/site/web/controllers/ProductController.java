@@ -6,7 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,27 +18,19 @@ import com.sivalabs.jcart.catalog.CatalogService;
 import com.sivalabs.jcart.entities.Product;
 import com.sivalabs.jcart.site.web.utils.WebUtils;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Siva
  *
  */
-@Slf4j
 @Controller
+@RequiredArgsConstructor
+@Slf4j
 public class ProductController extends AbstractJCartSiteController
 {
-    private CatalogService catalogService;
-
-    /**
-     * Spring {@link Autowired} Constructor Injection
-     * 
-     * @param catalogService
-     */
-    public ProductController(CatalogService catalogService)
-    {
-        this.catalogService = catalogService;
-    }
+    private final CatalogService catalogService;
 
     @Override
     protected String getHeaderTitle()

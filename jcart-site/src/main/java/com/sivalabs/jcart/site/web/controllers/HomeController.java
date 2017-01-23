@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,24 +15,17 @@ import com.sivalabs.jcart.catalog.CatalogService;
 import com.sivalabs.jcart.entities.Category;
 import com.sivalabs.jcart.entities.Product;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author Siva
  *
  */
 @Controller
+@RequiredArgsConstructor
 public class HomeController extends AbstractJCartSiteController
 {
-    private CatalogService catalogService;
-
-    /**
-     * Spring {@link Autowired} Constructor Injection
-     * 
-     * @param catalogService
-     */
-    public HomeController(CatalogService catalogService)
-    {
-        this.catalogService = catalogService;
-    }
+    private final CatalogService catalogService;
 
     @Override
     protected String getHeaderTitle()

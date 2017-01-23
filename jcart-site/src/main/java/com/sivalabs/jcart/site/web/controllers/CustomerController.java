@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,35 +18,21 @@ import com.sivalabs.jcart.entities.Customer;
 import com.sivalabs.jcart.entities.Order;
 import com.sivalabs.jcart.site.web.validators.CustomerValidator;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Siva
  *
  */
-
-@Slf4j
 @Controller
+@RequiredArgsConstructor
+@Slf4j
 public class CustomerController extends AbstractJCartSiteController
 {
-    private CustomerService customerService;
-    private CustomerValidator customerValidator;
-    private PasswordEncoder passwordEncoder;
-
-    /**
-     * Spring {@link Autowired} Constructor Injection
-     * 
-     * @param customerService
-     * @param customerValidator
-     * @param passwordEncoder
-     */
-    public CustomerController(CustomerService customerService,
-            CustomerValidator customerValidator, PasswordEncoder passwordEncoder)
-    {
-        this.customerService = customerService;
-        this.customerValidator = customerValidator;
-        this.passwordEncoder = passwordEncoder;
-    }
+    private final CustomerService customerService;
+    private final CustomerValidator customerValidator;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     protected String getHeaderTitle()

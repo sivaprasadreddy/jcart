@@ -30,39 +30,29 @@ import lombok.Setter;
 @Table(name = "categories")
 @DynamicUpdate
 @DynamicInsert
+@Getter
+@Setter
 public class Category implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = AUTO)
-    @Getter
-    @Setter
     private Integer id;
 
     @Column(unique = true, nullable = false)
     @NotEmpty
-    @Getter
-    @Setter
     private String name;
 
     @Column(length = 1024)
-    @Getter
-    @Setter
     private String description;
 
     @Column(name = "disp_order")
-    @Getter
-    @Setter
     private Integer displayOrder;
 
-    @Getter
-    @Setter
     private boolean disabled;
 
     @OneToMany(mappedBy = "category")
-    @Getter
-    @Setter
     private Set<Product> products;
 
 }

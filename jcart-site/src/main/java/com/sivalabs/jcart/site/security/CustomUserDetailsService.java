@@ -2,7 +2,6 @@ package com.sivalabs.jcart.site.security;
 
 import static java.util.Objects.isNull;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,25 +11,18 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sivalabs.jcart.customers.CustomerService;
 import com.sivalabs.jcart.entities.Customer;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author Siva
  *
  */
+@RequiredArgsConstructor
 @Service
 @Transactional
 public class CustomUserDetailsService implements UserDetailsService
 {
-    private CustomerService customerService;
-
-    /**
-     * Spring {@link Autowired} Constructor Injection
-     * 
-     * @param customerService
-     */
-    public CustomUserDetailsService(CustomerService customerService)
-    {
-        this.customerService = customerService;
-    }
+    private final CustomerService customerService;
 
     @Override
     public UserDetails loadUserByUsername(String email)

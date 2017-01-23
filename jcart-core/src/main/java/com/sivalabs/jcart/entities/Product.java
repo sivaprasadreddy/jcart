@@ -46,51 +46,35 @@ import lombok.Setter;
 @Table(name = "products")
 @DynamicInsert
 @DynamicUpdate
+@Getter
+@Setter
 public class Product implements Serializable
 {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id")
-    @Getter
-    @Setter
     private Integer id;
     
-    @Getter
-    @Setter
     @Column(unique = true, nullable = false)
     private String sku;
     
-    @Getter
-    @Setter
     @Column(nullable = false)
     private String name;
     
-    @Getter
-    @Setter
     private String description;
     
-    @Getter
-    @Setter
     @Column(nullable = false)
     private BigDecimal price = new BigDecimal("0.0");
     
-    @Getter
-    @Setter
     private String imageUrl;
     
-    @Getter
-    @Setter
     private boolean disabled;
     
-    @Getter
-    @Setter
     @Temporal(TIMESTAMP)
     @Column(name = "created_on")
     private Date createdOn = new Date();
 
-    @Getter
-    @Setter
     @ManyToOne
     @JoinColumn(name = "cat_id")
     private Category category;

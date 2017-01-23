@@ -4,13 +4,13 @@ import static org.springframework.data.domain.Sort.Direction.DESC;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sivalabs.jcart.entities.Order;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -21,20 +21,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class OrderService
 {
-    private OrderRepository orderRepository;
-
-    /**
-     * Spring {@link Autowired} Constructor Injection
-     * 
-     * @param orderRepository
-     */
-    public OrderService(OrderRepository orderRepository)
-    {
-        super();
-        this.orderRepository = orderRepository;
-    }
+    private final OrderRepository orderRepository;
 
     public Order createOrder(Order order)
     {

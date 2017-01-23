@@ -20,21 +20,16 @@ import lombok.Setter;
  * @author Siva
  *
  */
+@Getter
+@Setter
 public class Cart implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
-    @Getter
-    @Setter
+    
     private List<LineItem> items;
-    @Getter
-    @Setter
     private Customer customer;
-    @Getter
-    @Setter
     private Address deliveryAddress;
-    @Getter
-    @Setter
     private Payment payment;
 
     public Cart()

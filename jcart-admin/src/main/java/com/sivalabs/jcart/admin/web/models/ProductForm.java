@@ -34,46 +34,30 @@ import lombok.Setter;
  * @author rajakolli
  *
  */
+@Getter
+@Setter
 public class ProductForm
 {
-    @Getter
-    @Setter
     private Integer id;
 
-    @Getter
-    @Setter
     @NotEmpty
     private String sku;
 
-    @Getter
-    @Setter
     @NotEmpty
     private String name;
 
-    @Getter
-    @Setter
     private String description;
 
-    @Getter
-    @Setter
     @NotNull
     @DecimalMin("0.1")
     private BigDecimal price;
 
-    @Getter
-    @Setter
     private String imageUrl;
 
-    @Getter
-    @Setter
     private MultipartFile image;
 
-    @Getter
-    @Setter
     private boolean disabled;
 
-    @Getter
-    @Setter
     @NotNull
     private Integer categoryId;
 

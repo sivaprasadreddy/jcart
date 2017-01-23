@@ -2,7 +2,6 @@ package com.sivalabs.jcart.site.web.validators;
 
 import static java.util.Objects.nonNull;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -10,24 +9,17 @@ import org.springframework.validation.Validator;
 import com.sivalabs.jcart.customers.CustomerService;
 import com.sivalabs.jcart.entities.Customer;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author Siva
  *
  */
 @Component
+@RequiredArgsConstructor
 public class CustomerValidator implements Validator
 {
-    private CustomerService customerService;
-
-    /**
-     * Spring {@link Autowired} Constructor Injection
-     * 
-     * @param custmoerService
-     */
-    public CustomerValidator(CustomerService customerService)
-    {
-        this.customerService = customerService;
-    }
+    private final CustomerService customerService;
 
     @Override
     public boolean supports(Class<?> clazz)
