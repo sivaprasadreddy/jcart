@@ -1,5 +1,9 @@
-# Jcart
+# Jcart (forked from https://github.com/sivaprasadreddy/jcart credits to @sivaprasadreddy)
 JCart is a simple e-commerce application built with Spring.
+
+[![Build status](https://travis-ci.org/rajadilipkolli/jcart.svg?branch=master)](https://travis-ci.org/rajadilipkolli/jcart.svg) [![Quality Gate](https://sonarqube.com/api/badges/gate?key=com.sonarqube.examples.java-gradle-travis-project)](https://sonarqube.com/dashboard/index/com.sivalabs:jcart)
+
+#### This project is analysed on [SonarQube.com](https://sonarqube.com)!
 
 ## How to use jcart-admin application
 login to Admin by using the url http://localhost:9090 and by entering the credentials as below, to use your own credentials edit data.sql present under jcart-core module resources folder

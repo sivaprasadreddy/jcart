@@ -15,10 +15,10 @@
     </parent>
 
     <scm>
-        <url>https://github.com/rajadileepkolli/jcart</url>
-        <connection>scm:git:https://github.com/rajadileepkolli/jcart</connection>
-        <developerConnection>scm:git:https://github.com/rajadileepkolli</developerConnection>
-        <tag>scm:git:https://github.com/rajadileepkolli/jcart/tag</tag>
+        <url>https://github.com/rajadilipkolli/jcart</url>
+        <connection>scm:git:https://github.com/rajadilipkolli/jcart</connection>
+        <developerConnection>scm:git:https://github.com/rajadilipkolli</developerConnection>
+        <tag>scm:git:https://github.com/rajadilipkolli/jcart/tag</tag>
     </scm>
 
     <properties>
@@ -58,20 +58,6 @@
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
                 <version>3.1.1</version>
-            </plugin>
-            <!-- To load dependency of jars -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>install</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>sources</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
