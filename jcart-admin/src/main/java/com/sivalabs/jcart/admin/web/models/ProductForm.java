@@ -27,6 +27,7 @@ import com.sivalabs.jcart.entities.Category;
 import com.sivalabs.jcart.entities.Product;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -36,6 +37,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@NoArgsConstructor
 public class ProductForm
 {
     private Integer id;
@@ -60,11 +62,6 @@ public class ProductForm
 
     @NotNull
     private Integer categoryId;
-
-    public ProductForm()
-    {
-        super();
-    }
 
     public Product toProduct()
     {

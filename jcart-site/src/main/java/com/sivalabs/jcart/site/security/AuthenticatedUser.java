@@ -6,12 +6,14 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import com.sivalabs.jcart.entities.Customer;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 /**
  * @author rajakolli
  *
  */
+@EqualsAndHashCode(callSuper = true)
 public class AuthenticatedUser extends org.springframework.security.core.userdetails.User
 {
 

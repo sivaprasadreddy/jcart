@@ -26,7 +26,6 @@ public class Cart implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
-    
     private List<LineItem> items;
     private Customer customer;
     private Address deliveryAddress;
@@ -63,23 +62,12 @@ public class Cart implements Serializable
                 lineItem.setQuantity(quantity);
             }
         }
+
     }
 
     public void removeItem(String sku)
     {
-        LineItem item = null;
-        for (LineItem lineItem : items)
-        {
-            if (lineItem.getProduct().getSku().equals(sku))
-            {
-                item = lineItem;
-                break;
-            }
-        }
-        if (item != null)
-        {
-            items.remove(item);
-        }
+        items.removeIf(lineItem -> lineItem.getProduct().getSku().equals(sku));
     }
 
     public void clearItems()
@@ -89,12 +77,7 @@ public class Cart implements Serializable
 
     public int getItemCount()
     {
-        int count = 0;
-        for (LineItem lineItem : items)
-        {
-            count += lineItem.getQuantity();
-        }
-        return count;
+        return items.stream().mapToInt(LineItem::getQuantity).sum();
     }
 
     public BigDecimal getTotalAmount()

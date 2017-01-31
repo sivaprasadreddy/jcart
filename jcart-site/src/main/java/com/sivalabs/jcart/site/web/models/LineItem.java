@@ -9,20 +9,20 @@ import java.math.BigDecimal;
 import com.sivalabs.jcart.entities.Product;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author Siva
  *
  */
-@Data
+@Setter
+@Getter
 @AllArgsConstructor
-@NoArgsConstructor
 public class LineItem implements Serializable
 {
     private static final long serialVersionUID = 1L;
-    
+
     private Product product;
     private int quantity;
 

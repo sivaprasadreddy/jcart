@@ -2,48 +2,23 @@ package com.sivalabs.jcart.customers;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.sivalabs.jcart.entities.Customer;
 import com.sivalabs.jcart.entities.Order;
-
-import lombok.RequiredArgsConstructor;
 
 /**
  * @author Siva
  *
  */
-@Service
-@Transactional
-@RequiredArgsConstructor
-public class CustomerService
+public interface CustomerService
 {
-    private final CustomerRepository customerRepository;
+    public Customer getCustomerByEmail(String email);
 
-    public Customer getCustomerByEmail(String email)
-    {
-        return customerRepository.findByEmail(email);
-    }
+    public Customer createCustomer(Customer customer);
 
-    public Customer createCustomer(Customer customer)
-    {
-        return customerRepository.save(customer);
-    }
+    public List<Customer> getAllCustomers();
 
-    public List<Customer> getAllCustomers()
-    {
-        return customerRepository.findAll();
-    }
+    public Customer getCustomerById(Integer id);
 
-    public Customer getCustomerById(Integer id)
-    {
-        return customerRepository.findOne(id);
-    }
-
-    public List<Order> getCustomerOrders(String email)
-    {
-        return customerRepository.getCustomerOrders(email);
-    }
+    public List<Order> getCustomerOrders(String email);
 
 }

@@ -26,60 +26,20 @@ import lombok.RequiredArgsConstructor;
  * @author rajakolli
  */
 @Service
-@Transactional
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class SecurityServiceImpl implements SecurityService
 {
+
     private static final String INVALID_EMAILADDRESS = "Invalid email address";
     private final UserRepository userRepository;
     private final PermissionRepository permissionRepository;
     private final RoleRepository roleRepository;
 
     @Override
-    public User findUserByEmail(String email)
+    public User findUserByEmail(String userEmail)
     {
-        return userRepository.findByEmail(email);
-    }
-
-    public String resetPassword(String email)
-    {
-        User user = findUserByEmail(email);
-        if (isNull(user))
-        {
-            throw new JCartException(INVALID_EMAILADDRESS);
-        }
-        String uuid = UUID.randomUUID().toString();
-        user.setPasswordResetToken(uuid);
-        return uuid;
-    }
-
-    public void updatePassword(String email, String token, String password)
-    {
-        User user = findUserByEmail(email);
-        if (isNull(user))
-        {
-            throw new JCartException(INVALID_EMAILADDRESS);
-        }
-        if (!StringUtils.hasText(token) || !token.equals(user.getPasswordResetToken()))
-        {
-            throw new JCartException("Invalid password reset token");
-        }
-        user.setPassword(password);
-        user.setPasswordResetToken(null);
-    }
-
-    public boolean verifyPasswordResetToken(String email, String token)
-    {
-        User user = findUserByEmail(email);
-        if (isNull(user))
-        {
-            throw new JCartException(INVALID_EMAILADDRESS);
-        }
-        if (!StringUtils.hasText(token) || !token.equals(user.getPasswordResetToken()))
-        {
-            return false;
-        }
-        return true;
+        return userRepository.findByEmail(userEmail);
     }
 
     @Override
@@ -88,16 +48,13 @@ public class SecurityServiceImpl implements SecurityService
         return permissionRepository.findAll();
     }
 
+    @Override
     public List<Role> getAllRoles()
     {
         return roleRepository.findAll();
     }
 
-    public Role getRoleByName(String roleName)
-    {
-        return roleRepository.findByName(roleName);
-    }
-
+    @Override
     public Role createRole(Role role)
     {
         Role roleByName = getRoleByName(role.getName());
@@ -111,6 +68,12 @@ public class SecurityServiceImpl implements SecurityService
                 .collect(toList());
         role.setPermissions(persistedPermissions);
         return roleRepository.save(role);
+    }
+
+    @Override
+    public Role getRoleById(Integer id)
+    {
+        return roleRepository.findOne(id);
     }
 
     @Override
@@ -131,21 +94,58 @@ public class SecurityServiceImpl implements SecurityService
         return roleRepository.save(persistedRole);
     }
 
-    public Role getRoleById(Integer id)
+    @Override
+    public String resetPassword(String email)
     {
-        return roleRepository.findOne(id);
+        User user = findUserByEmail(email);
+        if (isNull(user))
+        {
+            throw new JCartException(INVALID_EMAILADDRESS);
+        }
+        String uuid = UUID.randomUUID().toString();
+        user.setPasswordResetToken(uuid);
+        return uuid;
     }
 
-    public User getUserById(Integer id)
+    @Override
+    public boolean verifyPasswordResetToken(String email, String token)
     {
-        return userRepository.findOne(id);
+        User user = findUserByEmail(email);
+        if (isNull(user))
+        {
+            throw new JCartException(INVALID_EMAILADDRESS);
+        }
+        if (!StringUtils.hasText(token) || !token.equals(user.getPasswordResetToken()))
+        {
+            return false;
+        }
+        return true;
     }
 
+    @Override
+    public void updatePassword(String email, String token, String encodedPwd)
+    {
+        User user = findUserByEmail(email);
+        if (isNull(user))
+        {
+            throw new JCartException(INVALID_EMAILADDRESS);
+        }
+        if (!StringUtils.hasText(token) || !token.equals(user.getPasswordResetToken()))
+        {
+            throw new JCartException("Invalid password reset token");
+        }
+        user.setPassword(encodedPwd);
+        user.setPasswordResetToken(null);
+
+    }
+
+    @Override
     public List<User> getAllUsers()
     {
         return userRepository.findAll();
     }
 
+    @Override
     public User createUser(User user)
     {
         User userByEmail = findUserByEmail(user.getEmail());
@@ -161,6 +161,13 @@ public class SecurityServiceImpl implements SecurityService
         return userRepository.save(user);
     }
 
+    @Override
+    public User getUserById(Integer id)
+    {
+        return userRepository.findOne(id);
+    }
+
+    @Override
     public User updateUser(User user)
     {
         User persistedUser = getUserById(user.getId());
@@ -176,4 +183,9 @@ public class SecurityServiceImpl implements SecurityService
         return userRepository.save(persistedUser);
     }
 
+    @Override
+    public Role getRoleByName(String roleName)
+    {
+        return roleRepository.findByName(roleName);
+    }
 }

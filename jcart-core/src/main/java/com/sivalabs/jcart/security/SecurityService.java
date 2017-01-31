@@ -35,6 +35,6 @@ public interface SecurityService
 
     User updateUser(User user);
 
-    Role getRoleByName(String name);
+    Role getRoleByName(String roleName);
 
 }

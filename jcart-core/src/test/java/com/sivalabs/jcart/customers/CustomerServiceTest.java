@@ -50,7 +50,7 @@ public class CustomerServiceTest
         customer.setLastName(lastName);
         customer.setPassword(password);
         testEntityManager.persist(customer);
-        customerService = new CustomerService(customerRepository);
+        customerService = new CustomerServiceImpl(customerRepository);
     }
 
     /**
