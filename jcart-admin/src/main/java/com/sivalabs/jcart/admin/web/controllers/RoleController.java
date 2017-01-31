@@ -26,6 +26,7 @@ import com.sivalabs.jcart.entities.Permission;
 import com.sivalabs.jcart.entities.Role;
 import com.sivalabs.jcart.security.SecurityService;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -35,27 +36,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @Secured(SecurityUtil.MANAGE_ROLES)
+@RequiredArgsConstructor
 public class RoleController extends AbstractJCartAdminController
 {
     private static final String VIEWPREFIX = "roles/";
 
-    private SecurityService securityService;
-    private RoleValidator roleValidator;
+    private final SecurityService securityService;
+    private final RoleValidator roleValidator;
     
-    /**
-     * Autowiring 
-     * 
-     * @param securityService
-     * @param roleValidator
-     */
-    public RoleController(SecurityService securityService, RoleValidator roleValidator)
-    {
-        super();
-        this.securityService = securityService;
-        this.roleValidator = roleValidator;
-    }
-
-
     @Override
     protected String getHeaderTitle()
     {

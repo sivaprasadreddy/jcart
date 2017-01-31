@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.sivalabs.jcart.entities.Permission;
 import com.sivalabs.jcart.security.SecurityService;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author Siva
  * @author rajakolli
@@ -20,20 +22,12 @@ import com.sivalabs.jcart.security.SecurityService;
  */
 @Controller
 @Secured(MANAGE_PERMISSIONS)
+@RequiredArgsConstructor
 public class PermissionController extends AbstractJCartAdminController
 {
     private static final String VIEWPREFIX = "permissions/";
 
-    private SecurityService securityService;
-
-    /**
-     * @param securityService
-     */
-    public PermissionController(SecurityService securityService)
-    {
-        super();
-        this.securityService = securityService;
-    }
+    private final SecurityService securityService;
 
     @Override
     protected String getHeaderTitle()

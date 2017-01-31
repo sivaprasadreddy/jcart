@@ -11,7 +11,6 @@ import static com.sivalabs.jcart.admin.web.utils.MessageCodes.LABEL_PASSWRD_RESE
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +25,7 @@ import com.sivalabs.jcart.admin.web.utils.WebUtils;
 import com.sivalabs.jcart.common.services.EmailService;
 import com.sivalabs.jcart.security.SecurityService;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -34,32 +34,15 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Controller
+@RequiredArgsConstructor
 public class UserAuthController extends AbstractJCartAdminController
 {
     private static final String VIEWPREFIX = "public/";
 
-    protected SecurityService securityService;
-    protected EmailService emailService;
-    protected PasswordEncoder passwordEncoder;
-    protected TemplateEngine templateEngine;
-
-    /**
-     * Spring {@link Autowired}
-     * 
-     * @param securityService
-     * @param emailService
-     * @param passwordEncoder
-     * @param templateEngine
-     */
-    public UserAuthController(SecurityService securityService, EmailService emailService,
-            PasswordEncoder passwordEncoder, TemplateEngine templateEngine)
-    {
-        super();
-        this.securityService = securityService;
-        this.emailService = emailService;
-        this.passwordEncoder = passwordEncoder;
-        this.templateEngine = templateEngine;
-    }
+    private final SecurityService securityService;
+    private final EmailService emailService;
+    private final PasswordEncoder passwordEncoder;
+    private final TemplateEngine templateEngine;
 
     @Override
     protected String getHeaderTitle()

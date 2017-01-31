@@ -21,6 +21,7 @@ import com.sivalabs.jcart.JCartException;
 import com.sivalabs.jcart.entities.Permission;
 import com.sivalabs.jcart.entities.Role;
 import com.sivalabs.jcart.entities.User;
+import com.sivalabs.jcart.security.impl.SecurityServiceImpl;
 
 /**
  * @author rajakolli
@@ -35,6 +36,7 @@ public class SecurityServiceTest
     private static final String name = "JUNIT_NAME";
     private static final String password = "JUNIT_PASSWORD";
     private static final String description = "JUNIT_DESCRIPTION";
+    
     @Autowired
     TestEntityManager testEntityManager;
     @Autowired
@@ -58,7 +60,7 @@ public class SecurityServiceTest
         user.setEmail(email);
         user.setRoles(new ArrayList<Role>());
         testEntityManager.persist(user);
-        securityService = new SecurityService(userRepository, permissionRepository,
+        securityService = new SecurityServiceImpl(userRepository, permissionRepository,
                 roleRepository);
     }
 

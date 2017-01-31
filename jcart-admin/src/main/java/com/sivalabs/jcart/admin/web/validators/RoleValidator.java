@@ -5,8 +5,6 @@ package com.sivalabs.jcart.admin.web.validators;
 
 import static java.util.Objects.nonNull;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -14,17 +12,17 @@ import org.springframework.validation.Validator;
 import com.sivalabs.jcart.entities.Role;
 import com.sivalabs.jcart.security.SecurityService;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author Siva
  *
  */
 @Component
+@RequiredArgsConstructor
 public class RoleValidator implements Validator
 {
-    @Autowired
-    protected MessageSource messageSource;
-    @Autowired
-    protected SecurityService securityService;
+    private final SecurityService securityService;
 
     @Override
     public boolean supports(Class<?> clazz)

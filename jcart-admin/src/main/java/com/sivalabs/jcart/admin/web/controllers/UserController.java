@@ -7,7 +7,6 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -25,6 +24,7 @@ import com.sivalabs.jcart.entities.Role;
 import com.sivalabs.jcart.entities.User;
 import com.sivalabs.jcart.security.SecurityService;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -34,29 +34,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @Secured(SecurityUtil.MANAGE_USERS)
+@RequiredArgsConstructor
 public class UserController extends AbstractJCartAdminController
 {
     private static final String VIEWPREFIX = "users/";
     
-    private SecurityService securityService;
-    private UserValidator userValidator;
-    private PasswordEncoder passwordEncoder;
-
-    /**
-     * Spring {@link Autowired}
-     * 
-     * @param securityService
-     * @param userValidator
-     * @param passwordEncoder
-     */
-    public UserController(SecurityService securityService, UserValidator userValidator,
-            PasswordEncoder passwordEncoder)
-    {
-        super();
-        this.securityService = securityService;
-        this.userValidator = userValidator;
-        this.passwordEncoder = passwordEncoder;
-    }
+    private final SecurityService securityService;
+    private final UserValidator userValidator;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     protected String getHeaderTitle()

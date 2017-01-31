@@ -26,6 +26,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sivalabs.jcart.entities.User;
 import com.sivalabs.jcart.security.SecurityService;
 
+import lombok.RequiredArgsConstructor;
+
 /**
  * @author Siva
  * @author rajakolli
@@ -33,18 +35,11 @@ import com.sivalabs.jcart.security.SecurityService;
  */
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService
 {
 
-    private SecurityService securityService;
-
-    /**
-     * @param securityService
-     */
-    public CustomUserDetailsService(SecurityService securityService)
-    {
-        this.securityService = securityService;
-    }
+    private final SecurityService securityService;
 
     @Override
     public UserDetails loadUserByUsername(String userEmail)
