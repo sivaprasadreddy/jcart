@@ -1,4 +1,4 @@
-# Jcart (forked from https://github.com/sivaprasadreddy/jcart credits to @sivaprasadreddy)
+# Jcart (forked from [sivaprasadreddy](https://github.com/sivaprasadreddy/jcart))
 JCart is a simple e-commerce application built with Spring.
 
 [![Build status](https://travis-ci.org/rajadilipkolli/jcart.svg?branch=master)](https://travis-ci.org/rajadilipkolli/jcart.svg) [![Quality Gate](https://sonarqube.com/api/badges/gate?key=com.sonarqube.examples.java-gradle-travis-project)](https://sonarqube.com/dashboard/index/com.sivalabs:jcart)
