@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 the original author or authors.
+ * Copyright 2016-2017 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,10 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.sivalabs.jcart.admin.web.controllers;
+package com.sivalabs.jcart.common;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
@@ -25,20 +24,19 @@ import org.springframework.web.bind.annotation.GetMapping;
  *
  */
 @Controller
-public class HomeController extends AbstractJCartAdminController
+public class ErrorController
 {
-    private static final String HOME = "home";
+    private static final String VIEWPREFIX = "error/";
 
-    @Override
     protected String getHeaderTitle()
     {
-        return "Home";
+        return "Error";
     }
 
-    @GetMapping("/home")
-    public String home(Model model)
+    @GetMapping("/403")
+    public String accessDenied()
     {
-        return HOME;
+        return VIEWPREFIX + "accessDenied";
     }
 
 }
