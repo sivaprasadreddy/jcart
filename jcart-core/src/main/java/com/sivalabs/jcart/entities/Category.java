@@ -20,6 +20,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -32,6 +33,7 @@ import lombok.Setter;
 @DynamicInsert
 @Getter
 @Setter
+@NoArgsConstructor
 public class Category implements Serializable
 {
     private static final long serialVersionUID = 1L;

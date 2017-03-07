@@ -20,6 +20,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author Siva
@@ -28,6 +29,7 @@ import lombok.Data;
 @Entity
 @Table(name = "users")
 @Data
+@NoArgsConstructor
 public class User implements Serializable
 {
     private static final long serialVersionUID = 1L;

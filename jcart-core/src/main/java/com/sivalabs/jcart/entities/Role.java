@@ -33,6 +33,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author Siva
@@ -43,6 +44,7 @@ import lombok.Data;
 @Table(name = "roles")
 @Data
 @DynamicInsert
+@NoArgsConstructor
 public class Role implements Serializable
 {
     private static final long serialVersionUID = 1L;

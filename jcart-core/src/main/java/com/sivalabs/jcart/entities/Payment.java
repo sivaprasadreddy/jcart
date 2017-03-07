@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author Siva
@@ -23,6 +24,7 @@ import lombok.Data;
 @Entity
 @Table(name = "payments")
 @Data
+@NoArgsConstructor
 public class Payment implements Serializable
 {
     private static final long serialVersionUID = 1L;

@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author Siva
@@ -21,9 +22,11 @@ import lombok.Data;
 @Entity
 @Table(name = "addresses")
 @Data
+@NoArgsConstructor
 public class Address implements Serializable
 {
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Integer id;

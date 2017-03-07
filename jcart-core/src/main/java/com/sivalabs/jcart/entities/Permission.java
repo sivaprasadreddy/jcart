@@ -16,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author Siva
@@ -24,6 +25,7 @@ import lombok.Data;
 @Entity
 @Table(name = "permissions")
 @Data
+@NoArgsConstructor
 public class Permission implements Serializable
 {
     private static final long serialVersionUID = 1L;

@@ -35,6 +35,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -48,6 +49,7 @@ import lombok.Setter;
 @DynamicUpdate
 @Getter
 @Setter
+@NoArgsConstructor
 public class Product implements Serializable
 {
     private static final long serialVersionUID = 1L;
