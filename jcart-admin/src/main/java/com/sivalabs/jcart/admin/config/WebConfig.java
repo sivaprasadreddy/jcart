@@ -46,8 +46,8 @@ public class WebConfig extends WebMvcConfigurerAdapter
         this.messageSource = messageSource;
     }
 
-    @Override
-    public Validator getValidator()
+    @Bean
+    public Validator jsrValidator()
     {
         LocalValidatorFactoryBean factory = new LocalValidatorFactoryBean();
         factory.setValidationMessageSource(messageSource);
