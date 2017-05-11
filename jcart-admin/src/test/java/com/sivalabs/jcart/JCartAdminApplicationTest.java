@@ -22,7 +22,7 @@ import com.sivalabs.jcart.admin.web.controllers.HomeController;
 public class JCartAdminApplicationTest
 {
     @Autowired
-    HomeController homeController;
+    private HomeController homeController;
 
     @Test
     public void contextLoads()

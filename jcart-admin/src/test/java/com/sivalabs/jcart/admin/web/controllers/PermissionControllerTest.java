@@ -46,7 +46,7 @@ public class PermissionControllerTest
     MockMvc mockMvc;
 
     @MockBean
-    SecurityService securityService;
+    private SecurityService securityService;
 
     private PermissionController permissionController;
 

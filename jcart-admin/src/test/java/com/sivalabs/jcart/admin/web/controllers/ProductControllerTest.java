@@ -60,13 +60,13 @@ public class ProductControllerTest
     @Autowired
     private WebApplicationContext context;
 
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @MockBean
-    CatalogService catalogService;
+    private CatalogService catalogService;
 
     @MockBean
-    ProductFormValidator productFormValidator;
+    private ProductFormValidator productFormValidator;
 
     ProductController productController;
 

@@ -43,7 +43,7 @@ public class CustomerServiceTest
     Customer customer = new Customer();
 
     @Before
-    public void SetUp()
+    public void setUp()
     {
         customer.setEmail(email);
         customer.setFirstName(firstName);

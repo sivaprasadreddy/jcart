@@ -22,7 +22,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(classes = JCartCoreApplication.class)
 public class JCartCoreApplicationTest
 {
-	@Autowired DataSource dataSource;
+	@Autowired private DataSource dataSource;
 	
 	@Test
 	public void testDummy() throws SQLException
