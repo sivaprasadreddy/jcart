@@ -1,13 +1,6 @@
 language: java
 sudo: false
 install: true
-env:
--CODACY_PROJECT_TOKEN=d19e4375803d40ff892b6a3a5727f0c5
-before_install:
-  - sudo apt-get install jq
-  - wget -O ~/codacy-coverage-reporter-assembly-latest.jar $(curl https://api.github.com/repos/codacy/codacy-coverage-reporter/releases/latest | jq -r .assets[0].browser_download_url)
-after_success:
-  - java -cp ~/codacy-coverage-reporter-assembly-latest.jar com.codacy.CodacyCoverageReporter -l Java -r build/reports/jacoco/test/jacocoTestReport.xml
 addons:
   sonarqube:
     token:
