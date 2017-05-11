@@ -59,6 +59,7 @@ public class SecurityServiceTest
         user.setPassword(password);
         user.setEmail(email);
         user.setRoles(new ArrayList<Role>());
+        user.setPasswordResetToken("token");
         testEntityManager.persist(user);
         securityService = new SecurityServiceImpl(userRepository, permissionRepository,
                 roleRepository);
@@ -83,18 +84,21 @@ public class SecurityServiceTest
     @Test(expected = JCartException.class)
     public void testUpdatePasswordInValidPassword()
     {
-        securityService.updatePassword(email, "token", password);
+        securityService.updatePassword(email, "token1s", password);
     }
 
     /**
      * Test method for
      * {@link com.sivalabs.jcart.security.SecurityService#verifyPasswordResetToken(java.lang.String, java.lang.String)}.
      */
-    @Test
+    @Test(expected=JCartException.class)
     public void testVerifyPasswordResetToken()
     {
         boolean verified = securityService.verifyPasswordResetToken(email, "token");
-        assertFalse(verified);
+        assertTrue(verified);
+        boolean verified1 = securityService.verifyPasswordResetToken(email, "token1");
+        assertFalse(verified1);
+        securityService.verifyPasswordResetToken("ABC@ABC.COM", "token");
     }
 
     /**
@@ -167,7 +171,18 @@ public class SecurityServiceTest
         User dbUser2 = securityService.updateUser(dbUser1);
         assertEquals("JUNIT1", dbUser2.getName());
         securityService.createUser(user);
-
+    }
+    
+    @Test(expected = JCartException.class)
+    public void testCreateRole(){
+        Role role = new Role();
+        role.setName(name);
+        List<Permission> permissions = new ArrayList<>();
+        role.setPermissions(permissions);
+        Role dbrole = securityService.createRole(role);
+        assertThat(dbrole).isNotNull();
+        assertThat(dbrole.getName()).isEqualTo(name);
+        securityService.createRole(role);
     }
 
     /**
@@ -180,6 +195,14 @@ public class SecurityServiceTest
         User newUser = new User();
         newUser.setId(50);
         securityService.updateUser(newUser);
+    }
+    
+    @Test(expected = JCartException.class)
+    public void testUpdateRole()
+    {
+        Role newRole = new Role();
+        newRole.setId(50);
+        securityService.updateRole(newRole);
     }
     
     @Test(expected = JCartException.class)
