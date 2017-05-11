@@ -1,6 +1,7 @@
 # Jcart (forked from [sivaprasadreddy](https://github.com/sivaprasadreddy/jcart))
 JCart is a simple e-commerce application built with Spring.
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c9cd10aebb104847aeb0240d73d64f30)](https://www.codacy.com/app/rajadilipkolli/jcart?utm_source=github.com&utm_medium=referral&utm_content=rajadilipkolli/jcart&utm_campaign=badger)
 [![Build status](https://travis-ci.org/rajadilipkolli/jcart.svg?branch=master)](https://travis-ci.org/rajadilipkolli/jcart.svg) [![Quality Gate](https://sonarqube.com/api/badges/gate?key=com.sonarqube.examples.java-gradle-travis-project)](https://sonarqube.com/dashboard/index/com.sivalabs:jcart)
 
 #### This project is analysed on [SonarQube.com](https://sonarqube.com)!
