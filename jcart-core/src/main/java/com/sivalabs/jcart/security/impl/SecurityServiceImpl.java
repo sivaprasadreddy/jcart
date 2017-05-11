@@ -115,11 +115,7 @@ public class SecurityServiceImpl implements SecurityService
         {
             throw new JCartException(INVALID_EMAILADDRESS);
         }
-        if (!StringUtils.hasText(token) || !token.equals(user.getPasswordResetToken()))
-        {
-            return false;
-        }
-        return true;
+        return !StringUtils.hasText(token) || !token.equals(user.getPasswordResetToken());
     }
 
     @Override

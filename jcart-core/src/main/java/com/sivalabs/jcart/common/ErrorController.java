@@ -28,10 +28,10 @@ public class ErrorController
 {
     private static final String VIEWPREFIX = "error/";
 
-    protected String getHeaderTitle()
+   /* protected String getHeaderTitle()
     {
         return "Error";
-    }
+    }*/
 
     @GetMapping("/403")
     public String accessDenied()
