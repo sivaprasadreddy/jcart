@@ -3,11 +3,13 @@
  */
 package com.sivalabs.jcart.admin.web.controllers;
 
-import static com.sivalabs.jcart.admin.web.utils.MessageCodes.*;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.sivalabs.jcart.JCartException;
+import com.sivalabs.jcart.security.SecurityService;
+import com.sivalabs.jcart.admin.web.utils.WebUtils;
+import com.sivalabs.jcart.common.services.EmailService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,25 +19,36 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import com.sivalabs.jcart.JCartException;
-import com.sivalabs.jcart.admin.web.utils.WebUtils;
-import com.sivalabs.jcart.common.services.EmailService;
-import com.sivalabs.jcart.security.SecurityService;
+import javax.servlet.http.HttpServletRequest;
+
+import static com.sivalabs.jcart.admin.web.utils.MessageCodes.*;
 
 /**
  * @author Siva
  *
  */
 @Controller
+@Slf4j
 public class UserAuthController extends JCartAdminBaseController
 {
 	private static final String viewPrefix = "public/";
 	
-	@Autowired protected SecurityService securityService;
-	@Autowired protected EmailService emailService;
-	@Autowired protected PasswordEncoder passwordEncoder;
-	@Autowired protected TemplateEngine templateEngine;	
-	
+	protected SecurityService securityService;
+	protected EmailService emailService;
+	protected PasswordEncoder passwordEncoder;
+	protected TemplateEngine templateEngine;
+
+	@Autowired
+	public UserAuthController(SecurityService securityService, EmailService emailService, PasswordEncoder passwordEncoder, TemplateEngine templateEngine) {
+		this.securityService = securityService;
+		this.emailService = emailService;
+		this.passwordEncoder = passwordEncoder;
+		this.templateEngine = templateEngine;
+	}
+
+	@Value("${support.email}")
+	private String supportEmail;
+
 	@Override
 	protected String getHeaderTitle()
 	{
@@ -56,12 +69,12 @@ public class UserAuthController extends JCartAdminBaseController
 		{
 			String token = securityService.resetPassword(email);			
 			String resetPwdURL = WebUtils.getURLWithContextPath(request)+"/resetPwd?email="+email+"&token="+token;
-			logger.debug(resetPwdURL);
+			log.debug(resetPwdURL);
 			this.sendForgotPasswordEmail(email, resetPwdURL);
 			redirectAttributes.addFlashAttribute("msg", getMessage(INFO_PASSWORD_RESET_LINK_SENT));
 		} catch (JCartException e)
 		{
-			logger.error(e);
+			log.error(e.getMessage(), e);
 			redirectAttributes.addFlashAttribute("msg", e.getMessage());
 		}
 		return "redirect:/forgotPwd";
@@ -107,7 +120,7 @@ public class UserAuthController extends JCartAdminBaseController
 			redirectAttributes.addFlashAttribute("msg", getMessage(INFO_PASSWORD_UPDATED_SUCCESS));
 		} catch (JCartException e)
 		{
-			logger.error(e);
+			log.error(e.getMessage(), e);
 			redirectAttributes.addFlashAttribute("msg", getMessage(ERROR_INVALID_PASSWORD_RESET_REQUEST));
 		}
 		return "redirect:/login";
@@ -124,9 +137,9 @@ public class UserAuthController extends JCartAdminBaseController
 	        // Create the HTML body using Thymeleaf
 	        final String htmlContent = this.templateEngine.process("forgot-password-email", ctx);
 	        
-			emailService.sendEmail(email, getMessage(LABEL_PASSWORD_RESET_EMAIL_SUBJECT), htmlContent);
+			emailService.sendEmail(supportEmail, email, getMessage(LABEL_PASSWORD_RESET_EMAIL_SUBJECT), htmlContent);
 		} catch (JCartException e) {
-			logger.error(e);
+			log.error(e.getMessage(), e);
 		}
 	}
 }

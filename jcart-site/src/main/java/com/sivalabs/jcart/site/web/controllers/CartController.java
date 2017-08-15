@@ -96,6 +96,6 @@ public class CartController extends JCartSiteBaseController
 	public void clearCart(HttpServletRequest request)
 	{
 		Cart cart = getOrCreateCart(request);
-		cart.setItems(new ArrayList<LineItem>());
+		cart.setItems(new ArrayList<>());
 	}
 }

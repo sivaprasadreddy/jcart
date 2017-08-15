@@ -1,5 +1,5 @@
 
-delete from role_permission;
+delete from  role_permission;
 delete from  user_role;
 delete from  permissions;
 delete from  roles;

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.sivalabs.jcart.site.security;
 
 import org.springframework.beans.factory.annotation.Autowired;

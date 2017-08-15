@@ -1,11 +1,7 @@
-/**
- * 
- */
 package com.sivalabs.jcart.security;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.sivalabs.jcart.entities.Role;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * @author Siva

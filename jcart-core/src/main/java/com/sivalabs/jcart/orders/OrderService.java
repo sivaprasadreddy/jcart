@@ -1,19 +1,14 @@
-/**
- * 
- */
 package com.sivalabs.jcart.orders;
 
-import java.util.List;
-
+import com.sivalabs.jcart.entities.Order;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.sivalabs.jcart.common.services.EmailService;
-import com.sivalabs.jcart.common.services.JCLogger;
-import com.sivalabs.jcart.entities.Order;
+import java.util.List;
 
 /**
  * @author Siva
@@ -21,19 +16,22 @@ import com.sivalabs.jcart.entities.Order;
  */
 @Service
 @Transactional
+@Slf4j
 public class OrderService
 {
-	private static final JCLogger logger = JCLogger.getLogger(OrderService.class);
-	
-	@Autowired EmailService emailService;
-	@Autowired OrderRepository orderRepository;
-	
+    private OrderRepository orderRepository;
+
+	@Autowired
+	public OrderService(OrderRepository orderRepository) {
+		this.orderRepository = orderRepository;
+	}
+
 	public Order createOrder(Order order)
 	{
 		//order.setOrderNumber(UUID.randomUUID().toString());
 		order.setOrderNumber(String.valueOf(System.currentTimeMillis()));
 		Order savedOrder = orderRepository.save(order);
-		logger.info("New order created. Order Number : {}", savedOrder.getOrderNumber());
+		log.info("New order created. Order Number : {}", savedOrder.getOrderNumber());
 		return savedOrder;
 	}
 	

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.sivalabs.jcart.site.security;
 
 import java.util.Collection;

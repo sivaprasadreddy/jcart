@@ -10,6 +10,9 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import com.sivalabs.jcart.admin.web.security.SecurityUtil;
+import com.sivalabs.jcart.security.SecurityService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -21,11 +24,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.sivalabs.jcart.admin.security.SecurityUtil;
 import com.sivalabs.jcart.admin.web.validators.RoleValidator;
 import com.sivalabs.jcart.entities.Permission;
 import com.sivalabs.jcart.entities.Role;
-import com.sivalabs.jcart.security.SecurityService;
 
 /**
  * @author Siva
@@ -33,6 +34,7 @@ import com.sivalabs.jcart.security.SecurityService;
  */
 @Controller
 @Secured(SecurityUtil.MANAGE_ROLES)
+@Slf4j
 public class RoleController extends JCartAdminBaseController
 {
 	private static final String viewPrefix = "roles/";
@@ -75,7 +77,7 @@ public class RoleController extends JCartAdminBaseController
 			return viewPrefix+"create_role";
 		}
 		Role persistedRole = securityService.createRole(role);
-		logger.debug("Created new role with id : {} and name : {}", persistedRole.getId(), persistedRole.getName());
+		log.debug("Created new role with id : {} and name : {}", persistedRole.getId(), persistedRole.getName());
 		redirectAttributes.addFlashAttribute("info", "Role created successfully");
 		return "redirect:/roles";
 	}
@@ -110,7 +112,7 @@ public class RoleController extends JCartAdminBaseController
 	public String updateRole(@ModelAttribute("role") Role role, BindingResult result, 
 			Model model, RedirectAttributes redirectAttributes) {		
 		Role persistedRole = securityService.updateRole(role);
-		logger.debug("Updated role with id : {} and name : {}", persistedRole.getId(), persistedRole.getName());
+		log.debug("Updated role with id : {} and name : {}", persistedRole.getId(), persistedRole.getName());
 		redirectAttributes.addFlashAttribute("info", "Role updated successfully");
 		return "redirect:/roles";
 	}

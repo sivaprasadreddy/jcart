@@ -3,6 +3,7 @@
  */
 package com.sivalabs.jcart.site.security;
 
+import com.sivalabs.jcart.customers.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,7 +11,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.sivalabs.jcart.customers.CustomerService;
 import com.sivalabs.jcart.entities.Customer;
 
 
@@ -23,7 +23,13 @@ import com.sivalabs.jcart.entities.Customer;
 @Transactional
 public class CustomUserDetailsService implements UserDetailsService
 {
-	@Autowired CustomerService customerService;
+	private CustomerService customerService;
+
+	@Autowired
+	public CustomUserDetailsService(CustomerService customerService) {
+		this.customerService = customerService;
+	}
+
 	@Override
 	public UserDetails loadUserByUsername(String email)
 			throws UsernameNotFoundException {

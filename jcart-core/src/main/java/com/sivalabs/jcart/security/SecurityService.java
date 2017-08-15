@@ -1,21 +1,17 @@
-/**
- * 
- */
 package com.sivalabs.jcart.security;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 import com.sivalabs.jcart.JCartException;
 import com.sivalabs.jcart.entities.Permission;
 import com.sivalabs.jcart.entities.Role;
 import com.sivalabs.jcart.entities.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * @author Siva
@@ -25,10 +21,17 @@ import com.sivalabs.jcart.entities.User;
 @Transactional
 public class SecurityService
 {
-	@Autowired UserRepository userRepository;
-	@Autowired PermissionRepository permissionRepository;
-	@Autowired RoleRepository roleRepository;
-	
+    UserRepository userRepository;
+    RoleRepository roleRepository;
+    PermissionRepository permissionRepository;
+
+    @Autowired
+	public SecurityService(UserRepository userRepository, RoleRepository roleRepository, PermissionRepository permissionRepository) {
+		this.userRepository = userRepository;
+		this.roleRepository = roleRepository;
+		this.permissionRepository = permissionRepository;
+	}
+
 	public User findUserByEmail(String email)
 	{
 		return userRepository.findByEmail(email);
@@ -98,7 +101,7 @@ public class SecurityService
 			for (Permission permission : permissions) {
 				if(permission.getId() != null)
 				{
-					persistedPermissions.add(permissionRepository.findOne(permission.getId()));
+					persistedPermissions.add(permissionRepository.getOne(permission.getId()));
 				}
 			}
 		}
@@ -120,7 +123,7 @@ public class SecurityService
 			for (Permission permission : permissions) {
 				if(permission.getId() != null)
 				{
-					updatedPermissions.add(permissionRepository.findOne(permission.getId()));
+					updatedPermissions.add(permissionRepository.getOne(permission.getId()));
 				}
 			}
 		}
@@ -129,12 +132,12 @@ public class SecurityService
 	}
 	
 	public Role getRoleById(Integer id) {
-		return roleRepository.findOne(id);
+		return roleRepository.getOne(id);
 	}
 	
 	public User getUserById(Integer id)
 	{
-		return userRepository.findOne(id);
+		return userRepository.getOne(id);
 	}
 	
 	public List<User> getAllUsers() {
@@ -153,7 +156,7 @@ public class SecurityService
 			for (Role role : roles) {
 				if(role.getId() != null)
 				{
-					persistedRoles.add(roleRepository.findOne(role.getId()));
+					persistedRoles.add(roleRepository.getOne(role.getId()));
 				}
 			}
 		}
@@ -175,7 +178,7 @@ public class SecurityService
 			for (Role role : roles) {
 				if(role.getId() != null)
 				{
-					updatedRoles.add(roleRepository.findOne(role.getId()));
+					updatedRoles.add(roleRepository.getOne(role.getId()));
 				}
 			}
 		}

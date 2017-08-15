@@ -1,19 +1,18 @@
 /**
  * 
  */
-package com.sivalabs.jcart.admin.security;
+package com.sivalabs.jcart.admin.web.security;
+
+import com.sivalabs.jcart.entities.Permission;
+import com.sivalabs.jcart.entities.Role;
+import com.sivalabs.jcart.entities.User;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
-
-import com.sivalabs.jcart.entities.Permission;
-import com.sivalabs.jcart.entities.Role;
-import com.sivalabs.jcart.entities.User;
 
 /**
  * @author Siva

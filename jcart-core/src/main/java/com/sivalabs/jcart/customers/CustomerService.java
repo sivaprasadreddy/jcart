@@ -1,16 +1,12 @@
-/**
- * 
- */
 package com.sivalabs.jcart.customers;
 
-import java.util.List;
-
+import com.sivalabs.jcart.entities.Customer;
+import com.sivalabs.jcart.entities.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.sivalabs.jcart.entities.Customer;
-import com.sivalabs.jcart.entities.Order;
+import java.util.List;
 
 /**
  * @author Siva
@@ -19,8 +15,13 @@ import com.sivalabs.jcart.entities.Order;
 @Service
 @Transactional
 public class CustomerService {
-	@Autowired CustomerRepository customerRepository;
-	
+    private CustomerRepository customerRepository;
+
+    @Autowired
+	public CustomerService(CustomerRepository customerRepository) {
+		this.customerRepository = customerRepository;
+	}
+
 	public Customer getCustomerByEmail(String email) {
 		return customerRepository.findByEmail(email);
 	}
@@ -34,11 +35,11 @@ public class CustomerService {
 	}
 
 	public Customer getCustomerById(Integer id) {
-		return customerRepository.findOne(id);
+		return customerRepository.getOne(id);
 	}
 
-	public List<Order> getCustomerOrders(String email) {
-		return customerRepository.getCustomerOrders(email);
+	public List<Order> getCustomerOrders(String customerEmail) {
+		return customerRepository.getCustomerOrders(customerEmail);
 	}
 
 }

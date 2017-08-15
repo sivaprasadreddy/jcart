@@ -1,20 +1,18 @@
-/**
- * 
- */
 package com.sivalabs.jcart.admin.config;
 
-import javax.servlet.Filter;
-
+import com.sivalabs.jcart.admin.web.security.PostAuthorizationFilter;
 import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
+import org.apache.coyote.http11.AbstractHttp11Protocol;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;
 import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
-import org.springframework.boot.context.embedded.FilterRegistrationBean;
-import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
+import org.springframework.boot.web.embedded.tomcat.TomcatConnectorCustomizer;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,20 +20,20 @@ import org.springframework.security.web.context.AbstractSecurityWebApplicationIn
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
-import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
-import com.sivalabs.jcart.admin.security.PostAuthorizationFilter;
+import javax.servlet.Filter;
 
 /**
  * @author Siva
  *
  */
 @Configuration
-public class WebConfig extends WebMvcConfigurerAdapter
+public class WebConfig implements WebMvcConfigurer
 {   
-	@Value("${server.port:9443}") private int serverPort;
+	@Value("${server.port:9443}")
+	private int serverPort;
 	
 	@Autowired 
 	private PostAuthorizationFilter postAuthorizationFilter;
@@ -70,7 +68,6 @@ public class WebConfig extends WebMvcConfigurerAdapter
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry)
 	{
-		super.addViewControllers(registry);
         registry.addViewController("/login").setViewName("public/login");
 		registry.addRedirectViewController("/", "/home");
 		
@@ -80,22 +77,10 @@ public class WebConfig extends WebMvcConfigurerAdapter
 	public SpringSecurityDialect securityDialect() {
 	    return new SpringSecurityDialect();
 	}
-	
-	@Bean 
-	public ClassLoaderTemplateResolver emailTemplateResolver(){ 
-		ClassLoaderTemplateResolver emailTemplateResolver = new ClassLoaderTemplateResolver(); 
-		emailTemplateResolver.setPrefix("email-templates/"); 
-		emailTemplateResolver.setSuffix(".html"); 
-		emailTemplateResolver.setTemplateMode("HTML5"); 
-		emailTemplateResolver.setCharacterEncoding("UTF-8"); 
-		emailTemplateResolver.setOrder(2);
-		
-		return emailTemplateResolver; 
-	}
-	
+
 	@Bean
-	public EmbeddedServletContainerFactory servletContainer() {
-		TomcatEmbeddedServletContainerFactory tomcat = new TomcatEmbeddedServletContainerFactory() {
+	public ServletWebServerFactory servletContainer() {
+		TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory() {
 			@Override
 			protected void postProcessContext(Context context) {
 				SecurityConstraint securityConstraint = new SecurityConstraint();
@@ -106,6 +91,14 @@ public class WebConfig extends WebMvcConfigurerAdapter
 				context.addConstraint(securityConstraint);
 			}
 		};
+
+		tomcat.addConnectorCustomizers(new TomcatConnectorCustomizer() {
+
+			@Override
+			public void customize(Connector connector) {
+				((AbstractHttp11Protocol<?>) connector.getProtocolHandler()).setMaxSwallowSize(-1);
+			}
+		});
 
 		tomcat.addAdditionalTomcatConnectors(initiateHttpConnector());
 		return tomcat;
@@ -118,6 +111,11 @@ public class WebConfig extends WebMvcConfigurerAdapter
 		connector.setSecure(false);
 		connector.setRedirectPort(serverPort);
 
+		//Tomcat maxSwallowSize sets to 2MB by default.
+		//To set the maxSwallowSize property of Tomcat https://tomcat.apache.org/tomcat-8.0-doc/config/http.html
+		//http://stackoverflow.com/questions/35748022/multipart-file-maximum-size-exception-spring-boot-embbeded-tomcat
+
+		((AbstractHttp11Protocol<?>) connector.getProtocolHandler()).setMaxSwallowSize(11534336);
 		return connector;
 	}
 }

@@ -3,24 +3,24 @@
  */
 package com.sivalabs.jcart.admin.web.controllers;
 
+import com.sivalabs.jcart.admin.web.security.AuthenticatedUser;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import com.sivalabs.jcart.admin.security.AuthenticatedUser;
-import com.sivalabs.jcart.common.services.JCLogger;
-
 /**
  * @author Siva
  *
  */
+@Slf4j
 public abstract class JCartAdminBaseController
 {
-	protected final JCLogger logger = JCLogger.getLogger(getClass());
-	
-	@Autowired protected MessageSource messageSource;
+
+	@Autowired
+	protected MessageSource messageSource;
 	
 	protected abstract String getHeaderTitle();
 	

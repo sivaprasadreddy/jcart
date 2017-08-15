@@ -10,6 +10,9 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import com.sivalabs.jcart.admin.web.security.SecurityUtil;
+import com.sivalabs.jcart.security.SecurityService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,11 +25,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.sivalabs.jcart.admin.security.SecurityUtil;
 import com.sivalabs.jcart.admin.web.validators.UserValidator;
 import com.sivalabs.jcart.entities.Role;
 import com.sivalabs.jcart.entities.User;
-import com.sivalabs.jcart.security.SecurityService;
 
 /**
  * @author Siva
@@ -34,13 +35,21 @@ import com.sivalabs.jcart.security.SecurityService;
  */
 @Controller
 @Secured(SecurityUtil.MANAGE_USERS)
+@Slf4j
 public class UserController extends JCartAdminBaseController
 {
 	private static final String viewPrefix = "users/";
-	@Autowired protected SecurityService securityService;
-	@Autowired private UserValidator userValidator;
-	@Autowired protected PasswordEncoder passwordEncoder;
-	
+	private SecurityService securityService;
+	private UserValidator userValidator;
+	private PasswordEncoder passwordEncoder;
+
+	@Autowired
+	public UserController(SecurityService securityService, UserValidator userValidator, PasswordEncoder passwordEncoder) {
+		this.securityService = securityService;
+		this.userValidator = userValidator;
+		this.passwordEncoder = passwordEncoder;
+	}
+
 	@Override
 	protected String getHeaderTitle()
 	{
@@ -79,7 +88,7 @@ public class UserController extends JCartAdminBaseController
 		String encodedPwd = passwordEncoder.encode(password);
 		user.setPassword(encodedPwd);
 		User persistedUser = securityService.createUser(user);
-		logger.debug("Created new User with id : {} and name : {}", persistedUser.getId(), persistedUser.getName());
+		log.debug("Created new User with id : {} and name : {}", persistedUser.getId(), persistedUser.getName());
 		redirectAttributes.addFlashAttribute("info", "User created successfully");
 		return "redirect:/users";
 	}
@@ -116,7 +125,7 @@ public class UserController extends JCartAdminBaseController
 			return viewPrefix+"edit_user";
 		}
 		User persistedUser = securityService.updateUser(user);
-		logger.debug("Updated user with id : {} and name : {}", persistedUser.getId(), persistedUser.getName());
+		log.debug("Updated user with id : {} and name : {}", persistedUser.getId(), persistedUser.getName());
 		redirectAttributes.addFlashAttribute("info", "User updates successfully");
 		return "redirect:/users";
 	}

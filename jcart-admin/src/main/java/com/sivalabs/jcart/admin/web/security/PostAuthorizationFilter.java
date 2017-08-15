@@ -1,20 +1,18 @@
 /**
  * 
  */
-package com.sivalabs.jcart.admin.security;
+package com.sivalabs.jcart.admin.web.security;
 
-import java.io.IOException;
+import com.sivalabs.jcart.security.SecurityService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.web.filter.OncePerRequestFilter;
-
-import com.sivalabs.jcart.security.SecurityService;
+import java.io.IOException;
 
 /**
  * @author Siva

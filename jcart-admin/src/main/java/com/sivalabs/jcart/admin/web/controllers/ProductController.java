@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import com.sivalabs.jcart.admin.web.security.SecurityUtil;
+import com.sivalabs.jcart.catalog.CatalogService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.security.access.annotation.Secured;
@@ -27,11 +30,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sivalabs.jcart.JCartException;
-import com.sivalabs.jcart.admin.security.SecurityUtil;
 import com.sivalabs.jcart.admin.web.models.ProductForm;
 import com.sivalabs.jcart.admin.web.utils.WebUtils;
 import com.sivalabs.jcart.admin.web.validators.ProductFormValidator;
-import com.sivalabs.jcart.catalog.CatalogService;
 import com.sivalabs.jcart.entities.Category;
 import com.sivalabs.jcart.entities.Product;
 
@@ -41,6 +42,7 @@ import com.sivalabs.jcart.entities.Product;
  */
 @Controller
 @Secured(SecurityUtil.MANAGE_PRODUCTS)
+@Slf4j
 public class ProductController extends JCartAdminBaseController
 {
 	private static final String viewPrefix = "products/";
@@ -86,7 +88,7 @@ public class ProductController extends JCartAdminBaseController
 		Product persistedProduct = catalogService.createProduct(product);
 		productForm.setId(product.getId());
 		this.saveProductImageToDisk(productForm);
-		logger.debug("Created new product with id : {} and name : {}", persistedProduct.getId(), persistedProduct.getName());
+		log.debug("Created new product with id : {} and name : {}", persistedProduct.getId(), persistedProduct.getName());
 		redirectAttributes.addFlashAttribute("info", "Product created successfully");
 		return "redirect:/products";
 	}
@@ -121,7 +123,7 @@ public class ProductController extends JCartAdminBaseController
 		Product product = productForm.toProduct();
 		Product persistedProduct = catalogService.updateProduct(product);
 		this.saveProductImageToDisk(productForm);
-		logger.debug("Updated product with id : {} and name : {}", persistedProduct.getId(), persistedProduct.getName());
+		log.debug("Updated product with id : {} and name : {}", persistedProduct.getId(), persistedProduct.getName());
 		redirectAttributes.addFlashAttribute("info", "Product updated successfully");
 		return "redirect:/products";
 	}

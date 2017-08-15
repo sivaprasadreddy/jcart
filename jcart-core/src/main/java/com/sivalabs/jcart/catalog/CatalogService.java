@@ -1,17 +1,13 @@
-/**
- * 
- */
 package com.sivalabs.jcart.catalog;
-
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.sivalabs.jcart.JCartException;
 import com.sivalabs.jcart.entities.Category;
 import com.sivalabs.jcart.entities.Product;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @author Siva
@@ -20,9 +16,15 @@ import com.sivalabs.jcart.entities.Product;
 @Service
 @Transactional
 public class CatalogService {
-	@Autowired CategoryRepository categoryRepository;
-	@Autowired ProductRepository productRepository;
-	
+    private CategoryRepository categoryRepository;
+    private ProductRepository productRepository;
+
+    @Autowired
+	public CatalogService(CategoryRepository categoryRepository, ProductRepository productRepository) {
+		this.categoryRepository = categoryRepository;
+		this.productRepository = productRepository;
+	}
+
 	public List<Category> getAllCategories() {
 		
 		return categoryRepository.findAll();
@@ -38,13 +40,13 @@ public class CatalogService {
 	}
 	
 	public Category getCategoryById(Integer id) {
-		return categoryRepository.findOne(id);
+		return categoryRepository.getOne(id);
 	}
 
 	public Category createCategory(Category category) {
 		Category persistedCategory = getCategoryByName(category.getName());
 		if(persistedCategory != null){
-			throw new JCartException("Category "+category.getName()+" already exist");
+			throw new JCartException("Category with name "+category.getName()+" already exist");
 		}
 		return categoryRepository.save(category);
 	}
@@ -52,7 +54,7 @@ public class CatalogService {
 	public Category updateCategory(Category category) {
 		Category persistedCategory = getCategoryById(category.getId());
 		if(persistedCategory == null){
-			throw new JCartException("Category "+category.getId()+" doesn't exist");
+			throw new JCartException("Category with Id"+category.getId()+" doesn't exist");
 		}
 		persistedCategory.setDescription(category.getDescription());
 		persistedCategory.setDisplayOrder(category.getDisplayOrder());
@@ -61,7 +63,7 @@ public class CatalogService {
 	}
 
 	public Product getProductById(Integer id) {
-		return productRepository.findOne(id);
+		return productRepository.getOne(id);
 	}
 	
 	public Product getProductBySku(String sku) {

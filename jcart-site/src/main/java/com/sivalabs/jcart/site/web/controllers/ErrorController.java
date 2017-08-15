@@ -16,7 +16,7 @@ public class ErrorController extends JCartSiteBaseController
 	private static final String viewPrefix = "error/";
 	
 	@Override
-	protected String getHeaderTitle()
+	public String getHeaderTitle()
 	{
 		return "Error";
 	}

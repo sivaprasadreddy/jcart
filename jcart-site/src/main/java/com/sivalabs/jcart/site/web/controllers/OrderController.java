@@ -10,7 +10,12 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import com.sivalabs.jcart.common.services.EmailService;
+import com.sivalabs.jcart.customers.CustomerService;
+import com.sivalabs.jcart.orders.OrderService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,8 +26,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sivalabs.jcart.JCartException;
-import com.sivalabs.jcart.common.services.EmailService;
-import com.sivalabs.jcart.customers.CustomerService;
 import com.sivalabs.jcart.site.web.models.Cart;
 import com.sivalabs.jcart.site.web.models.LineItem;
 import com.sivalabs.jcart.site.web.models.OrderDTO;
@@ -31,20 +34,30 @@ import com.sivalabs.jcart.entities.Customer;
 import com.sivalabs.jcart.entities.Order;
 import com.sivalabs.jcart.entities.OrderItem;
 import com.sivalabs.jcart.entities.Payment;
-import com.sivalabs.jcart.orders.OrderService;
 
 /**
  * @author Siva
  *
  */
 @Controller
+@Slf4j
 public class OrderController extends JCartSiteBaseController
 {
 
-	@Autowired private CustomerService customerService;
-	@Autowired protected OrderService orderService;
-	@Autowired protected EmailService emailService;
-	
+	private CustomerService customerService;
+	private OrderService orderService;
+	private EmailService emailService;
+
+	@Autowired
+	public OrderController(CustomerService customerService, OrderService orderService, EmailService emailService) {
+		this.customerService = customerService;
+		this.orderService = orderService;
+		this.emailService = emailService;
+	}
+
+	@Value("${support.email}")
+	private String supportEmail;
+
 	@Override
 	protected String getHeaderTitle()
 	{
@@ -116,12 +129,12 @@ public class OrderController extends JCartSiteBaseController
 	protected void sendOrderConfirmationEmail(Order order)
 	{
 		try {
-			emailService.sendEmail(order.getCustomer().getEmail(), 
+			emailService.sendEmail(supportEmail, order.getCustomer().getEmail(),
 					"QuilCartCart - Order Confirmation", 
 					"Your order has been placed successfully.\n"
 					+ "Order Number : "+order.getOrderNumber());
 		} catch (JCartException e) {
-			logger.error(e);
+			log.error(e.getMessage(), e);
 		}
 	}
 	

@@ -3,13 +3,13 @@
  */
 package com.sivalabs.jcart.admin.web.validators;
 
+import com.sivalabs.jcart.catalog.CatalogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import com.sivalabs.jcart.catalog.CatalogService;
 import com.sivalabs.jcart.entities.Category;
 
 /**

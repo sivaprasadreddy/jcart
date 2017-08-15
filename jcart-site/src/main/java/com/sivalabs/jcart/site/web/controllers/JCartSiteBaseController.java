@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.sivalabs.jcart.site.web.controllers;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +9,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.sivalabs.jcart.site.web.models.Cart;
-import com.sivalabs.jcart.common.services.JCLogger;
 import com.sivalabs.jcart.site.security.AuthenticatedUser;
 
 /**
@@ -21,9 +17,8 @@ import com.sivalabs.jcart.site.security.AuthenticatedUser;
  */
 public abstract class JCartSiteBaseController
 {
-	protected final JCLogger logger = JCLogger.getLogger(getClass());
-	
-	@Autowired protected MessageSource messageSource;
+	@Autowired
+	protected MessageSource messageSource;
 	
 	protected abstract String getHeaderTitle();
 	

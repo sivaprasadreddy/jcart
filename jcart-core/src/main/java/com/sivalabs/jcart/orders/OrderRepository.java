@@ -1,11 +1,7 @@
-/**
- * 
- */
 package com.sivalabs.jcart.orders;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.sivalabs.jcart.entities.Order;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * @author Siva
