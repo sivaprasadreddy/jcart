@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.sivalabs.jcart.admin.web.controllers;
 
 import com.sivalabs.jcart.admin.web.security.AuthenticatedUser;
