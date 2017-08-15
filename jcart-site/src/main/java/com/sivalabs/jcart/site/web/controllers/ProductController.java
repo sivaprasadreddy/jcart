@@ -57,7 +57,7 @@ public class ProductController extends JCartSiteBaseController
 	@RequestMapping(value="/products/images/{productId}", method=RequestMethod.GET)
 	public void showProductImage(@PathVariable String productId, HttpServletRequest request, HttpServletResponse response) {
 		try {
-			FileSystemResource file = new FileSystemResource(WebUtils.IMAGES_DIR +productId+".jpg");     
+			FileSystemResource file = new FileSystemResource(WebUtils.getImagesDirectory() +productId+".jpg");
 			response.setContentType("image/jpg");
 			org.apache.commons.io.IOUtils.copy(file.getInputStream(), response.getOutputStream());
 			response.flushBuffer();

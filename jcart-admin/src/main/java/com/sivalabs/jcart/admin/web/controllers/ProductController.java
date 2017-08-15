@@ -104,7 +104,7 @@ public class ProductController extends JCartAdminBaseController
 	@RequestMapping(value="/products/images/{productId}", method=RequestMethod.GET)
 	public void showProductImage(@PathVariable String productId, HttpServletRequest request, HttpServletResponse response) {
 		try {
-			FileSystemResource file = new FileSystemResource(WebUtils.IMAGES_DIR +productId+".jpg");     
+			FileSystemResource file = new FileSystemResource(WebUtils.getImagesDirectory() +productId+".jpg");
 			response.setContentType("image/jpg");
 			org.apache.commons.io.IOUtils.copy(file.getInputStream(), response.getOutputStream());
 			response.flushBuffer();
@@ -131,7 +131,7 @@ public class ProductController extends JCartAdminBaseController
 	private void saveProductImageToDisk(ProductForm productForm) {
 		MultipartFile file = productForm.getImage();
 		if (file!= null && !file.isEmpty()) {
-			String name = WebUtils.IMAGES_DIR + productForm.getId() + ".jpg";
+			String name = WebUtils.getImagesDirectory() + productForm.getId() + ".jpg";
 			try {
 				byte[] bytes = file.getBytes();
 				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(name)));
