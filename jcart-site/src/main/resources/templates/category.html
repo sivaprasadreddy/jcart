@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
 	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
-      layout:decorate="layout/mainLayout">
-      
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/mainLayout}">
+
       <head>
         <title>Category</title>
     </head>
@@ -11,39 +12,40 @@
     		<div class="single-product-area">
 		        <div class="zigzag-bottom"></div>
 		        <div class="container">
-		        	
+
 		            <div class="row">
-		            	<div class="woocommerce-info"> 
-		            		<a href="" th:href="@{/}">Home</a> / 
-		                    <a href="" th:href="@{/categories/{name}(name=${category.name})}" 
+		            	<div class="woocommerce-info">
+		            		<a href="" th:href="@{/}">Home</a> /
+		                    <a href="" th:href="@{/categories/{name}(name=${category.name})}"
 		                    	th:text="${category.name}">Category Name</a>
 		                 </div>
 		                <div class="col-md-3 col-sm-6" th:each="product : ${category.products}">
 		                    <div class="single-shop-product">
 		                        <div class="product-upper">
-		                            <img src="assets/img/products/2.jpg" alt="" 
+		                            <img src="assets/img/products/2.jpg" alt=""
 		                            	 th:src="@{'/products/images/{id}.jpg'(id=${product.id})}"/>
 		                        </div>
-		                        <h2><a href="#" th:href="@{/products/{sku}(sku=${product.sku})}" 
+		                        <h2><a href="#" th:href="@{/products/{sku}(sku=${product.sku})}"
 		                        		th:text="${product.name}">Product name</a></h2>
 		                        <div class="product-carousel-price">
 		                            <ins th:text="${product.price}">$9.00</ins>
 		                        </div>
-		                        
+
 		                        <div class="product-option-shop">
-		                            <a class="add_to_cart_button" data-quantity="1" data-product_sku="" 
+		                            <a class="add_to_cart_button" data-quantity="1" data-product_sku=""
 		                            	data-product_id="70" rel="nofollow" href="#"
-		                            	th:onclick="'javascript:addItemToCart(\'' + ${product.sku} + '\');'">Add to cart</a>
-		                        </div>                       
+									   th:sku="${product.sku}"
+									   th:onclick="javascript:addItemToCart(this.getAttribute('sku'));">Add to cart</a>
+		                        </div>
 		                    </div>
 		                </div>
-		                
+
 		            </div>
-		            
+
 		        </div>
 		    </div>
     	</div>
-    	
+
     </body>
-    
+
 </html>

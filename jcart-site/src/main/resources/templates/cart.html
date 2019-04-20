@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
 	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
-      layout:decorate="layout/mainLayout">
-      
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/mainLayout}"
+      >
+
       <head>
         <title>Cart</title>
     </head>
     <body>
     	<div layout:fragment="content">
-    
+
 		    <div class="single-product-area">
 		        <div class="zigzag-bottom"></div>
 		        <div class="container">
@@ -34,36 +36,38 @@
 		                                    <tbody>
 		                                        <tr class="cart_item" th:each="item : ${cart.items}">
 		                                            <td class="product-remove">
-		                                                <a title="Remove this item" class="remove" href="#" 
-		                                                	th:onclick="'javascript:removeItemFromCart( \''+${item.product.sku}+'\');'">×</a> 
+		                                                <a title="Remove this item" class="remove" href="#"
+														   th:sku="${item.product.sku}"
+														   th:onclick="javascript:removeItemFromCart(this.getAttribute('sku'));">X</a>
 		                                            </td>
-		
+
 		                                            <td class="product-thumbnail">
 		                                                <a href="#" th:href="@{/products/{sku}(sku=${item.product.sku})}">
-		                                                	<img width="145" height="145" alt="poster_1_up" 
+		                                                	<img width="145" height="145" alt="poster_1_up"
 		                                                	class="shop_thumbnail" src="assets/img/products/2.jpg"
 		                                                	th:src="@{'/products/images/{id}.jpg'(id=${item.product.id})}"/>
 		                                                </a>
 		                                            </td>
-		
+
 		                                            <td class="product-name">
 		                                                <a href="#" th:href="@{/products/{sku}(sku=${item.product.sku})}"
-		                                                	th:text="${item.product.name}">Product name</a> 
+		                                                	th:text="${item.product.name}">Product name</a>
 		                                            </td>
-		
+
 		                                            <td class="product-price">
-		                                                <span class="amount" th:text="${item.product.price}">$15.00</span> 
+		                                                <span class="amount" th:text="${item.product.price}">$15.00</span>
 		                                            </td>
-		
+
 		                                            <td class="product-quantity">
 		                                                <div class="quantity buttons_added">
-		                                                	<input type="text" size="5" value="1" th:value="${item.quantity}" 
-		                                                			th:onchange="'javascript:updateCartItemQuantity( \''+${item.product.sku}+'\' , '+this.value+');'"/>
+		                                                	<input type="text" size="5" value="1" th:value="${item.quantity}"
+																   th:sku="${item.product.sku}"
+																   th:onchange="javascript:updateCartItemQuantity(this.getAttribute('sku'),this.value);"/>
 		                                                </div>
 		                                            </td>
-		
+
 		                                            <td class="product-subtotal">
-		                                                <span class="amount" th:text="${item.product.price * item.quantity}">$150.00</span> 
+		                                                <span class="amount" th:text="${item.product.price * item.quantity}">$150.00</span>
 		                                            </td>
 		                                        </tr>
 		                                        <tr>
@@ -74,23 +78,23 @@
 		                                    </tbody>
 		                                </table>
 		                            </form>
-		
+
 		                            <div class="cart-collaterals">
 					                     <div class="cart_totals ">
 		                                <h2>Cart Totals</h2>
-		
+
 		                                <table cellspacing="0">
 		                                    <tbody>
 		                                        <tr class="cart-subtotal">
 		                                            <th>Cart Subtotal</th>
 		                                            <td><span class="amount" th:text="${cart.totalAmount}">$15.00</span></td>
 		                                        </tr>
-		
+
 		                                        <tr class="shipping">
 		                                            <th>Shipping and Handling</th>
 		                                            <td>Free Shipping</td>
 		                                        </tr>
-		
+
 		                                        <tr class="order-total">
 		                                            <th>Order Total</th>
 		                                            <td><strong><span class="amount" th:text="${cart.totalAmount}">$15.00</span></strong> </td>
@@ -98,15 +102,15 @@
 		                                    </tbody>
 		                                </table>
 		                            </div>
-		
+
 		                            </div>
-		                        </div>                        
-		                    </div>                    
+		                        </div>
+		                    </div>
 		                </div>
 		            </div>
 		        </div>
 		    </div>
-		
+
 		</div>
   </body>
 </html>

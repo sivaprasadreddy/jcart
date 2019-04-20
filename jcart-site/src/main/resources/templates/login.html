@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
 	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
-      layout:decorate="layout/mainLayout">
-      
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/mainLayout}">
+
       <head>
         <title>Login</title>
     </head>
@@ -11,9 +12,9 @@
     		<div class="single-product-area">
 		        <div class="zigzag-bottom"></div>
 		        <div class="container">
-		        	
+
 		            <div class="row">
-		            	
+
 		                <div class="col-md-offset-4 col-md-4" >
 		                	<form id="login-form-wrap" th:action="@{/login}" method="post">
 
@@ -34,32 +35,32 @@
                                 <p class="form-row">
                                     <input type="submit" value="Login" class="button"/>
                                 </p>
-                                
+
 								<p>
 									<div th:if="${param.error}" class="alert alert-danger alert-dismissable" >
 							        	<p><i class="icon fa fa-ban"></i> <span th:text="#{error.login_failed}">Invalid Email and Password.</span></p>
 							        </div>
 							        <div th:if="${param.logout}" class="alert alert-info alert-dismissable" >
 							        	<p><i class="icon fa fa-info"></i> <span th:text="#{info.logout_success}">You have been logged out.</span></p>
-							        </div>		          
+							        </div>
 							        <div th:if="${info!=null}" class="alert alert-warning alert-dismissable" >
 							        	<p><i class="icon fa fa-warning"></i> <span th:text="${info}"></span></p>
-							        </div>   
+							        </div>
 								</p>
 								<p class="lost_password">
                                     New Customer? <a href="#" th:href="@{/register}" th:text="#{label.register}">Register</a>
                                 </p>
-                                
+
                                 <div class="clear"></div>
                             </form>
-					        
+
 		                </div>
 		            </div>
-		            
+
 		        </div>
 		    </div>
     	</div>
-    	
+
     </body>
-    
+
 </html>

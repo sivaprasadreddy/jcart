@@ -1,14 +1,14 @@
 /**
- * 
+ *
  */
 package com.sivalabs.jcart.admin.web.models;
 
 import java.math.BigDecimal;
 
 import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sivalabs.jcart.entities.Category;
@@ -18,7 +18,7 @@ import com.sivalabs.jcart.entities.Product;
  * @author Siva
  *
  */
-public class ProductForm 
+public class ProductForm
 {
 	private Integer id;
 	@NotEmpty
@@ -34,7 +34,7 @@ public class ProductForm
 	private boolean disabled;
 	@NotNull
 	private Integer categoryId;
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -65,7 +65,7 @@ public class ProductForm
 	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
-	
+
 	public String getImageUrl() {
 		return imageUrl;
 	}
@@ -104,7 +104,7 @@ public class ProductForm
 		//p.setImageUrl(WebUtils.IMAGES_PREFIX+id+".jpg");
 		return p;
 	}
-	
+
 	public static ProductForm fromProduct(Product product)
 	{
 		ProductForm p = new ProductForm();

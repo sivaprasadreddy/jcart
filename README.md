@@ -1,7 +1,7 @@
 # jcart
 JCart is a simple e-commerce application built with SpringBoot.
 
-How to run it?
+### How to run it?
 
 `git clone https://github.com/sivaprasadreddy/jcart.git`
 

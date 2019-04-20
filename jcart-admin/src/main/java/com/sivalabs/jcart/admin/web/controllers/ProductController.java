@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.sivalabs.jcart.admin.web.controllers;
 
 import java.io.BufferedOutputStream;
@@ -46,23 +43,24 @@ import com.sivalabs.jcart.entities.Product;
 public class ProductController extends JCartAdminBaseController
 {
 	private static final String viewPrefix = "products/";
+
 	@Autowired
 	private CatalogService catalogService;
-	
+
 	@Autowired private ProductFormValidator productFormValidator;
-	
+
 	@Override
 	protected String getHeaderTitle()
 	{
 		return "Manage Products";
 	}
-	
+
 	@ModelAttribute("categoriesList")
 	public List<Category> categoriesList()
 	{
 		return catalogService.getAllCategories();
 	}
-	
+
 	@RequestMapping(value="/products", method=RequestMethod.GET)
 	public String listProducts(Model model) {
 		model.addAttribute("products",catalogService.getAllProducts());
@@ -78,7 +76,7 @@ public class ProductController extends JCartAdminBaseController
 	}
 
 	@RequestMapping(value="/products", method=RequestMethod.POST)
-	public String createProduct(@Valid @ModelAttribute("product") ProductForm productForm, BindingResult result, 
+	public String createProduct(@Valid @ModelAttribute("product") ProductForm productForm, BindingResult result,
 			Model model, RedirectAttributes redirectAttributes) {
 		productFormValidator.validate(productForm, result);
 		if(result.hasErrors()){
@@ -92,7 +90,7 @@ public class ProductController extends JCartAdminBaseController
 		redirectAttributes.addFlashAttribute("info", "Product created successfully");
 		return "redirect:/products";
 	}
-	
+
 	@RequestMapping(value="/products/{id}", method=RequestMethod.GET)
 	public String editProductForm(@PathVariable Integer id, Model model) {
 		Product product = catalogService.getProductById(id);
@@ -100,26 +98,29 @@ public class ProductController extends JCartAdminBaseController
 		//model.addAttribute("categoriesList",catalogService.getAllCategories());
 		return viewPrefix+"edit_product";
 	}
-	
-	@RequestMapping(value="/products/images/{productId}", method=RequestMethod.GET)
-	public void showProductImage(@PathVariable String productId, HttpServletRequest request, HttpServletResponse response) {
+
+	@RequestMapping(value="/products/images/{productImage}", method=RequestMethod.GET)
+	public void showProductImage(@PathVariable String productImage, HttpServletRequest request, HttpServletResponse response) {
 		try {
-			FileSystemResource file = new FileSystemResource(WebUtils.getImagesDirectory() +productId+".jpg");
+			FileSystemResource file = new FileSystemResource(WebUtils.getImagesDirectory() +productImage);
 			response.setContentType("image/jpg");
 			org.apache.commons.io.IOUtils.copy(file.getInputStream(), response.getOutputStream());
 			response.flushBuffer();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}	      
+		}
 	}
-	
-	@RequestMapping(value="/products/{id}", method=RequestMethod.POST)
-	public String updateProduct(@Valid @ModelAttribute("product") ProductForm productForm, BindingResult result, 
-			Model model, RedirectAttributes redirectAttributes) {
+
+	@RequestMapping(value="/products/{productId}", method=RequestMethod.POST)
+	public String updateProduct(@PathVariable Integer productId,
+			@Valid @ModelAttribute("product") ProductForm productForm,
+								BindingResult result,
+			RedirectAttributes redirectAttributes) {
 		productFormValidator.validate(productForm, result);
 		if(result.hasErrors()){
 			return viewPrefix+"edit_product";
 		}
+		productForm.setId(productId);
 		Product product = productForm.toProduct();
 		Product persistedProduct = catalogService.updateProduct(product);
 		this.saveProductImageToDisk(productForm);
@@ -127,7 +128,7 @@ public class ProductController extends JCartAdminBaseController
 		redirectAttributes.addFlashAttribute("info", "Product updated successfully");
 		return "redirect:/products";
 	}
-	
+
 	private void saveProductImageToDisk(ProductForm productForm) {
 		MultipartFile file = productForm.getImage();
 		if (file!= null && !file.isEmpty()) {

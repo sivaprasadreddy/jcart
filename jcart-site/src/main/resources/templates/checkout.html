@@ -1,27 +1,28 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
 	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
-      layout:decorate="layout/mainLayout">
-      
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/mainLayout}">
+
       <head>
         <title>Cart</title>
     </head>
     <body>
     	<div layout:fragment="content">
-    
-    
+
+
     <div class="single-product-area">
         <div class="zigzag-bottom"></div>
         <div class="container">
             <div class="row">
-                                
+
                 <div class="woocommerce-info col-md-offset-2 col-md-8" th:if="${#lists.isEmpty(cart.items)}">
 						<h2>Cart is Empty</h2>
 				</div>
 		         <div class="col-md-offset-2 col-md-8" th:unless="${#lists.isEmpty(cart.items)}">
                     <div class="product-content-right">
                         <div class="woocommerce">
-                            						
+
 								<h3 id="order_review_heading">Your order</h3>
 
                                 <div id="order_review" style="position: relative;">
@@ -35,7 +36,7 @@
                                         <tbody>
                                             <tr class="cart_item" th:each="item : ${cart.items}">
                                                 <td class="product-name" >
-                                                    <span th:text="${item.product.name}" >Product Name </span> 
+                                                    <span th:text="${item.product.name}" >Product Name </span>
                                                     <strong class="product-quantity" th:text="'× '+${item.quantity}">× 1</strong> </td>
                                                 <td class="product-total">
                                                     <span class="amount" th:text="${item.product.price * item.quantity}">£15.00</span> </td>
@@ -67,7 +68,7 @@
                                         </tfoot>
                                     </table>
                                 </div>
-                                
+
                             <form action="#" th:action="@{/orders}" class="checkout" method="post" th:object="${order}">
 
                                 <div id="customer_details" class="col2-set">
@@ -86,14 +87,14 @@
                                                 <label class="" for="billing_last_name">Last Name <abbr title="required" class="required">*</abbr>
                                                 </label>
                                                 <input type="text" value="" placeholder="" th:field="*{billingLastName}" class="input-text "/>
-                                                <p th:if="${#fields.hasErrors('billingLastName')}" 
+                                                <p th:if="${#fields.hasErrors('billingLastName')}"
 			                    					th:errors="*{billingLastName}" th:errorclass="text-danger">Incorrect lastName</p>
                                             </p>
                                             <p id="billing_email_field" class="form-row form-row-first validate-required validate-email">
                                                 <label class="" for="billing_email">Email Address <abbr title="required" class="required">*</abbr>
                                                 </label>
                                                 <input type="text" value="" placeholder="" th:field="*{emailId}" class="input-text "/>
-                                                <p th:if="${#fields.hasErrors('emailId')}" 
+                                                <p th:if="${#fields.hasErrors('emailId')}"
 			                    					th:errors="*{emailId}" th:errorclass="text-danger">Incorrect emailId</p>
                                             </p>
 
@@ -101,11 +102,11 @@
                                                 <label class="" for="billing_phone">Phone <abbr title="required" class="required">*</abbr>
                                                 </label>
                                                 <input type="text" value="" placeholder="" th:field="*{phone}"  class="input-text "/>
-                                                <p th:if="${#fields.hasErrors('phone')}" 
+                                                <p th:if="${#fields.hasErrors('phone')}"
 			                    					th:errors="*{phone}" th:errorclass="text-danger">Incorrect phone</p>
                                             </p>
                                             <div class="clear"></div>
-                                            
+
                                             <p id="billing_address_1_field" class="form-row form-row-wide address-field validate-required">
                                                 <label class="" for="billing_address_1">Address <abbr title="required" class="required">*</abbr>
                                                 </label>
@@ -139,13 +140,13 @@
 											<p id="billing_country_field" class="form-row form-row-wide address-field update_totals_on_change validate-required woocommerce-validated">
                                                 <label class="" for="billing_country">Country <abbr title="required" class="required">*</abbr>
                                                 </label>
-                                                <select class="country_to_state country_select" th:field="*{billingCountry}">                                                    
+                                                <select class="country_to_state country_select" th:field="*{billingCountry}">
                                                     <option value="IN">India</option>
                                                 </select>
                                             </p>
                                             <div class="clear"></div>
 
-                                            
+
                                         </div>
                                     </div>
 
@@ -153,11 +154,11 @@
                                         <div class="woocommerce-shipping-fields">
                                             <h3 id="ship-to-different-address">
 						                        <label class="checkbox" for="ship-to-different-address-checkbox">Ship to same address?</label>
-						                        <input type="checkbox" value="1" name="ship_to_different_address" checked="checked" 
+						                        <input type="checkbox" value="1" name="ship_to_different_address" checked="checked"
 						                        		class="input-checkbox" id="ship-to-different-address-checkbox"/>
 						                    </h3>
                                             <div class="shipping_address" style="display: block;">
-                                                
+
 
                                                 <p id="shipping_first_name_field" class="form-row form-row-first validate-required">
                                                     <label class="" for="shipping_first_name">First Name <abbr title="required" class="required">*</abbr>
@@ -170,7 +171,7 @@
                                                     <label class="" for="shipping_last_name">Last Name <abbr title="required" class="required">*</abbr>
                                                     </label>
                                                     <input type="text" value="" placeholder="" th:field="*{lastName}" class="input-text "/>
-                                                    <p th:if="${#fields.hasErrors('lastName')}" 
+                                                    <p th:if="${#fields.hasErrors('lastName')}"
 			                    						th:errors="*{lastName}" th:errorclass="text-danger">Incorrect lastName</p>
                                                 </p>
                                                 <div class="clear"></div>
@@ -222,7 +223,7 @@
                                     </div>
 
                                 </div>
-                                
+
                                 <div id="customer_details" class="col2-set">
                                     <div class="col-1">
                                         <div class="woocommerce-billing-fields">
@@ -234,7 +235,7 @@
                                                 <input type="text" th:field="*{ccNumber}" class="input-text "/>
                                                 <p th:if="${#fields.hasErrors('ccNumber')}" th:errors="*{ccNumber}" th:errorclass="text-danger">Invalid Credit Card</p>
                                             </p>
-                                            
+
                                             <p id="cc_cvv" class="form-row form-row-first validate-required">
                                                 <label class="" for="cc_cvv">CCV <abbr title="required" class="required">*</abbr>
                                                 </label>
@@ -250,7 +251,7 @@
                                                     <option value="2017">2017</option>
                                                     <option value="2018">2018</option>
                                                 </select>
-                                                
+
                                                 <select style="width: 25%">
                                                     <option value="1">Jan</option>
                                                     <option value="2">Feb</option>
@@ -259,13 +260,13 @@
                                                 </select>
                                                 </div>
                                             </p>
-                                            
+
                                         </div>
                                     </div>
                                </div>
 
                                 <div id="payment">
-                                        
+
                                      <div class="form-row place-order">
                                          <input type="submit" data-value="Place order" value="Place order" id="place_order" name="woocommerce_checkout_place_order" class="button alt"/>
                                      </div>
@@ -275,8 +276,8 @@
                               </div>
                             </form>
 
-                        </div>                       
-                    </div>                    
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -21,7 +21,7 @@ import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
+import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 
 import javax.servlet.Filter;
 
@@ -31,13 +31,13 @@ import javax.servlet.Filter;
  */
 @Configuration
 public class WebConfig implements WebMvcConfigurer
-{   
+{
 	@Value("${server.port:9443}")
 	private int serverPort;
-	
-	@Autowired 
+
+	@Autowired
 	private PostAuthorizationFilter postAuthorizationFilter;
-	
+
 	@Autowired
     private MessageSource messageSource;
 
@@ -47,7 +47,7 @@ public class WebConfig implements WebMvcConfigurer
         factory.setValidationMessageSource(messageSource);
         return factory;
     }
-    	
+
 	//http://stackoverflow.com/questions/25957879/filter-order-in-spring-boot
 	@Bean
 	public FilterRegistrationBean securityFilterChain(@Qualifier(AbstractSecurityWebApplicationInitializer.DEFAULT_FILTER_NAME) Filter securityFilter) {
@@ -64,15 +64,15 @@ public class WebConfig implements WebMvcConfigurer
 	    registrationBean.setOrder(Integer.MAX_VALUE);
 	    return registrationBean;
 	}
-	
+
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry)
 	{
         registry.addViewController("/login").setViewName("public/login");
 		registry.addRedirectViewController("/", "/home");
-		
+
 	}
-	
+
 	@Bean
 	public SpringSecurityDialect securityDialect() {
 	    return new SpringSecurityDialect();

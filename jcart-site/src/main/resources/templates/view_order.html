@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
-	layout:decorate="layout/mainLayout">
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/mainLayout}">
 <head>
 <title>Order Confirmation</title>
 </head>
@@ -12,13 +13,13 @@
 			<div class="zigzag-bottom"></div>
 			<div class="container">
 				<div class="row">
-                        
+
 					<div class="woocommerce-info col-md-offset-2 col-md-8">
 						<div th:unless="${order}" >
 							<h2>No order found</h2>
 						</div>
 						<div th:if="${order}" >
-							
+
 							<h2>
 								Order Number : <span th:text="${order.orderNumber}">Number</span>
 							</h2>
